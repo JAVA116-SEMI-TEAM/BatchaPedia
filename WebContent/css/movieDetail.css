@@ -1,0 +1,98 @@
+@charset "EUC-KR";
+
+.stars{
+	display: flex;
+}
+
+.star-mono{
+	color: grey;
+}
+
+.star-gold{
+	color: gold;
+}
+
+.star{
+	width: 30px;
+}
+
+.movieDetail-info{
+	display: flex;
+	margin: 0 40px;
+	margin-bottom: 40px;
+}
+
+.movieDetail-info__buttons{
+	display: flex;
+	margin: 10px 40px;
+}
+
+.movieDetail-info__header{
+	margin: 0 40px;
+}
+
+.movieDetail-info__header div{
+	margin-bottom: 30px;
+	
+}
+.movieDetail-info__buttons div{
+	margin-right: 20px;
+}
+
+.thumbnail__movieDetail{
+	width: 300px;
+}
+
+.movieDetail-starsGraph-graph{
+	width: 500px;
+	height: 100px;
+	position: relative;
+}
+
+.progressdiv{
+	width: 100px;
+	height: 20px;
+	margin-bottom: 2px;
+	transform: rotate(90deg);
+	position: absolute;
+}
+
+.progressdiv:first-child{
+	transform: rotate(90deg);
+}
+
+.progressdiv:nth-child(2){
+	transform: rotate(90deg) translate(0, -120%);
+}
+
+.progressdiv:nth-child(3){
+	transform: rotate(90deg) translate(0, -240%);
+}
+
+.progressdiv:nth-child(4){
+	transform: rotate(90deg) translate(0, -360%);
+}
+
+.progressdiv:nth-child(5){
+	transform: rotate(90deg) translate(0, -480%);
+}
+
+.progressdiv:nth-child(6){
+	transform: rotate(90deg) translate(0, -600%);
+}
+
+.progressdiv:nth-child(7){
+	transform: rotate(90deg) translate(0, -720%);
+}
+
+.progressdiv:nth-child(8){
+	transform: rotate(90deg) translate(0, -840%);
+}
+
+.progressdiv:nth-child(9){
+	transform: rotate(90deg) translate(0, -960%);
+}
+
+.progressdiv:last-child{
+	transform: rotate(90deg) translate(0, -1080%);
+}
