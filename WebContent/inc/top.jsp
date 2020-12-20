@@ -45,14 +45,14 @@
     </li> -->
     <%if(!t_isLogin){ //로그인 안 된 경우 %>
     <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath()%>/login/login.jsp">로그인</a>
+      <a class="nav-link" href="<%=request.getContextPath()%>/login/login.do">로그인</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">회원가입</a>
+      <a class="nav-link" href="<%=request.getContextPath()%>/member/register.do">회원가입</a>
     </li>
     <%}else{ //로그인 된 경우%>
     <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath()%>/login/logout.jsp">로그아웃</a>
+      <a class="nav-link" href="<%=request.getContextPath()%>/login/logout.do">로그아웃</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">마이페이지</a>

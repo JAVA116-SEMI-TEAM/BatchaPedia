@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* 로그인 */
 article.loginForm{
 	height: 400px;
 	font-family: 'Noto Sans KR', sans-serif;
@@ -34,5 +35,60 @@ a:hover {
   text-decoration: none;
 }
 
-.label{
+/* 회원가입 */
+article.regForm{
+	height: 1000px;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 200px;
+}
+
+.loginForm .regInput{
+	width: 500px;
+	height: 50px;
+}
+
+article.regForm {
+    height: 800px;
+}
+
+input.regInput {
+    width: 400px;
+    height: 40px;
+}
+
+select#hp1 {
+    width: 60;
+    width: px;
+    height: 40px;
+    width: 113px;
+}
+
+input#hp2 {
+    height: 40px;
+    width: 130px;
+}
+
+input#hp3 {
+    height: 40px;
+    width: 130px;
+}
+
+input#email1 {
+    height: 40px;
+    width: 220px;
+}
+
+select#email2 {
+    height: 40px;
+    width: 160px;
+}
+
+input#email3 {
+    height: 40px;
+    width: 200px;
+}
+
+input#btnChkId {
+    height: 40px;
+    width: 100px;
 }
