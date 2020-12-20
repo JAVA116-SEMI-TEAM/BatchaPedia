@@ -21,7 +21,7 @@
 	String chkSave=request.getParameter("chkSave");
 	
 	//2
-	String msg="로그인 처리 실패", url="/login/login.jsp";
+	String msg="로그인 처리 실패", url="/login/login.do";
 	try{
 		int result=memInfoService.loginCheck(userid, pwd);
 		if(result==MemInfoService.LOGIN_OK){
