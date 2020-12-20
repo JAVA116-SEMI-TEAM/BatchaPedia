@@ -3,16 +3,16 @@ package com.batcha.memInfo.model;
 import java.sql.Timestamp;
 
 public class MemInfoVO {
-	private int memNo;
-	private String id;
-	private String pwd;
-	private String name;
-	private String email;
-	private String mobile;
-	private String birthday;
-	private Timestamp regdate;
-	private Timestamp outdate;
-	private int adminCheck;
+	private int memNo;	//회원번호
+	private String id;	//아이디
+	private String pwd;	//비밀번호
+	private String name;	//이름
+	private String email;	//이메일주소
+	private String mobile;	//휴대폰번호
+	private String birthday;	//생년월일
+	private Timestamp regdate;	//가입일
+	private Timestamp outdate;	//탈퇴일
+	private int adminCheck;	//관리자 여부
 	
 	public MemInfoVO() {
 		super();

@@ -1,9 +1,14 @@
 @charset "utf-8";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-*{
-font-family: 'Noto Sans KR', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+/* top */
+#header{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 
+#top{
+	background: white;
 }
 
 #search{
@@ -14,6 +19,7 @@ font-family: 'Noto Sans KR', sans-serif;
 	padding-right: 20px;
 }
 
+
 #logo{
 	padding-left: 70px;
 }
@@ -23,10 +29,6 @@ font-family: 'Noto Sans KR', sans-serif;
 	border: 0;
 }
 
-#top{
-	background: white;
-	
-}
 
 #top .nav-item{
 	padding-left: 15px;
@@ -43,8 +45,9 @@ hr{
 	margin-top: 75px;
 }
 
+/* footer */
 #footer{
-	font: normal 11px 'Nanum Gothic';
+	font-family: 'Noto Sans KR', sans-serif;
 	background: #1C1D1F;
 }
 
@@ -59,6 +62,29 @@ hr{
 	padding: 30px 100px;
 }
 
+
+/* section */
 #contents{
-	margin-top: 130px;
+	margin-top: 110px;
+	margin-left: 100px;
+	margin-right: 70px;
+	margin-bottom: 50px;
 }
+
+#top5 .mainTitle{
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 1.5em;
+}
+
+.movie .movieInfo ul{
+	margin-top:20px;
+	padding: 0;
+}
+
+.movie .movieInfo li{
+	list-style: none;
+}
+.movie .movieInfo a{
+	text-decoration: none;
+}
+
