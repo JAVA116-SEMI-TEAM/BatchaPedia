@@ -26,11 +26,18 @@
 		<div class="movieDetail-info__contents movieDetail-info__buttons">
 			<!-- 평점매기기, 찜하기 -->
 			<div class="stars">
-				<span><i class="fas fa-star fa-2x star star-mono"></i></span>
-				<span><i class="fas fa-star fa-2x star star-mono"></i></span>
-				<span><i class="fas fa-star fa-2x star star-mono"></i></span>
-				<span><i class="fas fa-star fa-2x star star-mono"></i></span>
-				<span><i class="fas fa-star-half-alt fa-2x star star-mono"></i></span>
+			<!-- 마우스오버 효과를 js로 만들어주고 클릭했을 때 어떤 요소가 어떤 상태인지에 따라 평점 입력 
+				첫번째 별의 앞 절반에 오버한경우 1점, 앞 절반을 넘어간 경우 2점
+				두번째 별의 앞 절반에 오버한경우 3점, 앞 절반을 넘어간 경우 4점
+				세번째 별의 앞 절반에 오버한경우 5점, 앞 절반을 넘어간 경우 6점
+				네번째 별의 앞 절반에 오버한경우 7점, 앞 절반을 넘어간 경우 8점
+				다섯번째 별의 앞 절반에 오버한 경우 9점, 넘어간 경우 10점
+			-->
+				<div><i class="fas fa-star fa-2x star star-mono"></i></div>
+				<div><i class="fas fa-star fa-2x star star-mono"></i></div>
+				<div><i class="fas fa-star fa-2x star star-mono"></i></div>
+				<div><i class="fas fa-star fa-2x star star-mono"></i></div>
+				<div><i class="fas fa-star-half-alt fa-2x star star-mono"></i></div>
 			</div>
 			<div>
 				<button class="btn btn-sm btn-default"><i class="fas fa-plus-circle"></i> 나중에 볼 영화</button>

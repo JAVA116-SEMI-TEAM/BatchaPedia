@@ -33,10 +33,10 @@
 
 .movieDetail-info__header div{
 	margin-bottom: 30px;
-	
 }
+
 .movieDetail-info__buttons div{
-	margin-right: 20px;
+	margin-right: 5px;
 }
 
 .thumbnail__movieDetail{
@@ -49,6 +49,9 @@
 	position: relative;
 }
 
+.movieDetail-starsGraph-header{
+	margin: 0 40px;
+}
 .progressdiv{
 	width: 100px;
 	height: 20px;
