@@ -1,0 +1,94 @@
+@charset "EUC-KR";
+
+.bodyWrapper{
+	width: 900px;	
+}
+
+.stars{
+	display: flex;
+	margin-right: 20px;
+	cursor:pointer;
+}
+
+.star-mono{
+	color: grey;
+}
+
+.star-gold{
+	color: gold;
+}
+
+.star{
+	width: 30px;
+}
+
+.movieDetail-info{
+	display: flex;
+	margin: 0 40px;
+	margin-bottom: 40px;
+}
+
+.movieDetail-info__buttons{
+	display: flex;
+	margin: 10px 0;
+}
+
+.movieDeatil-comment{
+	margin: 0 40px;
+}
+
+.movieDetail-starsGraph-header{
+	margin-bottom: 40px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.movieDetail-info__header div{
+	margin-bottom: 30px;
+}
+
+.movieDetail-info__buttons:first-child{
+	margin-right: 20px;
+}
+
+.stars > div {
+	margin-right: 5px;
+}
+
+.hrLine{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.movieDetail-info__contents{
+	width: 600px;
+	margin-left: 40px;
+}
+
+.thumbnail__movieDetail{
+	width: 300px;
+}
+
+.underCommentTa{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px 0px;
+}
+
+.input-group mb-3{
+	margin: 0;
+}
+
+.movieDetail-starsGraph{
+  position: relative;
+  margin: 40px;
+  margin-bottom: 120px;
+  height: 20vh;
+  width: 800px;
+}
+
+.movieDetail-starsGraph-graph{
+	width: 500px;
+	height: 100px;
+	position: relative;
+}

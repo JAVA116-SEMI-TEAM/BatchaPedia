@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+section {
+	padding: 20px;
+}
+.profile {
+	width: 150px;
+	border-radius: 50%;
+	background-color: silver;
+}
+
+.BatchaPeople {
+	display: flex;
+}
+
+.peopleCard {
+	border: 1px solid silver;
+	flex: 1;
+	margin: 0 20px;
+}
+
