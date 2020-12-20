@@ -17,9 +17,9 @@ public class MovieDetailController implements Controller{
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		//파라미터 임시로 mvNo 1번 넣어둠, 목록화면에서 mvNo 넘겨줘야 함
-		String mvNo=request.getParameter("mvNo");
+	//	String mvNo=request.getParameter("mvNo");
 	//	int iMvNo=Integer.parseInt(mvNo);
-		int iMvNo=1;
+		int iMvNo=3;
 		
 		MvInfoService service=new MvInfoService();
 		starsDataService starsSrv=new starsDataService();
@@ -54,7 +54,7 @@ public class MovieDetailController implements Controller{
 		if(memNo>0) { //로그인 되어 있으면
 			try {
 				//찜여부조회
-				isKept=keepSrv.isKept(iMvNo, memNo);
+				isKept=keepSrv.isKept(memNo, iMvNo);
 				
 				//평점여부조회
 				didStars=starsSrv.didStars(memNo, iMvNo);
@@ -73,6 +73,7 @@ public class MovieDetailController implements Controller{
 		request.setAttribute("memStars", memStars);
 		request.setAttribute("didStars", didStars);
 		request.setAttribute("isKept", isKept);
+		request.setAttribute("avgStars", avgStars);
 		
 		return "/movie/movieDetail.jsp";
 	}

@@ -16,7 +16,7 @@ public class keepDataDAO {
 		pool=new ConnectionPoolMgr2();
 	}
 	
-	public int isKept(int mvNo, int memNo) throws SQLException {
+	public int isKept(int memNo, int mvNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;

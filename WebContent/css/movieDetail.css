@@ -1,7 +1,13 @@
 @charset "EUC-KR";
 
+.bodyWrapper{
+	width: 900px;	
+}
+
 .stars{
 	display: flex;
+	margin-right: 20px;
+	cursor:pointer;
 }
 
 .star-mono{
@@ -24,78 +30,65 @@
 
 .movieDetail-info__buttons{
 	display: flex;
-	margin: 10px 40px;
+	margin: 10px 0;
 }
 
-.movieDetail-info__header{
+.movieDeatil-comment{
 	margin: 0 40px;
+}
+
+.movieDetail-starsGraph-header{
+	margin-bottom: 40px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .movieDetail-info__header div{
 	margin-bottom: 30px;
 }
 
-.movieDetail-info__buttons div{
+.movieDetail-info__buttons:first-child{
+	margin-right: 20px;
+}
+
+.stars > div {
 	margin-right: 5px;
+}
+
+.hrLine{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.movieDetail-info__contents{
+	width: 600px;
+	margin-left: 40px;
 }
 
 .thumbnail__movieDetail{
 	width: 300px;
 }
 
+.underCommentTa{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px 0px;
+}
+
+.input-group mb-3{
+	margin: 0;
+}
+
+.movieDetail-starsGraph{
+  position: relative;
+  margin: 40px;
+  margin-bottom: 120px;
+  height: 20vh;
+  width: 800px;
+}
+
 .movieDetail-starsGraph-graph{
 	width: 500px;
 	height: 100px;
 	position: relative;
-}
-
-.movieDetail-starsGraph-header{
-	margin: 0 40px;
-}
-.progressdiv{
-	width: 100px;
-	height: 20px;
-	margin-bottom: 2px;
-	transform: rotate(90deg);
-	position: absolute;
-}
-
-.progressdiv:first-child{
-	transform: rotate(90deg);
-}
-
-.progressdiv:nth-child(2){
-	transform: rotate(90deg) translate(0, -120%);
-}
-
-.progressdiv:nth-child(3){
-	transform: rotate(90deg) translate(0, -240%);
-}
-
-.progressdiv:nth-child(4){
-	transform: rotate(90deg) translate(0, -360%);
-}
-
-.progressdiv:nth-child(5){
-	transform: rotate(90deg) translate(0, -480%);
-}
-
-.progressdiv:nth-child(6){
-	transform: rotate(90deg) translate(0, -600%);
-}
-
-.progressdiv:nth-child(7){
-	transform: rotate(90deg) translate(0, -720%);
-}
-
-.progressdiv:nth-child(8){
-	transform: rotate(90deg) translate(0, -840%);
-}
-
-.progressdiv:nth-child(9){
-	transform: rotate(90deg) translate(0, -960%);
-}
-
-.progressdiv:last-child{
-	transform: rotate(90deg) translate(0, -1080%);
 }

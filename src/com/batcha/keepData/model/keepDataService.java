@@ -13,8 +13,8 @@ public class keepDataService {
 		dao=new keepDataDAO();
 	}
 	
-	public int isKept(int mvNo, int memNo) throws SQLException {
-		return dao.isKept(mvNo, memNo);
+	public int isKept(int memNo, int mvNo) throws SQLException {
+		return dao.isKept(memNo, mvNo);
 	}
 	
 	
