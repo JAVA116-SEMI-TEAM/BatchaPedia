@@ -23,6 +23,7 @@ public class MemInfoDAO {
 		ResultSet rs=null;
 		int result=0;
 		
+		
 		try {
 			con=pool.getConnection();
 			
