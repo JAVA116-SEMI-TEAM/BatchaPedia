@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import com.batcha.db.ConnectionPoolMgr2;
-import com.mystudy.member.model.MemberVO;
 
 public class MemInfoDAO {
 	private ConnectionPoolMgr2 pool;

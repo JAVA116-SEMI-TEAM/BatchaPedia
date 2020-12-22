@@ -17,119 +17,119 @@ import javax.servlet.http.HttpServletResponse;
  /tips/book.do
  /tips/travel.do
  
- ¸ğµç ¿äÃ»ÀÌ DispatcherServletÀ¸·Î µé¾î¿Â´Ù
- ¸ÅÇÎÆÄÀÏÀ» Âü°íÇØ¼­ ´ã´çÀÚ(¸í·É¾î Ã³¸® Å¬·¡½º)¸¦ Ã£¾Æ ÀÏÀ» ½ÃÅ²´Ù(¸Ş¼Òµå È£Ãâ)
+ ëª¨ë“  ìš”ì²­ì´ DispatcherServletìœ¼ë¡œ ë“¤ì–´ì˜¨ë‹¤
+ ë§¤í•‘íŒŒì¼ì„ ì°¸ê³ í•´ì„œ ë‹´ë‹¹ì(ëª…ë ¹ì–´ ì²˜ë¦¬ í´ë˜ìŠ¤)ë¥¼ ì°¾ì•„ ì¼ì„ ì‹œí‚¨ë‹¤(ë©”ì†Œë“œ í˜¸ì¶œ)
 */
 public class DispatcherServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private Properties props;
-	
-	//init(): ÇØ´ç ¼­ºí¸´ÀÌ È£ÃâµÉ ¶§ ÇÑ¹ø¸¸ È£ÃâµÇ´Â ¸Ş¼Òµå
-	//¸ÅÇÎÆÄÀÏÀ» ÀĞ¾î¼­ Properties ÄÃ·º¼Ç¿¡ ÀúÀåÇÑ´Ù
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		//web.xml¿¡¼­ init-paramÀÇ °ª ÀĞ¾î¿À±â
-		
-		String configFile=config.getInitParameter("configFile");
-		System.out.println("configFile="+configFile);
-		//=> /config/CommandProproperties //ÀÌ°Ç ¹°¸®ÀûÀÎ °æ·Î°¡ ¾Æ´Ï¾ß
-		
-		//load()¸Ş¼Òµå¿¡¼­ fis¸¦ ³ÖÀ¸·Á¸é ¸ÅÇÎÆÄÀÏÀÇ ¹°¸®ÀûÀÎ °æ·Î¸¦ ¾Ë¾Æ¿Í¾ß ÇÔ 
-		String realConfigFile = config.getServletContext().getRealPath(configFile);
-		System.out.println("realConfigFile="+realConfigFile+"\n");
-		props = new Properties();
-		FileInputStream fis=null;
-		
-		try {
-			fis=new FileInputStream(realConfigFile);
-			props.load(fis); //CommandPro.properties ÆÄÀÏ Á¤º¸¸¦ Properties ÄÃ·º¼Ç¿¡ ÀúÀå
-		}catch(FileNotFoundException e) {
-			e.printStackTrace();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(fis!=null) fis.close();
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+   private static final long serialVersionUID = 1L;
+   private Properties props;
+   
+   //init(): í•´ë‹¹ ì„œë¸”ë¦¿ì´ í˜¸ì¶œë  ë•Œ í•œë²ˆë§Œ í˜¸ì¶œë˜ëŠ” ë©”ì†Œë“œ
+   //ë§¤í•‘íŒŒì¼ì„ ì½ì–´ì„œ Properties ì»¬ë ‰ì…˜ì— ì €ì¥í•œë‹¤
+   @Override
+   public void init(ServletConfig config) throws ServletException {
+      //web.xmlì—ì„œ init-paramì˜ ê°’ ì½ì–´ì˜¤ê¸°
+      
+      String configFile=config.getInitParameter("configFile");
+      System.out.println("configFile="+configFile);
+      //=> /config/CommandProproperties //ì´ê±´ ë¬¼ë¦¬ì ì¸ ê²½ë¡œê°€ ì•„ë‹ˆì•¼
+      
+      //load()ë©”ì†Œë“œì—ì„œ fisë¥¼ ë„£ìœ¼ë ¤ë©´ ë§¤í•‘íŒŒì¼ì˜ ë¬¼ë¦¬ì ì¸ ê²½ë¡œë¥¼ ì•Œì•„ì™€ì•¼ í•¨ 
+      String realConfigFile = config.getServletContext().getRealPath(configFile);
+      System.out.println("realConfigFile="+realConfigFile+"\n");
+      props = new Properties();
+      FileInputStream fis=null;
+      
+      try {
+         fis=new FileInputStream(realConfigFile);
+         props.load(fis); //CommandPro.properties íŒŒì¼ ì •ë³´ë¥¼ Properties ì»¬ë ‰ì…˜ì— ì €ì¥
+      }catch(FileNotFoundException e) {
+         e.printStackTrace();
+      }catch(IOException e) {
+         e.printStackTrace();
+      }finally {
+         try {
+            if(fis!=null) fis.close();
+         }catch(IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
 
-	//doGet, doPost´Â »ç¿ëÀÚ ¿äÃ»ÀÌ µé¾î¿Ã ¶§ ¸¶´Ù È£ÃâµÊ
-	//¿äÃ»ÀÌ µé¾î¿Ã¶§¸¶´Ù ¸ÅÇÎ Properties¸¦ Âü°íÇØ¼­ ´ã´çÀÚ¸¦ ±¸ÇØ ÀÏ ½ÃÅ´
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		requestPro(request, response);
-	}
+   //doGet, doPostëŠ” ì‚¬ìš©ì ìš”ì²­ì´ ë“¤ì–´ì˜¬ ë•Œ ë§ˆë‹¤ í˜¸ì¶œë¨
+   //ìš”ì²­ì´ ë“¤ì–´ì˜¬ë•Œë§ˆë‹¤ ë§¤í•‘ Propertiesë¥¼ ì°¸ê³ í•´ì„œ ë‹´ë‹¹ìë¥¼ êµ¬í•´ ì¼ ì‹œí‚´
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+         throws ServletException, IOException {
+      requestPro(request, response);
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		requestPro(request, response);
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+         throws ServletException, IOException {
+      requestPro(request, response);
+   }
 
-	private void requestPro(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		/*
-		 ¸ÅÇÎ properties ÄÃ·º¼Ç¿¡¼­ »ç¿ëÀÚÀÇ URI(/tips/book.do)¿¡ 
-		 ÇØ´çÇÏ´Â ´ã´çÀÚ¸¦ ±¸ÇØ¼­(¸í·É¾î Ã³¸® Å¬·¡½º, BookController) ÀÏ½ÃÅ²´Ù
-		 (ÇØ´ç ÄÁÆ®·Ñ·¯ÀÇ ¸Ş¼Òµå È£Ãâ)
-		 ±×¸®°í °á°ú¸¦ ¸®ÅÏ¹Ş¾Æ ÇØ´ç ºäÆäÀÌÁö·Î Æ÷¿öµù½ÃÅ²´Ù 
-		 */
-		
-		//ÇÑ±Û Ã³¸® µÑ´Ù ÇØÁà¾ß ÇÏ³ªºÁ º¸³»´Â°Íµµ °¡¾ßÇØ¼­ ±×·±°¡
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		
-		//»ç¿ëÀÚÀÇ URI ÀĞ¾î¿À±â
-		//=> /mymvc/tips/book.do, /mymvc/tips/travel.do
-		String uri=request.getRequestURI();
-		System.out.println("uri="+uri);
-		
-		//uriÁß ContextPath Á¦°ÅÇÏ±â (¸í·É¾î ±¸ÇÏ±â ½ÃÀÛ)
-		String contextPath=request.getContextPath(); //=> /mymvc
-		System.out.println("contextPath="+contextPath);
-		
-		if(uri.indexOf(contextPath)!=-1) { //contextPath°¡ ÀÖ´ÂÁö. ÀÖÀ¸¸é Ã¹¹øÂ°ÀÎµ¦½º, ¾øÀ¸¸é -1 ¹İÈ¯
-			uri=uri.substring(contextPath.length()); //=> /tips/travel.do ¸í·É¾î¸¸ ÃßÃâÇØ³¿!
-		}
-		
-		System.out.println("ÄÁÅØ½ºÆ®ÆĞ½º Á¦°Å ÈÄ uri="+uri);
-		
-		//¸í·É¾î¿¡ ÇØ´çÇÏ´Â ¸í·É¾î Ã³¸® Å¬·¡½º ±¸ÇÏ±â (¤·¤·Controller2)
-		String command=props.getProperty(uri);
-		System.out.println("¸í·É¾î Ã³¸® Å¬·¡½º command="+command);
-		try {
-			//ÇØ´ç ¹®ÀÚ¿­À» Å¬·¡½º·Î ¸¸µç´Ù
-			Class commandClass=Class.forName(command);
-			
-			//Å¬·¡½ºÀÇ °´Ã¼ »ı¼º
-			Controller controller=(Controller)commandClass.newInstance();
-			
-			//ÇØ´ç Å¬·¡½ºÀÇ ¸Ş¼Òµå È£Ãâ(ÀÏ½ÃÅ°±â).. ºä ÀÏ¼öµµ ÀÖÁö¸¸ ºä°¡ ¾Æ´Ò¼öµµ ÀÖ´Ù. ±×·¹¼­ °á°úÆäÀÌÁö·Î ÀÌ¸§ ¹Ù²Ş
-			String resultPage=controller.requestProcess(request, response);
-			System.out.println("È£ÃâµÈ ºäÆäÀÌÁö resultPage="+resultPage);
-			
-			if(controller.isRedirect()) {
-				//ÇØ´ç ÆäÀÌÁö·Î redirect
-				System.out.println("redirect ÆäÀÌÁö\n");
-				response.sendRedirect(contextPath+resultPage); 
-				//¸®´ÙÀÌ·ºÆ®´Â ÄÁÅØ½ºÆ®ÆĞ½º ÀÚµ¿À¸·Î ¾È ºÙÀ¸´Ï±î ³Ñ¾î°¡±â Àü¿¡ ¹Ì¸® ºÙ¿©ÁÖ±â
-			}else {
-				//ÇØ´ç ºäÆäÀÌÁö·Î Æ÷¿öµù
-				System.out.println("forward ÆäÀÌÁö\n");
-				RequestDispatcher dispatcher=request.getRequestDispatcher(resultPage);
-				dispatcher.forward(request, response);
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-	
+   private void requestPro(HttpServletRequest request, HttpServletResponse response) 
+         throws ServletException, IOException {
+      /*
+       ë§¤í•‘ properties ì»¬ë ‰ì…˜ì—ì„œ ì‚¬ìš©ìì˜ URI(/tips/book.do)ì— 
+       í•´ë‹¹í•˜ëŠ” ë‹´ë‹¹ìë¥¼ êµ¬í•´ì„œ(ëª…ë ¹ì–´ ì²˜ë¦¬ í´ë˜ìŠ¤, BookController) ì¼ì‹œí‚¨ë‹¤
+       (í•´ë‹¹ ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ë©”ì†Œë“œ í˜¸ì¶œ)
+       ê·¸ë¦¬ê³  ê²°ê³¼ë¥¼ ë¦¬í„´ë°›ì•„ í•´ë‹¹ ë·°í˜ì´ì§€ë¡œ í¬ì›Œë”©ì‹œí‚¨ë‹¤ 
+       */
+      
+      //í•œê¸€ ì²˜ë¦¬ ë‘˜ë‹¤ í•´ì¤˜ì•¼ í•˜ë‚˜ë´ ë³´ë‚´ëŠ”ê²ƒë„ ê°€ì•¼í•´ì„œ ê·¸ëŸ°ê°€
+      request.setCharacterEncoding("utf-8");
+      response.setCharacterEncoding("utf-8");
+      
+      //ì‚¬ìš©ìì˜ URI ì½ì–´ì˜¤ê¸°
+      //=> /mymvc/tips/book.do, /mymvc/tips/travel.do
+      String uri=request.getRequestURI();
+      System.out.println("uri="+uri);
+      
+      //uriì¤‘ ContextPath ì œê±°í•˜ê¸° (ëª…ë ¹ì–´ êµ¬í•˜ê¸° ì‹œì‘)
+      String contextPath=request.getContextPath(); //=> /mymvc
+      System.out.println("contextPath="+contextPath);
+      
+      if(uri.indexOf(contextPath)!=-1) { //contextPathê°€ ìˆëŠ”ì§€. ìˆìœ¼ë©´ ì²«ë²ˆì§¸ì¸ë±ìŠ¤, ì—†ìœ¼ë©´ -1 ë°˜í™˜
+         uri=uri.substring(contextPath.length()); //=> /tips/travel.do ëª…ë ¹ì–´ë§Œ ì¶”ì¶œí•´ëƒ„!
+      }
+      
+      System.out.println("ì»¨í…ìŠ¤íŠ¸íŒ¨ìŠ¤ ì œê±° í›„ uri="+uri);
+      
+      //ëª…ë ¹ì–´ì— í•´ë‹¹í•˜ëŠ” ëª…ë ¹ì–´ ì²˜ë¦¬ í´ë˜ìŠ¤ êµ¬í•˜ê¸° (ã…‡ã…‡Controller2)
+      String command=props.getProperty(uri);
+      System.out.println("ëª…ë ¹ì–´ ì²˜ë¦¬ í´ë˜ìŠ¤ command="+command);
+      try {
+         //í•´ë‹¹ ë¬¸ìì—´ì„ í´ë˜ìŠ¤ë¡œ ë§Œë“ ë‹¤
+         Class commandClass=Class.forName(command);
+         
+         //í´ë˜ìŠ¤ì˜ ê°ì²´ ìƒì„±
+         Controller controller=(Controller)commandClass.newInstance();
+         
+         //í•´ë‹¹ í´ë˜ìŠ¤ì˜ ë©”ì†Œë“œ í˜¸ì¶œ(ì¼ì‹œí‚¤ê¸°).. ë·° ì¼ìˆ˜ë„ ìˆì§€ë§Œ ë·°ê°€ ì•„ë‹ìˆ˜ë„ ìˆë‹¤. ê·¸ë ˆì„œ ê²°ê³¼í˜ì´ì§€ë¡œ ì´ë¦„ ë°”ê¿ˆ
+         String resultPage=controller.requestProcess(request, response);
+         System.out.println("í˜¸ì¶œëœ ë·°í˜ì´ì§€ resultPage="+resultPage);
+         
+         if(controller.isRedirect()) {
+            //í•´ë‹¹ í˜ì´ì§€ë¡œ redirect
+            System.out.println("redirect í˜ì´ì§€\n");
+            response.sendRedirect(contextPath+resultPage); 
+            //ë¦¬ë‹¤ì´ë ‰íŠ¸ëŠ” ì»¨í…ìŠ¤íŠ¸íŒ¨ìŠ¤ ìë™ìœ¼ë¡œ ì•ˆ ë¶™ìœ¼ë‹ˆê¹Œ ë„˜ì–´ê°€ê¸° ì „ì— ë¯¸ë¦¬ ë¶™ì—¬ì£¼ê¸°
+         }else {
+            //í•´ë‹¹ ë·°í˜ì´ì§€ë¡œ í¬ì›Œë”©
+            System.out.println("forward í˜ì´ì§€\n");
+            RequestDispatcher dispatcher=request.getRequestDispatcher(resultPage);
+            dispatcher.forward(request, response);
+         }
+      } catch (ClassNotFoundException e) {
+         e.printStackTrace();
+      } catch (InstantiationException e) {
+         e.printStackTrace();
+      } catch (IllegalAccessException e) {
+         e.printStackTrace();
+      } catch (Throwable e) {
+         e.printStackTrace();
+      }
+   }
+   
 }

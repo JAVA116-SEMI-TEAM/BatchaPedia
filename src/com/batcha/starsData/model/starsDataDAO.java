@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.batcha.db.ConnectionPoolMgr2;
 
@@ -14,41 +16,7 @@ public class starsDataDAO {
 		pool=new ConnectionPoolMgr2();
 	}
 	
-	//Æ¯Á¤ È¸¿øÀÇ ¿µÈ­º° ÆòÁ¡ ºÎ¿©Çß´ÂÁö ¿©ºÎ Á¶È¸ÇÏ°í ºÎ¿©ÇßÀ¸¸é ÆòÁ¡µµ °°ÀÌ °¡Á®¿À±â
-	public int didStars(int memNo, int mvNo) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		int didStars=0;
-		
-		try {
-			con=pool.getConnection();
-			
-			String sql="select count(*) as count from starsdata where memno=? and mvno=?";
-			ps=con.prepareStatement(sql);
-			
-			ps.setInt(1, memNo);
-			ps.setInt(2, mvNo);
-			
-			rs=ps.executeQuery();
-			
-			if(rs.next()) {
-				if(rs.getInt("count")>0) { //Ä«¿îÆ®°¡ ÀÖÀ¸¸é
-					didStars=starsDataService.YES_YOU_DID;
-				}else {
-					didStars=starsDataService.NO_YOU_DIDNT;
-				}
-			}
-			
-			System.out.println("È¸¿øÀÇ Æ¯Á¤¿µÈ­ ÆòÁ¡ºÎ¿©¿©ºÎ °á°ú didStar="+didStars+", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-			return didStars;
-		}finally {
-			pool.dbClose(rs, ps, con);
-		}
-		
-	}
-
-	//¿µÈ­ÀÇ Æò±Õ ÆòÁ¡ Á¶È¸
+	//ì˜í™”ì˜ í‰ê·  í‰ì  ì¡°íšŒ
 	public float getAvgStars(int mvNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -69,14 +37,56 @@ public class starsDataDAO {
 				avgStars=rs.getFloat("avgStars");
 			}
 			
-			System.out.println("¿µÈ­ÀÇ ÆòÁ¡ Á¶È¸ °á°ú stars="+avgStars+", ¸Å°³º¯¼ö mvNo="+mvNo);
+			System.out.println("ì˜í™”ì˜ í‰ì  ì¡°íšŒ ê²°ê³¼ stars="+avgStars+", ë§¤ê°œë³€ìˆ˜ mvNo="+mvNo);
 			return avgStars;
 		}finally {
 			pool.dbClose(rs, ps, con);
 		}
 	}
 	
-	public float getStarsByMemNo(int memNo, int mvNo) throws SQLException {//ÆòÁ¡À» ºÎ¿©ÇÑ °æ¿ì ¸îÁ¡ÀÎÁö Ã£±â
+	//íšŒì›/ì˜í™”ë²ˆí˜¸ë¡œ í‰ì ë¦¬ìŠ¤íŠ¸ ì¡°íšŒí•˜ê¸°. list.sizeë¡œ íšŒì›/ì˜í™”ë³„ í‰ì  ê°œìˆ˜ë„ í™•ì¸ ê°€ëŠ¥
+	public List<starsDataVO> selectAllStarsByNo(int no, boolean isMemNo) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<starsDataVO> list = new ArrayList<starsDataVO>();
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from starsData where";
+			
+			if(isMemNo) {
+				sql+=" memNo=? order by memNo desc";
+			}else {
+				sql+=" mvNo=? order by mvNo desc";
+			}
+					
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				starsDataVO starsVo=new starsDataVO();
+				starsVo.setMemNo(rs.getInt("memNo"));
+				starsVo.setMvNo(rs.getInt("mvNo"));
+				starsVo.setStarsNo(rs.getInt("starsNo"));
+				starsVo.setStars(rs.getFloat("stars"));
+				
+				list.add(starsVo);
+			}
+			System.out.println("íšŒì› ë˜ëŠ” ì˜í™”ë²ˆí˜¸ë¡œ ì „ì²´ì¡°íšŒ ê²°ê³¼ list.size="+list.size()
+							  +", ë§¤ê°œë³€ìˆ˜ no="+no+", isMemNo="+isMemNo);
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	//ì…€ë ‰íŠ¸ì¸ë°.. í‰ì  í•œê°œë§Œ ê°€ì ¸ì˜¤ëŠ” ê²ƒ
+	//ì´ ë©”ì†Œë“œ ê²°ê³¼ê°’ì´ 0ì´ë©´ ê²°êµ­ í‰ì ì„ ì…ë ¥í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ëœ»ì¸ë°
+	public float getStarsByMemNo(int memNo, int mvNo) throws SQLException {//í‰ì ì„ ë¶€ì—¬í•œ ê²½ìš° ëª‡ì ì¸ì§€ ì°¾ê¸°
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -96,7 +106,8 @@ public class starsDataDAO {
 			if(rs.next()) {
 				memStars=rs.getFloat("stars");
 			}
-			
+			System.out.println("íŠ¹ì • íšŒì›ì˜ íŠ¹ì • ì˜í™”ì— ë§¤ê¸´ í‰ì  ì¡°íšŒ ê²°ê³¼ memStars="+memStars
+							+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
 			return memStars;
 		}finally {
 			pool.dbClose(rs, ps, con);
@@ -104,4 +115,115 @@ public class starsDataDAO {
 	
 	}
 	
+	//í‰ì  ì…ë ¥í•˜ê¸°
+	public int insertStars(starsDataVO starsVo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="insert into starsdata(starsno, memNo, mvNo, stars)"
+					+ " values(starsdata_seq.nextval, ?, ?, ?)";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, starsVo.getMemNo());
+			ps.setInt(2, starsVo.getMvNo());
+			ps.setFloat(3, starsVo.getStars());
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("í‰ì  ì…ë ¥ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ starsVo="+starsVo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//íŠ¹ì • íšŒì›ì˜ íŠ¹ì • ì˜í™” í‰ì  ì‚­ì œí•˜ê¸°
+	public int deleteStars(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="delete from starsData where memNo=? and mvNo=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("í‰ì  ì‚­ì œ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	public int updateStars(starsDataVO starsVo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="update starsData"
+					+ " set stars=?"
+					+ " where memNo=? and mvNo=?";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setFloat(1, starsVo.getStars());
+			ps.setInt(2, starsVo.getMemNo());
+			ps.setInt(3, starsVo.getMvNo());
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("í‰ì  ì—…ë°ì´íŠ¸ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ starsVo="+starsVo);
+			
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//íŠ¹ì • íšŒì›ì˜ ì˜í™”ë³„ í‰ì  ë¶€ì—¬í–ˆëŠ”ì§€ ì—¬ë¶€ ì¡°íšŒ
+	public int didStars(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int didStars=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select count(*) as count from starsdata where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getInt("count")>0) { //ì¹´ìš´íŠ¸ê°€ ìˆìœ¼ë©´
+					didStars=starsDataService.YES_YOU_DID;
+				}else {
+					didStars=starsDataService.NO_YOU_DIDNT;
+				}
+			}
+			
+			System.out.println("íšŒì›ì˜ íŠ¹ì •ì˜í™” í‰ì ë¶€ì—¬ì—¬ë¶€ ê²°ê³¼ didStar="+didStars+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return didStars;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+		
+	}
 }

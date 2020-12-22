@@ -1,79 +1,151 @@
 package com.batcha.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionAttributeListener;
 
+import com.batcha.keepData.model.keepDataDAO;
 import com.batcha.keepData.model.keepDataService;
+import com.batcha.keepData.model.keepDataVO;
 import com.batcha.memInfo.model.MemInfoService;
 import com.batcha.mvInfo.model.MvInfoService;
 import com.batcha.mvInfo.model.MvInfoVO;
 import com.batcha.starsData.model.starsDataService;
+import com.batcha.starsData.model.starsDataVO;
 import com.controller.Controller;
 
 public class MovieDetailController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//ÆÄ¶ó¹ÌÅÍ ÀÓ½Ã·Î mvNo 1¹ø ³Ö¾îµÒ, ¸ñ·ÏÈ­¸é¿¡¼­ mvNo ³Ñ°ÜÁà¾ß ÇÔ
+		//íŒŒë¼ë¯¸í„° ì„ì‹œë¡œ mvNo 1ë²ˆ ë„£ì–´ë‘ , ëª©ë¡í™”ë©´ì—ì„œ mvNo ë„˜ê²¨ì¤˜ì•¼ í•¨
 	//	String mvNo=request.getParameter("mvNo");
 	//	int iMvNo=Integer.parseInt(mvNo);
 		int iMvNo=3;
+
+		HttpSession session = request.getSession();
+		int memNo=0;
+		if(session.getAttribute("memno")!=null) {
+			String t_memno=String.valueOf(session.getAttribute("memno"));
+			memNo=Integer.parseInt(t_memno);
+		}
 		
-		MvInfoService service=new MvInfoService();
-		starsDataService starsSrv=new starsDataService();
-		keepDataService keepSrv=new keepDataService();
+		MvInfoService mvService=new MvInfoService();
+		starsDataService starsService=new starsDataService();
+		keepDataService keepService=new keepDataService();
+		keepDataVO keepVo=new keepDataVO();
 		
-		//¿©±âºÎÅÍ´Â °øÅëµÈ »çÇ×
-		//¿µÈ­Á¤º¸Á¶È¸
+		//===================ì—¬ê¸°ë¶€í„°ëŠ” ê³µí†µëœ ì‚¬í•­
+		//ì˜í™”ì •ë³´ì¡°íšŒ
 		MvInfoVO mvVo=new MvInfoVO();
 		try {
-			mvVo=service.selectMvByMvNo(iMvNo);
+			mvVo=mvService.selectMv(iMvNo);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
-		//ÆòÁ¡ºĞÆ÷Á¶È¸ todo.. ±×·¡ÇÁ »Ñ¸± ¼ö ÀÖÀ¸¸é
 		
-		//ÆòÁ¡Á¶È¸
+		
+		//===================ì˜í™”í‰ì ì¡°íšŒ
+		//í‰ì ì¡°íšŒ
 		float avgStars=0.0f;
+		int memCntOfMv=0;
+		List<starsDataVO> list=null;
 		try {
-			avgStars=starsSrv.getAvgStars(iMvNo);
+			avgStars=starsService.getAvgStars(iMvNo);
+			//list=starsService.selectAllStarsByNo(iMvNo, false);
+			if(starsService.selectAllStarsByNo(iMvNo, false)!=null 
+					|| !starsService.selectAllStarsByNo(iMvNo, false).isEmpty()) {
+				list=starsService.selectAllStarsByNo(iMvNo, false);
+				memCntOfMv=list.size();
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		//í‰ì ë¶„í¬ì¡°íšŒ todo.. ê·¸ë˜í”„ ë¿Œë¦´ ìˆ˜ ìˆìœ¼ë©´
+		int[] graphData = {0,0,0,0,0,0,0,0,0,0};
+		for(int i=0; i<list.size(); i++) {
+			float star=list.get(i).getStars();
+			switch((int)star) {
+			case 1: graphData[0]++; break;
+			case 2: graphData[1]++; break;
+			case 3: graphData[2]++; break;
+			case 4: graphData[3]++; break;
+			case 5: graphData[4]++; break;
+			case 6: graphData[5]++; break;
+			case 7: graphData[6]++; break;
+			case 8: graphData[7]++; break;
+			case 9: graphData[8]++; break;
+			case 10: graphData[9]++; break;
+			default: break;
+			}
+		}
 		
-		//¿©±âºÎÅÍ´Â °³ÀÎÁ¤º¸ °ü·ÃµÈ »çÇ×
-//		int memNo=MemInfoService.getMemNo(); //memNoµµ ÀÓ½Ã·Î 12¹ø ¼¼ÆÃÇØµÒ, ¸â¹ö¼­ºñ½º¿¡¼­ °¡Á®¿Í¾ß ÇÔ ¼¼ÆÃ ¾ÈµÅÀÖÀ¸¸é?
-		int memNo=12;
+		
+		
+		//===================keepê´€ë ¨ 
+		//íŒŒë¼ë¯¸í„°ê°’ ë°›ê¸°
+		//	String mvNo=request.getParameter("mvNo");
+		//	String memNo=request.getParameter("memNo");
+		//ë…¼ìœ ì €ë©´ ë‹¹ì—°íˆ false, ìœ ì €ì¸ ê²½ìš° isKeptí•¨ìˆ˜ íƒ
+		if(request.getAttribute("keptCheck")==null) {
+			
+		}
+		boolean keptCheck=false;
+		
+		if(memNo>0) {
+			try {
+				int cnt=keepService.isKept(memNo, iMvNo);
+				if(cnt>0) {
+					keptCheck=true;
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			//ë³¸ê±´ì§€ ì•ˆë³¸ê±´ì§€ ì²´í¬ ì™„ë£Œ
+		}
+		
+		String keepBtn="";
+		if(request.getParameter("keepBtn")!=null) {
+			System.out.println("keepBtnì˜ ê°’="+request.getParameter("keepBtn"));
+			keepBtn=request.getParameter("keepBtn");
+		}
+		//ê²°ê³¼ ì €ì¥
+		
+		//===================ê°œì¸ì •ë³´ ê´€ë ¨ 
 		int isKept=0;
 		int didStars=0;
 		float memStars=0;
 		
-		if(memNo>0) { //·Î±×ÀÎ µÇ¾î ÀÖÀ¸¸é
+		if(memNo>0) { //ë¡œê·¸ì¸ ë˜ì–´ ìˆìœ¼ë©´
 			try {
-				//Âò¿©ºÎÁ¶È¸
-				isKept=keepSrv.isKept(memNo, iMvNo);
+				//ì°œì—¬ë¶€ì¡°íšŒ
+				isKept=keepService.isKept(memNo, iMvNo);
 				
-				//ÆòÁ¡¿©ºÎÁ¶È¸
-				didStars=starsSrv.didStars(memNo, iMvNo);
-				if(didStars==starsDataService.YES_YOU_DID) { //¿µÈ­ÆòÁ¡ °¡Á®¿À±â
-					memStars=starsSrv.getStarsByMemNo(memNo, iMvNo);
+				//í‰ì ì—¬ë¶€ì¡°íšŒ
+				didStars=starsService.didStars(memNo, iMvNo);
+				if(didStars==starsDataService.YES_YOU_DID) { //ì˜í™”í‰ì  ê°€ì ¸ì˜¤ê¸°
+					memStars=starsService.getStarsByMemNo(memNo, iMvNo);
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		//ÄÚ¸àÆ® ¸®½ºÆ®
+		//ì½”ë©˜íŠ¸ ë¦¬ìŠ¤íŠ¸
 		
-		//¼ÂÆÃ 		
+		//ì…‹íŒ… 		
 		request.setAttribute("mvVo", mvVo);
 		request.setAttribute("memStars", memStars);
 		request.setAttribute("didStars", didStars);
-		request.setAttribute("isKept", isKept);
+		request.setAttribute("keptCheck", keptCheck);
 		request.setAttribute("avgStars", avgStars);
+		request.setAttribute("memCntOfMv", memCntOfMv);
+		request.setAttribute("graphData", graphData);
 		
 		return "/movie/movieDetail.jsp";
 	}

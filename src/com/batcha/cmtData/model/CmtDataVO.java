@@ -1,6 +1,6 @@
 package com.batcha.cmtData.model;
 
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.Timestamp;
 
 public class CmtDataVO {
 	private int cmtNo;

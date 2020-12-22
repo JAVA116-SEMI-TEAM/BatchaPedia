@@ -5,15 +5,16 @@
 <link rel="stylesheet" href="../css/movieDetail.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
 <%
-	int isKept=(int)request.getAttribute("isKept");
-	float memStars=(float)request.getAttribute("memStars");
+	/* float memStars=(float)request.getAttribute("memStars");
 	int didStars=(int)request.getAttribute("didStars");
 	float avgStars=(float)request.getAttribute("avgStars");
+ */
 	
-	boolean keptCheck=false;
-	if(isKept==keepDataService.IS_KEPT){
-		keptCheck=true;
-	}
+	//컨트롤러에서 킵했는지 확인해서 값 불러오기
+	boolean keptCheck=(boolean)request.getAttribute("keptCheck");
+ 	System.out.println("keptCheck="+keptCheck);
+	//불러온 값에 따라 화면에서 다르게 뿌려주기
+	
 %>
 <div class="bodyWrapper">
 <section class="movieDetail-info">
@@ -27,7 +28,7 @@
 				<h2>${mvVo.mvTitle}</h2>
 			</div>
 			<div>
-				<span>제작년도 ${mvVo.makeYear}　|　제작국가 ${mvVo.nation}　|　장르 ${mvVo.genre}</span>
+				<span>${mvVo.makeYear}　|　 ${mvVo.nation}　|　 ${mvVo.genre}</span>
 			</div>
 		</div>
 		<div class="movieDetail-info__buttons">
@@ -47,20 +48,57 @@
 			</div>
 			<!-- todo 클릭하면 평점 입력되고, 별표 더이상 마우스오버 하지 않아도 그대로 박혀있도록 -->
 			<script src="../js/movieDetail_drawStars.js"></script>
-			<div>
 			<!-- todo 버튼 선택 시 킵리스트에 넣어주기 데이터 연동 -->
-			<button id="keepBtn" class="btn btn-sm btn-default" style="display:
-			<%if(keptCheck){//킵리스트에 있으면 %>
-            	 none
-			<%} else{//킵리스트에 없으면 %>
-            	 hidden
-			<%} %>"><i class="fas fa-plus-circle"></i> 나중에 볼 영화</button>
-			<button id="unkeepBtn" class="btn btn-sm btn-default" style="display:
-			<%if(keptCheck){//킵리스트에 있으면 %>
-            	 hidden
-			<%} else{//킵리스트에 없으면 %>
-            	 none
-			<%} %>"><i class="fas fa-minus-circle"></i> 볼 영화에서 제외</button>
+			<div class="keepBtns">
+				<label class="toggleBtn">
+					<input type="checkbox" id="toggleCheckBox" onclick="toggle(this)"/>
+				</label>
+				<!-- <form action="" method="get" name="keepbtnFrm">
+					<button id="keepBtn" name="keepBtn" value="f" style="display:none"
+						class="btn btn-sm btn-default">
+					<i class="fas fa-plus-circle"></i> 나중에 볼 영화
+					</button>
+					
+					<button id="unKeepBtn" name="keepBtn" value="t" style="display:inline"
+					class="btn btn-sm btn-default">
+					<i class="fas fa-minus-circle"></i> 볼 영화에서 제외
+					</button>
+				 -->
+			<script type="text/javascript">
+				function toggle(element){
+					console.log(element.checked);
+					if(element.checked){
+						keptCheck=true;
+						document.getElementById('toggleCheckBox').setAttribute("keptCheck", true);
+						location.reload();
+					}else{
+						keptCheck=false;
+						document.getElementById('toggleCheckBox').setAttribute("keptCheck", false);
+						location.reload();
+					}
+					console.log(keptCheck);
+				}
+				
+				//로그인 안했을 경우 얼럿 띄워줘야 함
+			//	alert('로그인 하셔야 합니다.');
+			</script>
+			<%-- 
+			<c:set var=none value="display:none"></c:set>
+			<c:if test="${keptCheck==false}"> <!-- 킵 안한 영화인 경우  -->
+				<form action="" method="post" name="keepbtnFrm">
+					<button id="keepBtn" name="keepBtn" value="false" class="btn btn-sm btn-default">
+					<i class="fas fa-plus-circle"></i> 나중에 볼 영화3
+					</button>
+				</form>
+			</c:if>
+			<c:if test="${keptCheck==true}"> <!-- 킵한 영화인 경우 -->
+				<form action="" method="post" name="keepbtnFrm">
+					<button id="unkeepBtn" name="keepBtn" value="true" class="btn btn-sm btn-default">
+					<i class="fas fa-minus-circle"></i> 볼 영화에서 제외3
+					</button>
+				</form>
+			</c:if> --%>
+			
 			</div>
 		</div>
 		<hr class="hrLine">
@@ -73,7 +111,7 @@
 	<div class="movieDetail-starsGraph-header">
 		<!-- todo 실제 더미데이터 입력 후 평점 끌어와서 그래프 그리기 -->
 		<h3>평점분포</h3>
-		<span>8.7 ( 명 참여)</span>
+		<span>${avgStars}점 (${memCntOfMv} 명 참여)</span>
 	</div>
 	<canvas id="starsGraph" >
 	<!-- 시간 여유되면 비율에 따라 그래프 색상변화 주기. 제일 많은 애들 둘정도를 짙은 색으로 -->

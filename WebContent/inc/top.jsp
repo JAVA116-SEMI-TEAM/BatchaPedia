@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
    //top.jsp는 다른페이지에서도 공유하기 때문에 userid변수 중복을 막기위해 다른 이름 설정
+   String t_memno=(String)session.getAttribute("memno");
    boolean t_isLogin=false;
    String t_userid=(String)session.getAttribute("userid");
    if(t_userid!=null && !t_userid.isEmpty()){
