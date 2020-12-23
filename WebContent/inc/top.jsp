@@ -4,6 +4,10 @@
    //top.jsp는 다른페이지에서도 공유하기 때문에 userid변수 중복을 막기위해 다른 이름 설정
    boolean t_isLogin=false;
    String t_userid=(String)session.getAttribute("userid");
+   String t_userName=(String)session.getAttribute("userName");
+   String t_memno=String.valueOf(session.getAttribute("memno"));
+   String t_pwd=(String)session.getAttribute("pwd");
+   String t_admincheck=String.valueOf(session.getAttribute("adminCheck"));
    if(t_userid!=null && !t_userid.isEmpty()){
       t_isLogin=true; //로그인이 된 경우에만 true
    }
@@ -65,7 +69,7 @@
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">공지사항</a>
         <a class="dropdown-item" href="#">FAQ</a>
-        <a class="dropdown-item" href="#">Q&A</a>
+        <a class="dropdown-item" href="<%=request.getContextPath()%>/qna/list.do">Q&A</a>
       </div>
     </li>
     

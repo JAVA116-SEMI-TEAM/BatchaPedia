@@ -37,18 +37,10 @@ a:hover {
 
 /* 회원가입 */
 article.regForm{
-	height: 1000px;
+	height: 900px;
 	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 200px;
-}
-
-.loginForm .regInput{
-	width: 500px;
-	height: 50px;
-}
-
-article.regForm {
-    height: 800px;
+	margin-top: 150px;
+	margin-left: 30%;
 }
 
 input.regInput {
@@ -57,25 +49,19 @@ input.regInput {
 }
 
 select#hp1 {
-    width: 60;
-    width: px;
     height: 40px;
-    width: 113px;
+    width: 110px;
 }
 
-input#hp2 {
+.hp {
     height: 40px;
     width: 130px;
 }
 
-input#hp3 {
-    height: 40px;
-    width: 130px;
-}
 
 input#email1 {
     height: 40px;
-    width: 220px;
+    width: 217px;
 }
 
 select#email2 {
@@ -91,4 +77,20 @@ input#email3 {
 input#btnChkId {
     height: 40px;
     width: 100px;
+}
+
+
+.whiteB{
+	background: #FCFCFC;
+	border: 0.5px solid gray;
+}
+
+.regSubmit{
+    width: 400px;
+    height: 50px;
+}
+
+.regForm input#userid {
+    width: 295px;
+    height: 40px;
 }
