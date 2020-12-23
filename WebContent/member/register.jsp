@@ -2,59 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <script type="text/javascript" src="../js/member.js"></script>
-<style type="text/css">
-article.regForm{
-	height: 950px;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 150px;
-}
 
-input.regInput {
-    width: 400px;
-    height: 40px;
-}
-
-select#hp1 {
-    height: 40px;
-    width: 110px;
-}
-
-.hp {
-    height: 40px;
-    width: 130px;
-}
-
-
-input#email1 {
-    height: 40px;
-    width: 217px;
-}
-
-select#email2 {
-    height: 40px;
-    width: 160px;
-}
-
-input#email3 {
-    height: 40px;
-    width: 200px;
-}
-
-input#btnChkId {
-    height: 40px;
-    width: 100px;
-}
-
-#wr_submit{
-    width: 400px;
-    height: 50px;
-}
-
-.whiteB{
-	background: #FCFCFC;
-	border: 0.5px solid gray;
-}
-</style>
 <script type="text/javascript">
 	$(function(){
 		$('#wr_submit').click(function(){
@@ -98,7 +46,6 @@ input#btnChkId {
 <div>
 <form name="frm1" method="post" action="register_ok.jsp">
 <fieldset>
-	<legend>회원 가입</legend><br><br>
     <div>        
         <label for="name">이름</label><br>
         <input type="text" name="name" id="name" class="regInput">
@@ -106,7 +53,7 @@ input#btnChkId {
     <div>
         <label for="userid">아이디</label><br>
         <input type="text" name="userid" id="userid"
-        		style="ime-mode:inactive" class="regInput">&nbsp;
+        		style="ime-mode:inactive">&nbsp;
         <input type="button" value="중복확인" id="btnChkId" title="새창열림" class="whiteB">
     </div><br>
     <div>
@@ -151,7 +98,7 @@ input#btnChkId {
         	style="visibility:hidden">
     </div><br><br>
     <div>
-         <input type="submit" id="wr_submit" value="회원가입" class="pinkB">
+         <input type="submit" id="wr_submit" value="회원가입" class="pinkB regSubmit">
     </div>
 </fieldset>
 
@@ -162,14 +109,3 @@ input#btnChkId {
 </article>
 
 <%@ include file="../inc/bottom.jsp"%>
-
-
-
-
-
-
-
-
-
-
-

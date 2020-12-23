@@ -5,16 +5,18 @@ import java.sql.SQLException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.batcha.memInfo.model.MemInfoService;
 import com.batcha.memInfo.model.MemInfoVO;
 import com.controller.Controller;
 
 public class LoginOkController implements Controller {
-	//loginOkController 의  session 쓰는 방법을 알아서 다시 코딩할 것! 현재는 임시로 jsp에 연결해놓음
+	
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-				
+		HttpSession session = request.getSession();
+		
 		String userid=request.getParameter("userid");
 		String pwd=request.getParameter("pwd");
 		String chkSave=request.getParameter("chkSave");
@@ -26,20 +28,23 @@ public class LoginOkController implements Controller {
 			int result=service.loginCheck(userid, pwd);
 			if(result==service.LOGIN_OK){
 				//1) 세션에 저장
-				session.setAttribute("userid", userid);
-				MemInfoVO vo=service.selectMember(userid);
-				session.setAttribute("userName", vo.getName());
+			    session.setAttribute("userid", userid);
+		        MemInfoVO vo=service.selectMember(userid);
+		        session.setAttribute("userName", vo.getName());
+		        session.setAttribute("memno", vo.getMemNo());
+		        session.setAttribute("pwd", vo.getPwd());
+		        session.setAttribute("adminCheck", vo.getAdminCheck());
 				
 				//2) 쿠키에 저장  - 아이디 저장하기 체크한 경우에만
-				Cookie ck = new Cookie("ck_userid", userid);
-				ck.setPath("/");  
-				if(chkSave != null){  //체크한 경우
-					ck.setMaxAge(1000*24*60*60);  //쿠키 유효기간 1000일
-					response.addCookie(ck);
-				}else{ //체크하지 않은 경우
-					ck.setMaxAge(0);  //쿠키 삭제
-					response.addCookie(ck);
-				}
+				 Cookie ck = new Cookie("ck_userid", userid);
+		            ck.setPath("/");  
+		            if(chkSave != null){  //체크한 경우
+		               ck.setMaxAge(1000*24*60*60);  //쿠키 유효기간 1000일
+		               response.addCookie(ck);
+		            }else{ //체크하지 않은 경우
+		               ck.setMaxAge(0);  //쿠키 삭제
+		               response.addCookie(ck);
+		            }
 
 				msg=vo.getName() + "님 로그인되었습니다.";
 				url="/main.do";
@@ -55,6 +60,7 @@ public class LoginOkController implements Controller {
 		//3
 		request.setAttribute("msg", msg);
 		request.setAttribute("url", url);
+		return "/common/message.jsp";
 	}
 
 	@Override
