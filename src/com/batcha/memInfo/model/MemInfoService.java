@@ -12,8 +12,17 @@ public class MemInfoService {
 	public static final int ID_NONE=2; //아이디가 없는 경우
 	public static final int PWD_DISAGREE=3; //비밀번호 불일치
 	
+ 	private static int memNo=0;
 	private MemInfoDAO memInfoDao;
 	
+  public static int getMemNo() {
+		return memNo;
+	}
+	
+	public void setMemNo(int memNo) {
+		this.memNo=memNo;
+	}
+  
 	public MemInfoService() {
 		memInfoDao=new MemInfoDAO();
 	}

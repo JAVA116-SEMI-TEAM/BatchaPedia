@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
    //top.jsp는 다른페이지에서도 공유하기 때문에 userid변수 중복을 막기위해 다른 이름 설정
+   String t_memno=(String)session.getAttribute("memno");
    boolean t_isLogin=false;
    String t_userid=(String)session.getAttribute("userid");
    String t_userName=(String)session.getAttribute("userName");
@@ -18,6 +19,7 @@
 <meta charset="UTF-8">
 <title>BatchaPedia</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>

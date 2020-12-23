@@ -1,0 +1,178 @@
+@charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+#header{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+.bodyWrapper{
+	width: 900px;	
+}
+
+.myGraph{
+	display: flex;
+	position: relative;
+}
+
+.myGraph-bar{
+	float: left;
+	border: 1px solid black;
+	background-image: url(../images/movieDetail/yellowBar.png);
+	padding: 5px 10px;
+}
+
+.stars{
+	display: flex;
+	margin-right: 20px;
+	cursor:pointer;
+	height: 30px;
+}
+
+.stars > div {
+	margin-right: 5px;
+}
+
+.star-mono{
+	color: grey;
+}
+
+.star-gold{
+	color: gold;
+}
+
+.star{
+	width: 30px;
+}
+
+.movieDetail-info{
+	display: flex;
+	margin: 0 40px;
+	margin-bottom: 40px;
+}
+
+.movieDetail-info__buttons{
+	display: flex;
+	margin: 10px 0;
+}
+
+.movieDeatil-comment{
+	margin: 0 40px;
+}
+
+.movieDetail-starsGraph-header{
+	margin-bottom: 40px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.movieDetail-info__header div{
+	margin-bottom: 30px;
+}
+
+.movieDetail-info__buttons:first-child{
+	margin-right: 20px;
+}
+
+
+.hrLine{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.movieDetail-info__contents{
+	width: 600px;
+	margin-left: 40px;
+}
+
+.thumbnail__movieDetail{
+	width: 300px;
+}
+
+.underCommentTa{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px 0px;
+}
+
+.input-group mb-3{
+	margin: 0;
+}
+
+.movieDetail-starsGraph{
+  position: relative;
+  margin: 40px;
+  height: 20vh;
+  width: 800px;
+}
+
+.movieDetail-starsGraph-graph{
+	width: 500px;
+	height: 100px;
+	position: relative;
+}
+
+/* CSS Test begin */
+.comment-box {
+    margin-top: 30px !important;
+}
+/* CSS Test end */
+
+.comment-box img {
+    width: 50px;
+    height: 50px;
+}
+.comment-box .media-left {
+    padding-right: 10px;
+    width: 65px;
+}
+.comment-box .media-body p {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.comment-box .media-body .media p {
+    margin-bottom: 0;
+}
+.comment-box .media-heading {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 7px 10px;
+    position: relative;
+    margin-bottom: -1px;
+}
+.comment-box .media-heading:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-width: 1px 0 0 1px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 10px;
+    left: -6px;
+}
+
+/* 코멘트 슬라이드*/
+
+/* Removes the default 20px margin and creates some padding space for the indicators and controls */
+.carousel {
+	padding: 0 40px 30px 40px;
+}
+/* Reposition the controls slightly */
+.carousel-control {
+	left: -12px;
+}
+.carousel-control.right {
+	right: -12px;
+}
+
+/* Changes the colour of the indicators */
+.carousel-indicators li {
+	background: #c0c0c0;
+}
+.carousel-indicators .active {
+background: #333333;
+}
+
+.well{
+	width: 700px;
+}
