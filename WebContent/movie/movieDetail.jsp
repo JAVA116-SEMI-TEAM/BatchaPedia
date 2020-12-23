@@ -1,9 +1,10 @@
 <%@page import="com.batcha.keepData.model.keepDataService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/top.jsp" %>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="../css/movieDetail.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+<!------ Include the above in your HEAD tag ---------->
 <%
 	/* float memStars=(float)request.getAttribute("memStars");
 	int didStars=(int)request.getAttribute("didStars");
@@ -11,7 +12,11 @@
  */
 	
 	//컨트롤러에서 킵했는지 확인해서 값 불러오기
-	boolean keptCheck=(boolean)request.getAttribute("keptCheck");
+	boolean keptCheck=false;
+ 	
+ 	if(request.getAttribute("keptCheck")!=null){
+ 		keptCheck=(boolean)request.getAttribute("keptCheck");
+ 	}
  	System.out.println("keptCheck="+keptCheck);
 	//불러온 값에 따라 화면에서 다르게 뿌려주기
 	
@@ -50,9 +55,6 @@
 			<script src="../js/movieDetail_drawStars.js"></script>
 			<!-- todo 버튼 선택 시 킵리스트에 넣어주기 데이터 연동 -->
 			<div class="keepBtns">
-				<label class="toggleBtn">
-					<input type="checkbox" id="toggleCheckBox" onclick="toggle(this)"/>
-				</label>
 				<!-- <form action="" method="get" name="keepbtnFrm">
 					<button id="keepBtn" name="keepBtn" value="f" style="display:none"
 						class="btn btn-sm btn-default">
@@ -63,7 +65,7 @@
 					class="btn btn-sm btn-default">
 					<i class="fas fa-minus-circle"></i> 볼 영화에서 제외
 					</button>
-				 -->
+				</form> -->
 			<script type="text/javascript">
 				function toggle(element){
 					console.log(element.checked);
@@ -82,22 +84,24 @@
 				//로그인 안했을 경우 얼럿 띄워줘야 함
 			//	alert('로그인 하셔야 합니다.');
 			</script>
-			<%-- 
-			<c:set var=none value="display:none"></c:set>
-			<c:if test="${keptCheck==false}"> <!-- 킵 안한 영화인 경우  -->
+			<c:set var="cKeptCheck" value="true"/>
+			<c:if test="${!cKeptCheck}"> <!-- 킵 안한 영화인 경우  -->
 				<form action="" method="post" name="keepbtnFrm">
-					<button id="keepBtn" name="keepBtn" value="false" class="btn btn-sm btn-default">
+					<button id="keepBtn" name="keepBtn" class="btn btn-sm btn-default">
 					<i class="fas fa-plus-circle"></i> 나중에 볼 영화3
 					</button>
+					<input type="text" name="cKeptchkInput" value="${cKeptCheck}">
 				</form>
+				
 			</c:if>
-			<c:if test="${keptCheck==true}"> <!-- 킵한 영화인 경우 -->
+			<c:if test="${cKeptCheck}"> <!-- 킵한 영화인 경우 -->
 				<form action="" method="post" name="keepbtnFrm">
-					<button id="unkeepBtn" name="keepBtn" value="true" class="btn btn-sm btn-default">
+					<button id="unkeepBtn" name="keepBtn" class="btn btn-sm btn-default">
 					<i class="fas fa-minus-circle"></i> 볼 영화에서 제외3
 					</button>
+					<input type="text" name="cKeptchkInput" value="${cKeptCheck}">
 				</form>
-			</c:if> --%>
+			</c:if> 
 			
 			</div>
 		</div>
@@ -108,7 +112,7 @@
 	</div>
 </section>
 <section class="movieDetail-starsGraph">
-	<div class="movieDetail-starsGraph-header">
+	<%-- <div class="movieDetail-starsGraph-header">
 		<!-- todo 실제 더미데이터 입력 후 평점 끌어와서 그래프 그리기 -->
 		<h3>평점분포</h3>
 		<span>${avgStars}점 (${memCntOfMv} 명 참여)</span>
@@ -116,14 +120,75 @@
 	<canvas id="starsGraph" >
 	<!-- 시간 여유되면 비율에 따라 그래프 색상변화 주기. 제일 많은 애들 둘정도를 짙은 색으로 -->
 	<script src="../js/movieDetail_graph.js"></script>
-	</canvas>
+	</canvas> --%>
+<style>
+ 
+.myGraph{
+	display: flex;
+	justify-content: space-between;
+	padding: 0 10px;
+	position: relative;
+}
+
+.myGraph-bar{
+	background-image: url(../images/movieDetail/yellowBar.png);
+	width: 50px;
+	border: none;
+		justify-content: space-between;
+	}	
+	
+.barWrapper{
+	text-align: center;
+	position: absolute;
+	top: 0;
+}
+
+.graphNo{
+	item-align: center;
+}
+
+</style>
+
+<div class="myGraph">
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo" style="height:100px">1</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">2</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">3</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">4</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">5</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">6</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">7</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">8</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">9</div>
+	</div>
+	<div class="barWrapper">
+		<div class="myGraph-bar" style=""></div><div class="graphNo">10</div>
+	</div>
+</div>
+
 </section>
 <section class="movieDeatil-comment">
 	<div class="movieDetail-comment__header"><h3>코멘트</h3></div>
 	<div class="movieDetail-info-inputComment">
-		<form action="#" method="post" >
+		<form action="/movie/cmtWrite_ok.do" method="post" >
 			<label for="exampleFormControlTextarea1">코멘트 남기기</label>
-   			<textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+   			<textarea class="form-control" placeholder="코멘트를 입력해보세요."  id="exampleFormControlTextarea1" rows="5"></textarea>
    			<div class="underCommentTa">
 	  				<div class="input-group-prepend">
 	  					<div class="input-group-text">
@@ -135,7 +200,52 @@
 		</form>
 		</div>
 	<div class="movieDetail-comment__list">
-	
+	<h3>코멘트 목록</h3>
+		<div class="container">
+	<div class="row">
+		<div class="span12">
+    	    <div class="well"> 
+                <div id="myCarousel" class="carousel slide">
+                 
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    
+                <div class="item active">
+                	<div class="row-fluid">
+                	  <div class="span3"><a href="#x" class="thumbnail"></a><div>작성자 | yyyy-MM-dd</div><div>코멘트내용입니다. </div></div>
+                	  <div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                	  <div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                	</div><!--/row-fluid-->
+                </div><!--/item-->
+                 
+                <div class="item">
+                	<div class="row-fluid">
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                	</div><!--/row-fluid-->
+                </div><!--/item-->
+                 
+                <div class="item">
+                	<div class="row-fluid">
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
+                	</div><!--/row-fluid-->
+                </div><!--/item-->
+                 
+                </div><!--/carousel-inner-->
+                 
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                </div><!--/myCarousel-->
+                 
+            </div><!--/well-->   
+		</div>
+	</div>
+</div>
 	</div>
 </section>
 <section class="movieDetail-multimedia">

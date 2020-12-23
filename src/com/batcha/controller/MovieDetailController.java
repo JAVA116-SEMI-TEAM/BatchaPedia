@@ -85,13 +85,12 @@ public class MovieDetailController implements Controller{
 			}
 		}
 		
-		
-		
 		//===================keep관련 
 		//파라미터값 받기
 		//	String mvNo=request.getParameter("mvNo");
 		//	String memNo=request.getParameter("memNo");
 		//논유저면 당연히 false, 유저인 경우 isKept함수 탐
+		//------- 최초진입시
 		if(request.getAttribute("keptCheck")==null) {
 			
 		}
@@ -99,6 +98,7 @@ public class MovieDetailController implements Controller{
 		
 		if(memNo>0) {
 			try {
+				System.out.println("keep서비스 결과"+keepService.isKept(memNo, iMvNo));
 				int cnt=keepService.isKept(memNo, iMvNo);
 				if(cnt>0) {
 					keptCheck=true;
@@ -115,6 +115,17 @@ public class MovieDetailController implements Controller{
 			keepBtn=request.getParameter("keepBtn");
 		}
 		//결과 저장
+		
+		//-----킵버튼으로 재진입시
+		System.out.println("keepBtn="+keepBtn);
+		
+		if(keepBtn.equals("t")) {
+			keepService.deleteKeep(memNo, iMvNo);
+			System.out.println("keep목록에서 삭제");
+		}else if (keepBtn.equals("f")){
+			keepService.insertKeep(memNo, iMvNo);
+			System.out.println("keep목록에 추가");
+		}
 		
 		//===================개인정보 관련 
 		int isKept=0;
