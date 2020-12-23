@@ -5,6 +5,10 @@
    String t_memno=(String)session.getAttribute("memno");
    boolean t_isLogin=false;
    String t_userid=(String)session.getAttribute("userid");
+   String t_userName=(String)session.getAttribute("userName");
+   String t_memno=String.valueOf(session.getAttribute("memno"));
+   String t_pwd=(String)session.getAttribute("pwd");
+   String t_admincheck=String.valueOf(session.getAttribute("adminCheck"));
    if(t_userid!=null && !t_userid.isEmpty()){
       t_isLogin=true; //로그인이 된 경우에만 true
    }
@@ -47,14 +51,14 @@
     </li> -->
     <%if(!t_isLogin){ //로그인 안 된 경우 %>
     <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath()%>/login/login.jsp">로그인</a>
+      <a class="nav-link" href="<%=request.getContextPath()%>/login/login.do">로그인</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">회원가입</a>
+      <a class="nav-link" href="<%=request.getContextPath()%>/member/register.do">회원가입</a>
     </li>
     <%}else{ //로그인 된 경우%>
     <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath()%>/login/logout.jsp">로그아웃</a>
+      <a class="nav-link" href="<%=request.getContextPath()%>/login/logout.do">로그아웃</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">마이페이지</a>
@@ -67,7 +71,7 @@
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">공지사항</a>
         <a class="dropdown-item" href="#">FAQ</a>
-        <a class="dropdown-item" href="#">Q&A</a>
+        <a class="dropdown-item" href="<%=request.getContextPath()%>/qna/list.do">Q&A</a>
       </div>
     </li>
     

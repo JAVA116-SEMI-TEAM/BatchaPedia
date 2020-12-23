@@ -37,7 +37,7 @@ $(function(){
 	}
 %>
 <article class="loginForm">
-	<form name="frmLogin" method="post"	action="login_ok.jsp" class="center">
+	<form name="frmLogin" method="post"	action="login_ok.do" class="center">
 		<fieldset>
 			<div>
 				<input type="text" placeholder=" 아이디" name="userid" id="userid" 
@@ -55,7 +55,7 @@ $(function(){
 					<%} %>
 				>
 				<label for="chkSave">아이디 저장하기</label><br><br>
-				<p class="gray">계정이 없으신가요? <a href="#" class="pink">회원가입</a>
+				<p class="gray">계정이 없으신가요? <a href="<%=request.getContextPath()%>/member/register.do" class="pink">회원가입</a>
 			</div>
 		</fieldset>
 	</form>
