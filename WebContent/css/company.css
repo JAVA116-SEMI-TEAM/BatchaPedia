@@ -1,11 +1,13 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-#header{
-   font-family: 'Noto Sans KR', sans-serif;
-}
 
-body{
-	align: center;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap");
+
+body {
+  /* display: inline-block;
+  position: relative; */
+  font-family: "Noto Sans KR", sans-serif;
+  align: center;
 }
 
 .BatchaInfo-contents {

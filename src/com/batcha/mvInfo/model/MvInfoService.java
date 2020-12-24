@@ -34,6 +34,10 @@ public class MvInfoService {
 	public int deleteMv(int mvNo) throws SQLException {
 		return mvDao.deleteMv(mvNo);
 	}
+
+	public List<MvInfoVO> selectBoxOfficeList() throws SQLException {
+		return mvDao.selectBoxOfficeList();
+	}
 	
 	
 }

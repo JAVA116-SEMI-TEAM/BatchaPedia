@@ -26,8 +26,10 @@
 	height: 30px;
 }
 
-.stars > div {
-	margin-right: 5px;
+.stars > button {
+	margin-right: 0px;
+	border:0px;
+	border-style:none;
 }
 
 .star-mono{
@@ -54,7 +56,7 @@
 }
 
 .movieDeatil-comment{
-	margin: 0 40px;
+	margin: 150px 40px 0px 40px;
 }
 
 .movieDetail-starsGraph-header{

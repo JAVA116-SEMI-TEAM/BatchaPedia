@@ -211,6 +211,51 @@ public class MvInfoDAO {
 			pool.dbClose(ps, con); 
 		}
 	}
+
+	//박스오피스 리스트
+	public List<MvInfoVO> selectBoxOfficeList() throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		try {
+			//1,2
+			con=pool.getConnection();
+			
+			//3
+			String sql="select * from mvInfo where boxOffice is not null order by mvNo desc";
+			ps=con.prepareStatement(sql);
+			
+			//4
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				MvInfoVO vo=new MvInfoVO();
+				vo.setMvNo(rs.getInt("mvNo"));
+				vo.setMvNo(rs.getInt("mvCode"));
+				vo.setMvTitle(rs.getString("mvTitle"));
+				vo.setMvTitle(rs.getString("mvTitleEn"));
+				vo.setGenre(rs.getString("genre"));
+				vo.setDirector(rs.getString("director"));
+				vo.setActors(rs.getNString("actors"));
+				vo.setStory(rs.getString("story"));
+				vo.setThumbnail(rs.getString("thumbnail"));
+				vo.setNation(rs.getString("nation"));
+				vo.setMakeYear(rs.getString("makeYear"));
+				vo.setBoxOffice(rs.getInt("boxOffice"));
+				vo.setStartdate(rs.getTimestamp("startdate"));
+				vo.setEnddate(rs.getTimestamp("enddate"));
+				vo.setRegdate(rs.getTimestamp("regdate"));
+				vo.setMvCode(rs.getString("mvCode"));
+				vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				
+				list.add(vo);
+			}
+			System.out.println("박스오피스 영화 조회 결과, list.size="+list.size());
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
 }
 
 

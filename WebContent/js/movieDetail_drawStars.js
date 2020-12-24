@@ -5,19 +5,19 @@
 //좌표값의 최소 최대를 구하고
 //그걸 10등분 한걸 좌표값 x+a, x+a~2a, 그런 식으로 나누면... 되지 않을까...
 
-var starsRect=document.querySelector('#stars');
+var starsRect=document.querySelector('#stars'); //별 엘리먼트를 가져온다
 var rect=starsRect.getBoundingClientRect();
 var starSelectWidth=new Array();
-var starSelectHeight=33;
-for (var key in rect) {
+var starSelectHeight=rect.bottom-rect.top;
+/*for (var key in rect) {
 	if(typeof rect[key] !== 'function') {
     let para = document.createElement('p');
     para.textContent  = `${ key } : ${ rect[key] }`;
     document.body.appendChild(para);
   }
-} //x y width height top right bottom left 확인하는 코드
+} *///x y width height top right bottom left 확인하는 코드
 for(var i=1; i<=10; i++){
-	starSelectWidth[i-1]=380+17.5*i;
+	starSelectWidth[i-1]=rect.x+starSelectHeight*i;
 	console.log(starSelectWidth[i-1]);
 }//가로 한계값을 10개 각각 구한다 
 
@@ -26,12 +26,22 @@ $(document).ready(function(){
    $(document).mousemove(function(e){
 	   cursorW=e.pageX;
 	   cursorH=e.pageY;
-	   changeColor(cursorW, cursorH);
+	   changeColor(cursorW, cursorH);	
    });
+   
 });//마우스 위치값을 구한다
+	
+	
+//마우스로 클릭시 값 저장
+function getMousePos(event){
+	curPosX=event.clientX;
+	curPosY=event.clientY;
+	console.log("x="+curPosX+", y="+"curPosY"); 
+};
 
-var mg=1;
+var mg=1; //별끼리의 마진값
 
+//별 색칠해주는 함수
 function changeStarHalfGold(star){ //별 반개
 	document.querySelector(star).classList.add('fa-star-half-alt');
 	document.querySelector(star).classList.add('star-gold');

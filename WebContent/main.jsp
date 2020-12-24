@@ -6,7 +6,8 @@
 	<div class="movieInfo">
 		<ul>
 			<li>
-				<a href="#">
+			
+				<a href='<c:url value="/movie/movieDetail?no="+${boxOfficeList[0].mvNo}"/>'>
 					<img src="<%=request.getContextPath()%>/images/movieSample.jpg" alt="moviePoster" style="width:15%;">
 					<div class="info">
 					<div>해리포터</div>

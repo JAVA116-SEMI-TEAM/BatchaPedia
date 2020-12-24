@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.batcha.db.ConnectionPoolMgr2;
@@ -99,21 +100,18 @@ public class CmtDataDAO {
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		List<CmtDataVO> list=null;
+		List<CmtDataVO> list=new ArrayList<CmtDataVO>();
 		
 		try {
 			con=pool.getConnection();
 			
-			String sql="select *";
-					
-			sql+=" from cmtData where";		
+			String sql="select * from cmtData where";		
 			
 			if(isMemNo) {
 				sql+=" memNo=?";
 			}else {
 				sql+=" mvNo=?";
 			}
-			
 			ps=con.prepareStatement(sql);
 			
 			ps.setInt(1, no);
@@ -122,9 +120,12 @@ public class CmtDataDAO {
 			
 			while(rs.next()) {
 				CmtDataVO cmtVo=new CmtDataVO();
+				
 				cmtVo.setCmtNo(rs.getInt("cmtNo"));
 				cmtVo.setCmtText(rs.getString("cmtText"));
 				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
+				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
+				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
 				
 				if(isMemNo) {
 					cmtVo.setMemNo(no);
@@ -133,9 +134,8 @@ public class CmtDataDAO {
 					cmtVo.setMemNo(rs.getInt("memNo"));
 					cmtVo.setMvNo(no);
 				}
-				
 				list.add(cmtVo);
-				}
+			}
 			System.out.println("코멘트 전체조회 결과 list.size="+list.size()+", 매개변수 no="+no+", isMemNo="+isMemNo);
 			return list;
 		}finally{

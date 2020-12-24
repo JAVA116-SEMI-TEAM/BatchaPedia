@@ -2,8 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/top.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="../css/movieDetail.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <%
 	/* float memStars=(float)request.getAttribute("memStars");
@@ -37,22 +39,85 @@
 			</div>
 		</div>
 		<div class="movieDetail-info__buttons">
-			<!-- 평점매기기, 찜하기 -->
-			<div id="stars" class="stars">
-			<!-- 마우스오버 효과를 js로 만들어주고 클릭했을 때 어떤 요소가 어떤 상태인지에 따라 평점 입력 
+			<!-- 평점매기기, 찜하기 -->			
+			<form name="starsfrm" method="post" action="<c:url value="/movie/movieDetail.do" />">
+				<div id="stars" class="stars" onclick="clickedCoords(event)">
+				<!-- 마우스오버 효과를 js로 만들어주고 클릭했을 때 어떤 요소가 어떤 상태인지에 따라 평점 입력 
 				첫번째 별의 앞 절반에 오버한경우 1점, 앞 절반을 넘어간 경우 2점
 				두번째 별의 앞 절반에 오버한경우 3점, 앞 절반을 넘어간 경우 4점
 				세번째 별의 앞 절반에 오버한경우 5점, 앞 절반을 넘어간 경우 6점
 				네번째 별의 앞 절반에 오버한경우 7점, 앞 절반을 넘어간 경우 8점
 				다섯번째 별의 앞 절반에 오버한 경우 9점, 넘어간 경우 10점 -->
-				<div><i id="firstStar" class="fas fa-star fa-2x star star-mono"></i></div>
-				<div><i id="secondStar" class="fas fa-star fa-2x star star-mono"></i></div>
-				<div><i id="thirdStar" class="fas fa-star fa-2x star star-mono"></i></div>
-				<div><i id="fourthStar" class="fas fa-star fa-2x star star-mono"></i></div>
-				<div><i id="fifthStar" class="fas fa-star fa-2x star star-mono"></i></div>
+				<script type="text/javascript">
+				
+					</script>
+					<div name="first"><i id="firstStar" class="fas fa-star fa-2x star star-mono"></i></div>
+					<div><i id="secondStar" class="fas fa-star fa-2x star star-mono"></i></div>
+					<div><i id="thirdStar" class="fas fa-star fa-2x star star-mono"></i></div>
+					<div><i id="fourthStar" class="fas fa-star fa-2x star star-mono"></i></div>
+					<div><i id="fifthStar" class="fas fa-star fa-2x star star-mono"></i></div>
+					<input type="text" value="" id="coordSet">
+					<script type="text/javascript">
+					var clickedCoords = function(event) {
+				    	var x = event.offsetX;
+				    	var y = event.offsetY;
+				    	console.log(x+", "+y);
+						return {
+							offsetX: x,
+							offsetY: y
+						};
+					var xyset=clickedCoords();
+					document.getElementById('coordSet').text(xyset);
+					
+					const stars=document.getElementById('stars');
+					const relativeTop = stars.getBoundingClientRect().top;
+					const relativeBottom = stars.getBoundingClientRect().bottom;
+					const relativeRight = stars.getBoundingClientRect().right;
+					const relativeLeft = stars.getBoundingClientRect().left;
+					
+					var starH=relativeBottom-relativeTop;
+					var starW=relativeRight-relativeLeft;
+					
+					var starXMin=relativeRight;
+					var starXMax=relativeLeft;
+					var starMark=(starXMin-starXMax)/2;
+					console.log("starXMax="+starXMin);
+					console.log("starXMin="+starXMax);
+					console.log("starMark="+starMark);
+					
+					const scrolledTopLength=window.pageYOffset; //스크롤된 길이
+					const absoluteTop=scrolledTopLength+relativeTop; //절대좌표
+					//마우스로 클릭시 값 저장
+					var clickedPosX;
+					var clickedPosY;
+					$(function(){
+							$('#stars').click(function(e){
+								clickedPosX=e.pageX;
+								clickedPosY=e.pageY;
+							});
+						});
+					
+					var selectedMarkArr=new Array();
+					var starPoint=0;
+					
+					for(var j=10; j>=1; j--){
+						selectedMarkArr[j-1]=starXMin+starMark*j; // 넓이값 10개 나왔음
+						console.log("selectedMark "+j+": "+selectedMarkArr[j-1]);
+						if(clickedPosX <= selectedMarkArr[j-1]){
+							starPoint=j;
+							console.log("j="+j);
+							console.log("starPoint="+starPoint);
+							console("clickedPosX="+clickedPosX+", selectedMark:"+selectedMarkArr[j-1])
+						}//if
+						
+					}//for
+					
+					</script>
 			</div>
+		</form>
 			<!-- todo 클릭하면 평점 입력되고, 별표 더이상 마우스오버 하지 않아도 그대로 박혀있도록 -->
 			<script src="../js/movieDetail_drawStars.js"></script>
+			
 			<!-- todo 버튼 선택 시 킵리스트에 넣어주기 데이터 연동 -->
 			<div class="keepBtns">
 				<!-- <form action="" method="get" name="keepbtnFrm">
@@ -80,6 +145,7 @@
 					}
 					console.log(keptCheck);
 				}
+				
 				
 				//로그인 안했을 경우 얼럿 띄워줘야 함
 			//	alert('로그인 하셔야 합니다.');
@@ -112,15 +178,48 @@
 	</div>
 </section>
 <section class="movieDetail-starsGraph">
-	<%-- <div class="movieDetail-starsGraph-header">
+	<div class="movieDetail-starsGraph-header">
 		<!-- todo 실제 더미데이터 입력 후 평점 끌어와서 그래프 그리기 -->
 		<h3>평점분포</h3>
 		<span>${avgStars}점 (${memCntOfMv} 명 참여)</span>
 	</div>
-	<canvas id="starsGraph" >
-	<!-- 시간 여유되면 비율에 따라 그래프 색상변화 주기. 제일 많은 애들 둘정도를 짙은 색으로 -->
-	<script src="../js/movieDetail_graph.js"></script>
-	</canvas> --%>
+	<canvas id="starsGraph">
+	<script>
+		var graphData = '${graphData}';
+		console.log(graphData[0]);
+		var ctx = document.getElementById('starsGraph').getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: ['1','2','3','4','5','6','7','8','9','10'],
+		        datasets: [{
+		            data: [graphData[0],graphData[1],graphData[2],graphData[3],graphData[4],
+						   graphData[5],graphData[6],graphData[7],graphData[8],graphData[9]],
+		            backgroundColor: 'gold',
+		        }]
+		    },
+		    options: {
+		    	legend: {
+		        	display: false
+		        },
+		        title: {
+		        	display: false
+		        },
+		    	scales: {
+		    	  xAxes: [{
+		              display: true
+		            }],
+		          yAxes: [{
+		              display: false
+		            }],
+		        },
+		        responsive: true,
+		        maintainAspectRatio: false,
+		    }
+		});
+	</script>
+	<!-- <script src="../js/movieDetail_graph.js"></script> -->
+	</canvas> 
 <style>
  
 .myGraph{
@@ -148,7 +247,7 @@
 }
 
 </style>
-
+<!-- 
 <div class="myGraph">
 	<div class="barWrapper">
 		<div class="myGraph-bar" style=""></div><div class="graphNo" style="height:100px">1</div>
@@ -180,7 +279,7 @@
 	<div class="barWrapper">
 		<div class="myGraph-bar" style=""></div><div class="graphNo">10</div>
 	</div>
-</div>
+</div> -->
 
 </section>
 <section class="movieDeatil-comment">
@@ -188,6 +287,7 @@
 	<div class="movieDetail-info-inputComment">
 		<form action="/movie/cmtWrite_ok.do" method="post" >
 			<label for="exampleFormControlTextarea1">코멘트 남기기</label>
+			<form name="cmtFrm" action="movie/cmtWrite_ok.do" method="post">
    			<textarea class="form-control" placeholder="코멘트를 입력해보세요."  id="exampleFormControlTextarea1" rows="5"></textarea>
    			<div class="underCommentTa">
 	  				<div class="input-group-prepend">
@@ -195,57 +295,35 @@
 	     					<input type="checkbox" aria-label="spoiler check">&nbsp;<span>스포일러가 있습니다.</span>
 	    				</div>
 	  				</div>
-				<input type="submit" id="cmtBtn" class="btn btn-sm btn-default" value="코멘트 등록"></button>
+				<input type="submit" id="cmtBtn" class="btn btn-sm btn-dark" value="코멘트 등록"></button>
 			</div>
+			</form>
 		</form>
 		</div>
 	<div class="movieDetail-comment__list">
 	<h3>코멘트 목록</h3>
-		<div class="container">
-	<div class="row">
-		<div class="span12">
-    	    <div class="well"> 
-                <div id="myCarousel" class="carousel slide">
-                 
-                <!-- Carousel items -->
-                <div class="carousel-inner">
-                    
-                <div class="item active">
-                	<div class="row-fluid">
-                	  <div class="span3"><a href="#x" class="thumbnail"></a><div>작성자 | yyyy-MM-dd</div><div>코멘트내용입니다. </div></div>
-                	  <div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                	  <div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                	</div><!--/row-fluid-->
-                </div><!--/item-->
-                 
-                <div class="item">
-                	<div class="row-fluid">
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                	</div><!--/row-fluid-->
-                </div><!--/item-->
-                 
-                <div class="item">
-                	<div class="row-fluid">
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                		<div class="span3"><a href="#x" class="thumbnail"><img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;" /></a></div>
-                	</div><!--/row-fluid-->
-                </div><!--/item-->
-                 
-                </div><!--/carousel-inner-->
-                 
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-                </div><!--/myCarousel-->
-                 
-            </div><!--/well-->   
-		</div>
-	</div>
-</div>
+		<div class="row">
+		<c:set var="cmtListSize" value="${fn:length(cmtList)}"/>
+		<c:forEach var="cmt" items="${cmtList}" varStatus="status">
+			<c:if test="${cmtListSize<1}">
+				<p style="align:center">등록된 코멘트가 없습니다. 코멘트를 등록해보세요.</p>
+			</c:if>
+			<c:if test="${cmtListSize>=1}">
+				
+			  <div class="col-sm-6 col-md-4">
+			    <div class="thumbnail">
+			      <div class="caption">
+			        <h5>${cmt.userid}</h5>
+			        <p>${cmt.cmtText}</p>
+			        <p><a href="#" class="btn btn-group-xs" role="group"><i class="fas fa-thumbs-up"></i></a>
+			        <a href="#" class="btn btn-group-xs" role="group"><i class="far fa-thumbs-up"></i></a>
+			        <a href="#" class="btn btn-group-xs" role="group"><i class="fas fa-thumbs-down"></i></a>
+			        <a href="#" class="btn btn-group-xs" role="group"><i class="far fa-thumbs-down"></i></a>
+			      </div>
+			    </div>
+			  </div>
+			</c:if>
+		</c:forEach>
 	</div>
 </section>
 <section class="movieDetail-multimedia">

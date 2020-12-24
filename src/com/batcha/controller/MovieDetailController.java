@@ -1,6 +1,7 @@
 package com.batcha.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 
+import com.batcha.cmtData.model.CmtDataService;
+import com.batcha.cmtData.model.CmtDataVO;
 import com.batcha.keepData.model.keepDataDAO;
 import com.batcha.keepData.model.keepDataService;
 import com.batcha.keepData.model.keepDataVO;
@@ -48,28 +51,27 @@ public class MovieDetailController implements Controller{
 			e.printStackTrace();
 		}
 		
-		
-		
 		//===================영화평점조회
 		//평점조회
 		float avgStars=0.0f;
 		int memCntOfMv=0;
-		List<starsDataVO> list=null;
+		List<starsDataVO> starsList=null;
 		try {
 			avgStars=starsService.getAvgStars(iMvNo);
 			//list=starsService.selectAllStarsByNo(iMvNo, false);
 			if(starsService.selectAllStarsByNo(iMvNo, false)!=null 
 					|| !starsService.selectAllStarsByNo(iMvNo, false).isEmpty()) {
-				list=starsService.selectAllStarsByNo(iMvNo, false);
-				memCntOfMv=list.size();
+				starsList=starsService.selectAllStarsByNo(iMvNo, false);
+				memCntOfMv=starsList.size();
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 		//평점분포조회 todo.. 그래프 뿌릴 수 있으면
 		int[] graphData = {0,0,0,0,0,0,0,0,0,0};
-		for(int i=0; i<list.size(); i++) {
-			float star=list.get(i).getStars();
+		for(int i=0; i<starsList.size(); i++) { //평점리스트의 n번째가 평점 몇점인지 가져와서 데이터배열에 입력
+			float star=starsList.get(i).getStars();
+			System.out.println("star="+star);
 			switch((int)star) {
 			case 1: graphData[0]++; break;
 			case 2: graphData[1]++; break;
@@ -147,9 +149,16 @@ public class MovieDetailController implements Controller{
 			}
 		}
 		
-		//코멘트 리스트
-		
+		//코멘트 리스트 받아오기
+		CmtDataService cmtService=new CmtDataService();
+		List<CmtDataVO> cmtList=new ArrayList<CmtDataVO>();
+		try {
+			cmtList=cmtService.selectCmtByNo(1, false);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		//셋팅 		
+		request.setAttribute("cmtList", cmtList);
 		request.setAttribute("mvVo", mvVo);
 		request.setAttribute("memStars", memStars);
 		request.setAttribute("didStars", didStars);
