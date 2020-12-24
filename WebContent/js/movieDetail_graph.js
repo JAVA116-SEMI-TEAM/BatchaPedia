@@ -2,9 +2,9 @@
  * 
  */
 
+var starsGraph = '${starsGraph}';
 
-var graphData = '${graphData}';
-console.log(graphData[0]);
+
 var ctx = document.getElementById('starsGraph').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',

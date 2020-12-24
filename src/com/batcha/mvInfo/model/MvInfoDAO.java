@@ -125,7 +125,7 @@ public class MvInfoDAO {
 				vo.setMvTitle(rs.getString("mvTitle"));
 				vo.setGenre(rs.getString("genre"));
 				vo.setDirector(rs.getString("director"));
-				vo.setActors(rs.getNString("actors"));
+				vo.setActors(rs.getString("actors")); //getNString 수정
 				vo.setStory(rs.getString("story"));
 				vo.setThumbnail(rs.getString("thumbnail"));
 				vo.setNation(rs.getString("nation"));
@@ -223,20 +223,21 @@ public class MvInfoDAO {
 			con=pool.getConnection();
 			
 			//3
-			String sql="select * from mvInfo where boxOffice is not null order by mvNo desc";
+			String sql="select * from mvInfo where boxOffice is not null order by mvNo desc ";
 			ps=con.prepareStatement(sql);
 			
 			//4
 			rs=ps.executeQuery();
-			if(rs.next()) {
+			
+			while(rs.next()) {
 				MvInfoVO vo=new MvInfoVO();
 				vo.setMvNo(rs.getInt("mvNo"));
-				vo.setMvNo(rs.getInt("mvCode"));
+				vo.setMvCode(rs.getString("mvCode"));
 				vo.setMvTitle(rs.getString("mvTitle"));
-				vo.setMvTitle(rs.getString("mvTitleEn"));
+				vo.setMvTitleEn(rs.getString("mvTitleEn"));
 				vo.setGenre(rs.getString("genre"));
 				vo.setDirector(rs.getString("director"));
-				vo.setActors(rs.getNString("actors"));
+				vo.setActors(rs.getString("actors"));
 				vo.setStory(rs.getString("story"));
 				vo.setThumbnail(rs.getString("thumbnail"));
 				vo.setNation(rs.getString("nation"));
@@ -245,12 +246,12 @@ public class MvInfoDAO {
 				vo.setStartdate(rs.getTimestamp("startdate"));
 				vo.setEnddate(rs.getTimestamp("enddate"));
 				vo.setRegdate(rs.getTimestamp("regdate"));
-				vo.setMvCode(rs.getString("mvCode"));
-				vo.setMvTitleEn(rs.getString("mvTitleEn"));
 				
 				list.add(vo);
 			}
 			System.out.println("박스오피스 영화 조회 결과, list.size="+list.size());
+			System.out.println(list.get(0));
+			System.out.println(list.get(1));
 			return list;
 		}finally {
 			pool.dbClose(rs, ps, con);

@@ -285,10 +285,10 @@
 <section class="movieDeatil-comment">
 	<div class="movieDetail-comment__header"><h3>코멘트</h3></div>
 	<div class="movieDetail-info-inputComment">
-		<form action="/movie/cmtWrite_ok.do" method="post" >
-			<label for="exampleFormControlTextarea1">코멘트 남기기</label>
-			<form name="cmtFrm" action="movie/cmtWrite_ok.do" method="post">
-   			<textarea class="form-control" placeholder="코멘트를 입력해보세요."  id="exampleFormControlTextarea1" rows="5"></textarea>
+		<form action="/movie/cmtWrite.do" method="post" >
+			<label for="cmtTa">코멘트 남기기</label>
+			<form name="cmtFrm" action="/movie/cmtWrite.do" method="post">
+   			<textarea class="form-control" placeholder="코멘트를 입력해보세요." id="cmtTa" rows="5"></textarea>
    			<div class="underCommentTa">
 	  				<div class="input-group-prepend">
 	  					<div class="input-group-text">
@@ -311,9 +311,10 @@
 			<c:if test="${cmtListSize>=1}">
 				
 			  <div class="col-sm-6 col-md-4">
-			    <div class="thumbnail">
+			    <div class="userId">
+			    <h5>${cmt.userid}유저아이디</h5>
 			      <div class="caption">
-			        <h5>${cmt.userid}</h5>
+			        
 			        <p>${cmt.cmtText}</p>
 			        <p><a href="#" class="btn btn-group-xs" role="group"><i class="fas fa-thumbs-up"></i></a>
 			        <a href="#" class="btn btn-group-xs" role="group"><i class="far fa-thumbs-up"></i></a>

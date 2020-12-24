@@ -72,7 +72,7 @@ public class starsDataDAO {
 				starsVo.setMemNo(rs.getInt("memNo"));
 				starsVo.setMvNo(rs.getInt("mvNo"));
 				starsVo.setStarsNo(rs.getInt("starsNo"));
-				starsVo.setStars(rs.getFloat("stars"));
+				starsVo.setStars(rs.getInt("stars"));
 				
 				list.add(starsVo);
 			}
@@ -104,7 +104,7 @@ public class starsDataDAO {
 			rs=ps.executeQuery();
 					
 			if(rs.next()) {
-				memStars=rs.getFloat("stars");
+				memStars=rs.getInt("stars");
 			}
 			System.out.println("특정 회원의 특정 영화에 매긴 평점 조회 결과 memStars="+memStars
 							+", 매개변수 memNo="+memNo+", mvNo="+mvNo);
@@ -130,7 +130,7 @@ public class starsDataDAO {
 			
 			ps.setInt(1, starsVo.getMemNo());
 			ps.setInt(2, starsVo.getMvNo());
-			ps.setFloat(3, starsVo.getStars());
+			ps.setInt(3, starsVo.getStars());
 			
 			cnt=ps.executeUpdate();
 			
@@ -179,7 +179,7 @@ public class starsDataDAO {
 			
 			ps=con.prepareStatement(sql);
 			
-			ps.setFloat(1, starsVo.getStars());
+			ps.setInt(1, starsVo.getStars());
 			ps.setInt(2, starsVo.getMemNo());
 			ps.setInt(3, starsVo.getMvNo());
 			

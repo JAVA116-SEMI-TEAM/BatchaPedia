@@ -4,13 +4,13 @@ public class starsDataVO {
 	private int starsNo;
 	private int memNo;
 	private int mvNo;
-	private float stars;
+	private int stars;
 	
 	public starsDataVO() {
 		super();
 	}
 	
-	public starsDataVO(int starsNo, int memNo, int mvNo, float stars) {
+	public starsDataVO(int starsNo, int memNo, int mvNo, int stars) {
 		super();
 		this.starsNo = starsNo;
 		this.memNo = memNo;
@@ -36,10 +36,10 @@ public class starsDataVO {
 	public void setMvNo(int mvNo) {
 		this.mvNo = mvNo;
 	}
-	public float getStars() {
+	public int getStars() {
 		return stars;
 	}
-	public void setStars(float stars) {
+	public void setStars(int stars) {
 		this.stars = stars;
 	}
 	

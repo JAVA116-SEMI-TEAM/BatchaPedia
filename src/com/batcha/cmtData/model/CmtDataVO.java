@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class CmtDataVO {
 	private int cmtNo;
+	private String userid;
 	private String cmtText;
 	private Timestamp cmtRegdate;
 	private int agrCnt;
@@ -15,9 +16,11 @@ public class CmtDataVO {
 		super();
 	}
 
-	public CmtDataVO(int cmtNo, String cmtText, Timestamp cmtRegdate, int agrCnt, int dagrCnt, int memNo, int mvNo) {
+	public CmtDataVO(int cmtNo, String userid, String cmtText, Timestamp cmtRegdate, int agrCnt, int dagrCnt, int memNo,
+			int mvNo) {
 		super();
 		this.cmtNo = cmtNo;
+		this.userid = userid;
 		this.cmtText = cmtText;
 		this.cmtRegdate = cmtRegdate;
 		this.agrCnt = agrCnt;
@@ -32,6 +35,14 @@ public class CmtDataVO {
 
 	public void setCmtNo(int cmtNo) {
 		this.cmtNo = cmtNo;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getCmtText() {
@@ -84,8 +95,9 @@ public class CmtDataVO {
 
 	@Override
 	public String toString() {
-		return "CmtDataVO [cmtNo=" + cmtNo + ", cmtText=" + cmtText + ", cmtRegdate=" + cmtRegdate + ", agrCnt="
-				+ agrCnt + ", dagrCnt=" + dagrCnt + ", memNo=" + memNo + ", mvNo=" + mvNo + "]";
+		return "CmtDataVO [cmtNo=" + cmtNo + ", userid=" + userid + ", cmtText=" + cmtText + ", cmtRegdate="
+				+ cmtRegdate + ", agrCnt=" + agrCnt + ", dagrCnt=" + dagrCnt + ", memNo=" + memNo + ", mvNo=" + mvNo
+				+ "]";
 	}
-	
+
 }

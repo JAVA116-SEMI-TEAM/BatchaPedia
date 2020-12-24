@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="inc/top.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <article id="top5" class="movie">
 	<div class="mainTitle">영화 순위</div>
 	<div class="movieInfo">
 		<ul>
 			<li>
-			
-				<a href='<c:url value="/movie/movieDetail?no="+${boxOfficeList[0].mvNo}"/>'>
+				<a href='<c:url value="/movie/movieDetail?mvno=${boxOfficeList[0].mvNo}"/>'>
 					<img src="<%=request.getContextPath()%>/images/movieSample.jpg" alt="moviePoster" style="width:15%;">
 					<div class="info">
 					<div>해리포터</div>
