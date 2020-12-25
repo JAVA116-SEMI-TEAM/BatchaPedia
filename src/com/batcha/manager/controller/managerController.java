@@ -6,30 +6,53 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.batcha.manager.model.managerService;
-import com.batcha.manager.model.managerVo;
+import com.batcha.common.PagingVO;
+import com.batcha.memInfo.model.MemInfoService;
+import com.batcha.memInfo.model.MemInfoVO;
 import com.controller.Controller;
 
 public class managerController implements Controller {
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//1. ÆÄ¶ó¹ÌÅÍ
-		//2. db¿¬°á
-		managerService mngservice = new managerService();
-		List<managerVo> list = null;
+		//1. íŒŒë¦¬ë¯¸í„° ë°›ê¸°
+		String condition = request.getParameter("searchCondition");
+		String keyword = request.getParameter("searchKeyword");
+		
+		//2. dbì‘ì—…
+		MemInfoService mngservice = new MemInfoService();
+		List<MemInfoVO> list = null;
 		
 		try {
-			list = mngservice.mngSelectAll();
+			list = mngservice.selectMemByKey(condition,keyword);
+			System.out.println("í˜ì´ì§€ì‚¬ì´ì¦ˆ");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		//3. °á°úÀúÀå
+		//í˜ì´ì§•
+		int currentPage=1;
+		if(request.getParameter("currentPage")!=null 
+				&&!request.getParameter("currentPage").isEmpty()) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			System.out.println("í˜„ì¬í˜ì´ì§€"+currentPage);
+		}
+		int totalRecord=0;
+		
+		if (list!=null) {
+			totalRecord=list.size();
+		}
+		
+		int pageSize=10;
+		int blockSize=5;
+		
+		PagingVO pageVo = new PagingVO(currentPage, totalRecord, pageSize, blockSize);
+		
+		//3. ê²°ê³¼ì €ì¥
 		request.setAttribute("mnglist", list);
+		request.setAttribute("pageVo", pageVo);
 		
-		//4. ºäÆäÀÌÁö
-		
+		//4. ë·°í˜ì´ì§€ë¡œ
 		return "/managerPage/manager.jsp";
 	}
 
