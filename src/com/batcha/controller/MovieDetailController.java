@@ -27,6 +27,7 @@ public class MovieDetailController implements Controller{
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		//파라미터 임시로 mvNo 1번 넣어둠, 목록화면에서 mvNo 넘겨줘야 함
 	//	String mvNo=request.getParameter("mvNo");
+	//	int no=Integer.parseInt(mvNo);
 	//	int iMvNo=Integer.parseInt(mvNo);
 		int iMvNo=3;
 
@@ -167,7 +168,8 @@ public class MovieDetailController implements Controller{
 		request.setAttribute("memCntOfMv", memCntOfMv);
 		request.setAttribute("graphData", graphData);
 		
-		return "/movie/movieDetail.jsp";
+		
+		return "movie/movieDetail.do";
 	}
 
 	@Override
