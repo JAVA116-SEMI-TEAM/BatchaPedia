@@ -6,38 +6,33 @@ article.loginForm{
 	height: 400px;
 	font-family: 'Noto Sans KR', sans-serif;
 	margin-top: 200px;
-
-article.loginForm {
-  height: 400px;
-  font-family: "Noto Sans KR", sans-serif;
-  margin-top: 200px;
 }
 
-.loginInput {
-  width: 500px;
-  height: 50px;
+.loginInput{
+	width: 500px;
+	height: 50px;
 }
 
-.pinkB {
-  background: #ff2f6e;
-  border: 0.5px solid;
+.pinkB{
+	background: #FF2F6E;
+	border: 0.5px solid;
 }
 
-.center {
-  text-align: center;
+.center{
+	text-align: center;
 }
 
-.gray {
-  color: gray;
+.gray{
+	color: gray;
 }
 
-.pink {
-  color: #ff2f6e;
-  text-decoration: none;
+.pink{
+	color: #FF2F6E;
+	text-decoration: none;
 }
 
 a:hover {
-  color: #ff2f6e;
+  color: #FF2F6E;
   text-decoration: none;
 }
 

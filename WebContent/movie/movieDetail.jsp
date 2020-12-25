@@ -1,6 +1,6 @@
 <%@page import="com.batcha.keepData.model.keepDataService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
@@ -14,11 +14,7 @@
  */
 	
 	//컨트롤러에서 킵했는지 확인해서 값 불러오기
-	boolean keptCheck=false;
- 	
- 	if(request.getAttribute("keptCheck")!=null){
- 		keptCheck=(boolean)request.getAttribute("keptCheck");
- 	}
+	boolean keptCheck=(boolean)request.getAttribute("keptCheck");
  	System.out.println("keptCheck="+keptCheck);
 	//불러온 값에 따라 화면에서 다르게 뿌려주기
 	
@@ -120,6 +116,9 @@
 			
 			<!-- todo 버튼 선택 시 킵리스트에 넣어주기 데이터 연동 -->
 			<div class="keepBtns">
+				<label class="toggleBtn">
+					<input type="checkbox" id="toggleCheckBox" onclick="toggle(this)"/>
+				</label>
 				<!-- <form action="" method="get" name="keepbtnFrm">
 					<button id="keepBtn" name="keepBtn" value="f" style="display:none"
 						class="btn btn-sm btn-default">
@@ -130,7 +129,7 @@
 					class="btn btn-sm btn-default">
 					<i class="fas fa-minus-circle"></i> 볼 영화에서 제외
 					</button>
-				</form> -->
+				 -->
 			<script type="text/javascript">
 				function toggle(element){
 					console.log(element.checked);
@@ -150,24 +149,22 @@
 				//로그인 안했을 경우 얼럿 띄워줘야 함
 			//	alert('로그인 하셔야 합니다.');
 			</script>
-			<c:set var="cKeptCheck" value="true"/>
-			<c:if test="${!cKeptCheck}"> <!-- 킵 안한 영화인 경우  -->
+			<%-- 
+			<c:set var=none value="display:none"></c:set>
+			<c:if test="${keptCheck==false}"> <!-- 킵 안한 영화인 경우  -->
 				<form action="" method="post" name="keepbtnFrm">
-					<button id="keepBtn" name="keepBtn" class="btn btn-sm btn-default">
+					<button id="keepBtn" name="keepBtn" value="false" class="btn btn-sm btn-default">
 					<i class="fas fa-plus-circle"></i> 나중에 볼 영화3
 					</button>
-					<input type="text" name="cKeptchkInput" value="${cKeptCheck}">
 				</form>
-				
 			</c:if>
-			<c:if test="${cKeptCheck}"> <!-- 킵한 영화인 경우 -->
+			<c:if test="${keptCheck==true}"> <!-- 킵한 영화인 경우 -->
 				<form action="" method="post" name="keepbtnFrm">
-					<button id="unkeepBtn" name="keepBtn" class="btn btn-sm btn-default">
+					<button id="unkeepBtn" name="keepBtn" value="true" class="btn btn-sm btn-default">
 					<i class="fas fa-minus-circle"></i> 볼 영화에서 제외3
 					</button>
-					<input type="text" name="cKeptchkInput" value="${cKeptCheck}">
 				</form>
-			</c:if> 
+			</c:if> --%>
 			
 			</div>
 		</div>
@@ -183,6 +180,7 @@
 		<h3>평점분포</h3>
 		<span>${avgStars}점 (${memCntOfMv} 명 참여)</span>
 	</div>
+<<<<<<< HEAD
 	<canvas id="starsGraph">
 	<script>
 		var graphData = '${graphData}';
@@ -221,7 +219,6 @@
 	<!-- <script src="../js/movieDetail_graph.js"></script> -->
 	</canvas> 
 <style>
- 
 .myGraph{
 	display: flex;
 	justify-content: space-between;
@@ -281,6 +278,10 @@
 	</div>
 </div> -->
 
+	<canvas id="starsGraph" >
+	<!-- 시간 여유되면 비율에 따라 그래프 색상변화 주기. 제일 많은 애들 둘정도를 짙은 색으로 -->
+	<script src="../js/movieDetail_graph.js"></script>
+	</canvas>
 </section>
 <section class="movieDeatil-comment">
 	<div class="movieDetail-comment__header"><h3>코멘트</h3></div>
@@ -289,6 +290,9 @@
 			<label for="cmtTa">코멘트 남기기</label>
 			<form name="cmtFrm" action="/movie/cmtWrite.do" method="post">
    			<textarea class="form-control" placeholder="코멘트를 입력해보세요." id="cmtTa" rows="5"></textarea>
+		<form action="#" method="post" >
+			<label for="exampleFormControlTextarea1">코멘트 남기기</label>
+   			<textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
    			<div class="underCommentTa">
 	  				<div class="input-group-prepend">
 	  					<div class="input-group-text">
@@ -301,6 +305,7 @@
 		</form>
 		</div>
 	<div class="movieDetail-comment__list">
+<<<<<<< HEAD
 	<h3>코멘트 목록</h3>
 		<div class="row">
 		<c:set var="cmtListSize" value="${fn:length(cmtList)}"/>
@@ -325,6 +330,7 @@
 			  </div>
 			</c:if>
 		</c:forEach>
+	
 	</div>
 </section>
 <section class="movieDetail-multimedia">

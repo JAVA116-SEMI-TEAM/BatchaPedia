@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <article id="top5" class="movie">
 	<div class="mainTitle">영화 순위</div>
-	<div class="movieInfo">
+	<div class="movieInfo ">
 		<ul>
 			<li>
 				<c:set var="boxOfficeFirst" value="${boxOfficeList[0]}"/>
