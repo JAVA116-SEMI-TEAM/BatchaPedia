@@ -30,9 +30,8 @@ public class starsDataService {
 	
 	//셀렉트인데.. 평점 한개만 가져오는 것
 	//이 메소드 결과값이 0이면 결국 평점을 입력하지 않았다는 뜻인데
-	public float getStarsByMemNo(int memNo, int mvNo) throws SQLException {//평점을 부여한 경우 몇점인지 찾기
+	public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//평점을 부여한 경우 몇점인지 찾기
 		return starsDao.getStarsByMemNo(memNo, mvNo);
-	
 	}
 	
 	//평점 입력하기

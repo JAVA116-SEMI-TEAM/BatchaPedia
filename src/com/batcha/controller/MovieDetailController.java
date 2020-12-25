@@ -29,7 +29,8 @@ public class MovieDetailController implements Controller{
 	//	String mvNo=request.getParameter("mvNo");
 	//	int no=Integer.parseInt(mvNo);
 	//	int iMvNo=Integer.parseInt(mvNo);
-		int iMvNo=3;
+		
+		int iMvNo=1;
 
 		HttpSession session = request.getSession();
 		int memNo=0;
@@ -71,46 +72,58 @@ public class MovieDetailController implements Controller{
 		//평점분포조회 todo.. 그래프 뿌릴 수 있으면
 		int[] graphData = {0,0,0,0,0,0,0,0,0,0};
 		for(int i=0; i<starsList.size(); i++) { //평점리스트의 n번째가 평점 몇점인지 가져와서 데이터배열에 입력
-			float star=starsList.get(i).getStars();
+			int star=starsList.get(i).getStars();
 			System.out.println("star="+star);
-			switch((int)star) {
-			case 1: graphData[0]++; break;
-			case 2: graphData[1]++; break;
-			case 3: graphData[2]++; break;
-			case 4: graphData[3]++; break;
-			case 5: graphData[4]++; break;
-			case 6: graphData[5]++; break;
-			case 7: graphData[6]++; break;
-			case 8: graphData[7]++; break;
-			case 9: graphData[8]++; break;
-			case 10: graphData[9]++; break;
-			default: break;
+			if(star==1) {
+				graphData[0]++;
+				System.out.println("graphData[0]"+graphData[0]);
+			}else if(star==2) {
+				graphData[1]++;
+				System.out.println("graphData[1]"+graphData[1]);
+			}else if(star==3) {
+				graphData[2]++;
+				System.out.println("graphData[2]"+graphData[2]);
+			}else if(star==4) {
+				graphData[3]++;
+				System.out.println("graphData[3]"+graphData[3]);
+			}else if(star==5) {
+				graphData[4]++;
+				System.out.println("graphData[4]"+graphData[4]);
+			}else if(star==6) {
+				graphData[5]++;
+				System.out.println("graphData[5]"+graphData[5]);
+			}else if(star==7) {
+				graphData[6]++;
+				System.out.println("graphData[6]"+graphData[6]);
+			}else if(star==8) {
+				graphData[7]++;
+				System.out.println("graphData[7]"+graphData[7]);
+			}else if(star==9) {
+				graphData[8]++;
+				System.out.println("graphData[8]"+graphData[8]);
+			}else if(star==10) {
+				graphData[9]++;
+				System.out.println("graphData[9]"+graphData[9]);
 			}
 		}
 		
 		
 		
 		//===================keep관련 
-		//파라미터값 받기
-		//	String mvNo=request.getParameter("mvNo");
-		//	String memNo=request.getParameter("memNo");
-		//논유저면 당연히 false, 유저인 경우 isKept함수 탐
-		if(request.getAttribute("keptCheck")==null) {
-			
-		}
-		boolean keptCheck=false;
-		
-		if(memNo>0) {
+		boolean keptCheck=false; //초기화, 논유저면 그대로 false
+		if(memNo>0) { //유저인 경우는 isKept 확인
+			int cnt=0;
 			try {
-				int cnt=keepService.isKept(memNo, iMvNo);
-				if(cnt>0) {
-					keptCheck=true;
-				}
+				cnt=keepService.isKept(memNo, iMvNo);
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
-			//본건지 안본건지 체크 완료
-		}
+			if(cnt==keepService.IS_KEPT) {
+				keptCheck=true;
+			}else if(cnt==keepService.IS_NOT_KEPT){
+				keptCheck=false;
+			}
+		}		
 		
 		String keepBtn="";
 		if(request.getParameter("keepBtn")!=null) {
@@ -120,19 +133,18 @@ public class MovieDetailController implements Controller{
 		//결과 저장
 		
 		//===================개인정보 관련 
-		int isKept=0;
+		//keptCheck 여기서도
 		int didStars=0;
-		float memStars=0;
+		int memStars=0;
 		
 		if(memNo>0) { //로그인 되어 있으면
 			try {
-				//찜여부조회
-				isKept=keepService.isKept(memNo, iMvNo);
-				
 				//평점여부조회
 				didStars=starsService.didStars(memNo, iMvNo);
 				if(didStars==starsDataService.YES_YOU_DID) { //영화평점 가져오기
 					memStars=starsService.getStarsByMemNo(memNo, iMvNo);
+				}else if(didStars==starsDataService.NO_YOU_DIDNT) {
+					memStars=0;
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -158,7 +170,7 @@ public class MovieDetailController implements Controller{
 		request.setAttribute("graphData", graphData);
 		
 		
-		return "movie/movieDetail.do";
+		return "/movie/movieDetail.jsp?mvNo="+iMvNo;
 	}
 
 	@Override

@@ -1,7 +1,15 @@
 @charset "EUC-KR";
 
-.bodyWrapper{
-	width: 900px;	
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap");
+
+body {
+  /* display: inline-block;
+  position: relative; */
+  font-family: "Noto Sans KR", sans-serif;
+}
+.MovieDetailWrapper{
+    margin: 110px 100px 50px 100px;
 }
 
 .stars{
@@ -55,7 +63,7 @@
 	margin-right: 5px;
 }
 
-.hrLine{
+.movieDetail-hrLine{
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
@@ -79,6 +87,16 @@
 	margin: 0;
 }
 
+
+.barWrapper{
+	text-align: center;
+	position: absolute;
+	top: 0;
+}
+
+.graphNo{
+	item-align: center;
+}
 .movieDetail-starsGraph{
   position: relative;
   margin: 40px;
