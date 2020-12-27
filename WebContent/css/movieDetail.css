@@ -32,7 +32,6 @@ body {
 
 .movieDetail-info{
 	display: flex;
-	margin: 0 40px;
 	margin-bottom: 40px;
 }
 
@@ -43,6 +42,14 @@ body {
 
 .movieDeatil-comment{
 	margin: 150px 40px 0px 40px;
+}
+
+.movieDetail-starsGraph {
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 120px;
+    height: 20vh;
+    width: 100%;
 }
 
 .movieDetail-starsGraph-header{
@@ -97,6 +104,11 @@ body {
 .graphNo{
 	item-align: center;
 }
+
+.movieDeatil-commentWrite {
+    width: 100%;
+}
+
 .movieDetail-starsGraph{
   position: relative;
   margin: 40px;

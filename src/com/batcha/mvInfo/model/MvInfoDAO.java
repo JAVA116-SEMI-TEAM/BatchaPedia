@@ -322,7 +322,7 @@ public class MvInfoDAO {
 			con=pool.getConnection();
 			
 			//3
-			String sql="select * from mvInfo where boxOffice is not null order by mvNo desc ";
+			String sql="select * from mvInfo where boxOffice is not null order by boxOffice";
 			ps=con.prepareStatement(sql);
 			
 			//4

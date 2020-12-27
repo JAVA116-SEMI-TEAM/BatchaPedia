@@ -52,4 +52,8 @@ public class starsDataService {
 	public int didStars(int memNo, int mvNo) throws SQLException {
 		return starsDao.didStars(memNo, mvNo);
 	}
+
+	public int[] makeStarGraph(List<starsDataVO> starsList) {
+		return starsDao.makeStarGraph(starsList);
+	}
 }

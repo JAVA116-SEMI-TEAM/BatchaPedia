@@ -19,10 +19,6 @@ public class MainController implements Controller{
 		List<MvInfoVO> boxOfficeList=null;
 		try {
 			boxOfficeList=mvService.selectBoxOfficeList();
-			System.out.println("박스오피스 리스트 사이즈"+boxOfficeList.size());
-			System.out.println("박스오피스 리스트 첫번째 "+boxOfficeList.get(0));
-			System.out.println("박스오피스 리스트 두번째 "+boxOfficeList.get(1));
-			System.out.println("박스오피스 첫번째 무비넘버"+boxOfficeList.get(0).getMvNo());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

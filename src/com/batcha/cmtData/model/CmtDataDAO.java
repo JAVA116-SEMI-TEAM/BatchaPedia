@@ -25,16 +25,16 @@ public class CmtDataDAO {
 		try {
 			con=pool.getConnection();
 			
-			String sql="insert into cmtData(cmtno, cmttext, mvno, memno)"
-					+ " values(cmtData_seq.nextval, ?, ?, ?)";
+			String sql="insert into cmtData(cmtno, cmttext, mvno, memno, userid)"
+					+ " values(cmtData_seq.nextval, ?, ?, ?, ?)";
 			ps=con.prepareStatement(sql);
 			
 			ps.setString(1, cmtVo.getCmtText());
 			ps.setInt(2, cmtVo.getMvNo());
 			ps.setInt(3, cmtVo.getMemNo());
+			ps.setString(4, cmtVo.getUserid());
 			
 			cnt=ps.executeUpdate();
-			
 			System.out.println("코멘트 등록 결과 cnt="+cnt+", 매개변수 cmtVo="+cmtVo);
 			return cnt;
 		}finally {
@@ -208,6 +208,73 @@ public class CmtDataDAO {
 			return list;
 			
 		}finally{
+			pool.dbClose(rs, ps, con);
+		}
+	}
+
+	public int alreadyWroteOrNot(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int result=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select count(*) as count from cmtData where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				int count=rs.getInt("count");
+				if(count>0) { //작성했다면
+					result=CmtDataService.ALREADY_WROTE;
+				}else if(count==0) { //작성하지 않았다면
+					result=CmtDataService.DIDNT_WROTE_YET;
+				}
+			}
+			System.out.println("코멘트 작성여부 조회 결과 result="+result+", 매개변수 memNo"+memNo+", mvNo="+mvNo);
+			return result;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	public CmtDataVO selectOneCmt(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		CmtDataVO cmtVo=null;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from cmtData where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println("rs.next()="+rs.next());
+				cmtVo.setCmtNo(rs.getInt("cmtNo"));
+				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
+				cmtVo.setCmtText(rs.getString("cmtText"));
+				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
+				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
+				cmtVo.setMemNo(memNo);
+				cmtVo.setMvNo(mvNo);
+				
+			}
+			System.out.println("코멘트 작성여부 조회 결과 cmtVo="+cmtVo+", 매개변수 memNo="+memNo+", mvNo="+mvNo);
+			return cmtVo;
+		}finally {
 			pool.dbClose(rs, ps, con);
 		}
 	}
