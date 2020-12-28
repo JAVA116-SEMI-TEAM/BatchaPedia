@@ -3,15 +3,16 @@
 <%@page import="com.batcha.qna.model.QnaVO"%>
 <%@page import="com.batcha.qna.model.QnaDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/qnaStyle.css?ver1.0" />
 
 <%
-	//list.jsp에서 제목 링크 클릭하면 get방식으로 이동
-	//=> http://localhost:9090/BatchaPedia/qna/detail.jsp?qnano=29
 	//1
 	String qnano=request.getParameter("qnano");
 	QnaVO vo = (QnaVO)request.getAttribute("vo");	
+	String admin=String.valueOf(session.getAttribute("adminCheck"));
 	//3
 	String content=vo.getContent();
 	if(content!=null){
@@ -20,30 +21,41 @@
 		content="";
 	}
 %>
-	<h2>Q&A 상세보기</h2>
-	<div class="divForm">
-		<div class="firstDiv">
-			<span class="sp1">제목</span> <span><%=vo.getTitle() %></span>
-		</div>
-		<div>
-			<span class="sp1">작성자</span> <span><%=vo.getAuthor() %></span>
-		</div>
-		<div>
-			<span class="sp1">등록일</span> <span><%=vo.getRegdate() %></span>
-		</div>
-		<div>
-			<span class="sp1">조회수</span> <span><%=vo.getReadCount() %></span>
-		</div>
-		<div class="lastDiv">			
-			<p class="content"><%=content %></p>
-		</div>
-		<div class="center">
-		<%if(t_userid.equals(vo.getUserid())){ %>
-			<a href='edit.do?qnano=<%=qnano%>'>수정</a> |
-			<%} %>
-        	<a href='delete.do?qnano=<%=qnano%>&userid=<%=vo.getUserid()%>'>삭제</a> |
-        	<a href='list.do'>목록</a>			
-		</div>
-	</div>
+<br><br>
+<table class="table detail">
+	<tr>
+		<th width="20%">제목</th>
+		<td><%=vo.getTitle() %></td>
+	</tr>
+	<tr>
+		<th>작성자</th>
+		<td><%=vo.getAuthor() %></td>
+	</tr>
+	<tr>
+		<th>등록일</th>
+		<td><%=vo.getRegdate() %></td>
+	</tr>
+	<tr>
+		<th>조회수</th>
+		<td><%=vo.getReadCount() %></td>
+	</tr>
+	<tr>
+		<th>내용</th>
+		<td><%=content %></td>
+	</tr>
+</table><br><br>
+
+<div class="align_center">
+	<%-- <%if(t_userid.equals(vo.getUserid())){ %> --%>
+	<%if(vo.getUserid().equals(t_userid)){ %>
+	<a href='edit.do?qnano=<%=qnano%>'>수정</a> |
+	<%} %>
+	<%if(Integer.parseInt(admin)==1){ %>
+	<a href='reply.do?qnano=<%=qnano%>'>답변</a> |
+	<%} %>
+	<a href='delete.do?qnano=<%=qnano%>&userid=<%=vo.getUserid()%>'>삭제</a>
+	| <a href='list.do'>목록</a>
+</div><br><br>
+
 
 <%@ include file="../inc/bottom.jsp"%>

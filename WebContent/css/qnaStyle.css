@@ -1,4 +1,91 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 /* Q&A */
 
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+    color: #343a40;
+}
+a {
+    text-decoration: none;
+    color: #343a40;
+}
+
+a:hover {
+    color: #FF2F6E;
+    text-decoration: none;
+}
+
+input[type="submit"], input[type="Button"] {
+    background: #FCFCFC;
+    border: 0.5px solid gray;
+    width: 60px;
+    height: 35px;
+}
+
+input[type="text"] {
+    width: 300px;
+    height: 35px;
+}
+
+select {
+    width: 100px;
+    height: 35px;
+}
+
+.align_center{
+	text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+button.btn {
+    float: right;
+}
+
+.pink{
+	color: #FF2F6E;
+}
+
+/* write */
+
+input#title {
+    width: 500px;
+}
+
+textarea#content {
+    width: 500px;
+}
+
+/* delete */
+	.divForm{
+		width:100%;
+		border:1px solid #ddd;		
+	}
+	
+	.divForm div	{
+		/* clear: both; */
+		border:none;
+		padding: 7px 0;
+		margin: 0;
+		overflow: auto;
+	}	
+	.sp{
+		font-size:0.9em;
+		color:#0056AC;			
+	}
+	.divForm fieldset	{
+		border:0;
+	}
+	
+/* detail */
+.detail th{
+	text-align: center;
+}
+
+.detail tr {
+    border-bottom: 1px solid #dee2e6;
+}

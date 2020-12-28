@@ -29,10 +29,11 @@ public class MovieDetailController implements Controller{
 
 		HttpSession session = request.getSession();
 		int memNo=0;
-		if(session.getAttribute("memno")!=null) {
-			String t_memno=String.valueOf(session.getAttribute("memno"));
-			memNo=Integer.parseInt(t_memno);
-		}
+		/*
+		 * if(session.getAttribute("memno")!=null) { String
+		 * t_memno=String.valueOf(session.getAttribute("memno"));
+		 * memNo=Integer.parseInt(t_memno); }
+		 */
 		
 		MvInfoService mvService=new MvInfoService();
 		starsDataService starsService=new starsDataService();

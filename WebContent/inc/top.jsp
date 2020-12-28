@@ -6,7 +6,7 @@
    boolean t_isLogin=false;
    String t_userid=(String)session.getAttribute("userid");
    String t_userName=(String)session.getAttribute("userName");
-   String t_memno=String.valueOf(session.getAttribute("memno"));
+   String t_memnumber=String.valueOf(session.getAttribute("memberno"));
    String t_pwd=(String)session.getAttribute("pwd");
    String t_admincheck=String.valueOf(session.getAttribute("adminCheck"));
    if(t_userid!=null && !t_userid.isEmpty()){
@@ -19,12 +19,13 @@
 <meta charset="UTF-8">
 <title>BatchaPedia</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/formLayout.css"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css?ver4.1"/>
+
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/formLayout.css?ver3.0"/> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>

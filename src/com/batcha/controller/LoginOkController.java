@@ -21,6 +21,8 @@ public class LoginOkController implements Controller {
 		String pwd=request.getParameter("pwd");
 		String chkSave=request.getParameter("chkSave");
 		
+		System.out.println("체크세이버"+chkSave);
+		
 		//2
 		MemInfoService service=new MemInfoService();
 		String msg="로그인 처리 실패", url="/login/login.do";
@@ -31,7 +33,7 @@ public class LoginOkController implements Controller {
 			    session.setAttribute("userid", userid);
 		        MemInfoVO vo=service.selectMember(userid);
 		        session.setAttribute("userName", vo.getName());
-		        session.setAttribute("memno", vo.getMemNo());
+		        session.setAttribute("memberno", vo.getMemNo());
 		        session.setAttribute("pwd", vo.getPwd());
 		        session.setAttribute("adminCheck", vo.getAdminCheck());
 				

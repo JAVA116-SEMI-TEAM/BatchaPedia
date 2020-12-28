@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/regStyle.css?ver3.0"/>
 <script type="text/javascript" src="../js/member.js"></script>
 
 <script type="text/javascript">
@@ -42,9 +43,9 @@
 	
 </script>
 
-<article class="regForm">
+<article class="regForm-content">
 <div>
-<form name="frm1" method="post" action="register_ok.jsp">
+<form name="frm1" method="post" action="register_ok.do">
 <fieldset>
     <div>        
         <label for="name">이름</label><br>

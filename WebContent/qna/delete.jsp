@@ -1,30 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/qnaStyle.css?ver1.0"/>
 
-<style type="text/css">
-	.divForm{
-		width:650px;
-		border:1px solid #ddd;		
-	}
-	/* .divForm form{
-		width:650px;
-	} */
-	.divForm div	{
-		/* clear: both; */
-		border:none;
-		padding: 7px 0;
-		margin: 0;
-		overflow: auto;
-	}	
-	.sp{
-		font-size:0.9em;
-		color:#0056AC;			
-	}
-	.divForm fieldset	{
-		border:0;
-	}
-</style>
 
 <script type="text/javascript">
 	$(function(){
@@ -40,32 +18,6 @@
 	});	
 </script>
 
-<%-- <%
-	//String no=request.getParameter("no");
-	
-%>
-<div class="divForm">
-<form name="frmDelete" method="post" 
-	action="<c:url value='/board/delete_ok.do'/>" >
-		<input type="hidden" name="no" value="${param.no}">
-		
-		<fieldset>
-		<legend>글 삭제</legend>
-	        <div>           
-	        	<span class="sp">${param.no}번 글을 삭제하시겠습니까?</span>                        
-	        </div>
-	        <div>           
-	            <label for="pwd">비밀번호</label>
-	            <input type="password" id="pwd" name="pwd" />   
-	        </div>
-	        <div class="center">
-	            <input type ="submit"  value="삭제" />
-	            <input type = "Button" value="글목록" 
-           OnClick="location.href='<c:url value="/board/list.do"/>'" />
-	        </div>
-	    </fieldset>
-    </form>
-</div> --%>
 
 <%
 	//detail.jsp에서 [삭제]링크 클릭하면 get방식으로 이동
@@ -82,7 +34,16 @@
 		<input type="hidden" name="qnano" value="<%=qnano%>">
 		
 		<fieldset>
-		<legend>글 삭제</legend>
+		<div>           
+	            <label for="pwd" style="visibility: hidden">db비밀번호</label>
+	            <input type="text" id="dbPwd" name="dbPwd" 
+	            	value=<%=t_pwd %> style="visibility: hidden"/>   
+	        </div>
+	        <div>           
+	            <label for="pwd" style="visibility: hidden">db아이디</label>
+	            <input type="text" id="dbId" name="dbId" 
+	            	value=<%=t_userid %> style="visibility: hidden"/>   
+	        </div>
 	        <div>           
 	        	<span class="sp"><%=qnano %>번 글을 삭제하시겠습니까?</span>                        
 	        </div>
@@ -94,34 +55,25 @@
 		        </div>
 	        <%} else{%>
 	        <div>           
-	            <label for="pwd">비밀번호</label>
-	            <input type="text" id="pwd" name="pwd" />   
+	            <label for="pwd">비밀번호 </label>
+	            <input type="password" id="pwd" name="pwd" />   
 	        </div>
 	        <%} %>
-	        <div>           
-	            <label for="pwd" style="visibility: hidden">db비밀번호</label>
-	            <input type="text" id="dbPwd" name="dbPwd" 
-	            	value=<%=t_pwd %> style="visibility: hidden"/>   
-	        </div>
-	        <div>           
-	            <label for="pwd" style="visibility: hidden">db아이디</label>
-	            <input type="text" id="dbId" name="dbId" 
-	            	value=<%=t_userid %> style="visibility: hidden"/>   
-	        </div>
+	        
 	        <div>           
 	            <label for="pwd" style="visibility: hidden">글 작성자</label>
 	            <input type="text" id="userid" name="userid" 
 	            	value=<%=userid %> style="visibility: hidden"/>   
 	        </div>
+	        <div class="center">
+	            <input type ="submit"  value="삭제" />
+	            <input type = "Button" value="목록" 
+                	OnClick="location.href='list.do'" />
+	        </div>
 	        <div>           
 	            <label for="pwd" style="visibility: hidden">관리자 여부</label>
 	            <input type="text" id="admincheck" name="admincheck" 
 	            	value=<%=t_admincheck %> style="visibility: hidden"/>   
-	        </div>
-	        <div class="center">
-	            <input type ="submit"  value="삭제" />
-	            <input type = "Button" value="글목록" 
-                	OnClick="location.href='list.do'" />
 	        </div>
 	    </fieldset>
     </form>

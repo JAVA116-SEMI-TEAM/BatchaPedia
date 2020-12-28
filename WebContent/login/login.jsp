@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/loginStyle.css?ver1.0"/>
 
 <script type="text/javascript">
 $(function(){
@@ -49,7 +50,7 @@ $(function(){
 			</div><br>
 			<div>
 				<input type="submit" id="lg_submit" class="loginInput pinkB" value="로그인"><br><br>
-				<input type="checkbox" id="chkSave" class="form-check-input"
+				<input type="checkbox" id="chkSave" class="form-check-input" name="chkSave"
 					<%if(ckValue!=null && !ckValue.isEmpty()){ %>
 						checked="checked";
 					<%} %>

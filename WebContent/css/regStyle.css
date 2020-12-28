@@ -1,0 +1,77 @@
+*{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+
+article.regForm {
+   width: 50%;
+}
+
+.regForm-content{
+   width: 620px;
+   margin: 0 auto 150px;
+}
+
+input.regInput {
+    width: 400px;
+    height: 40px;
+}
+
+input#userid {
+    width: 295px;
+    height: 40px;
+}
+
+input#btnChkId{
+    height: 40px;
+    width: 100px;
+    background: #FCFCFC;
+    border: 0.5px solid gray;
+}
+
+select#hp1 {
+    background: #FCFCFC;
+    border: 0.5px solid gray;
+    height: 40px;
+    width: 110px;
+}
+
+input#hp2 {
+    height: 40px;
+    width: 130px;
+}
+
+input#hp3 {
+    height: 40px;
+    width: 130px;
+}
+
+input#email1 {
+    height: 40px;
+    width: 217px;
+}
+
+select#email2 {
+    height: 40px;
+    width: 160px;
+}
+
+input#wr_submit {background: #ff2f6e;border: 0.5px solid;width: 400px;height: 50px;    border-radius: 16px; color: #fff;}
+
+input#email1 {}
+
+input#email3 {
+    height: 40px;
+    width: 200px;
+}
+
+/* checkId */
+.checkId2{
+   width: 100px;
+    height: 40px;
+    background: #FCFCFC;
+    border: 0.5px solid gray;
+}
+
+p.pink {
+    color: #ff2f6e;
+}

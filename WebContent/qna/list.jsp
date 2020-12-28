@@ -1,3 +1,4 @@
+<%@page import="com.batcha.common.Utility"%>
 <%@page import="com.batcha.qna.model.QnaService"%>
 <%@page import="com.batcha.common.PagingVO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -10,7 +11,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/qnaStyle.css"/>
 <%
 	//뷰 페이지
 	List<QnaVO> list = (List<QnaVO>)request.getAttribute("list");
@@ -31,14 +33,13 @@ $(function(){
 	});
 });
 
-/* function pageFunc(curPage){
-	$('input[name=currentPage]').val(curPage);
-	$('form[name=frmPage]').submit();
-} */
 </script>
 
 
 <h2>Q&A</h2>
+<button type="button" class="btn">
+    <a href='<%=request.getContextPath() %>/qna/write.do' class="pink">글쓰기</a>
+</button><br>
 <%
 	if(keyword !=null && !keyword.isEmpty()){ %>
 		<p>검색어 : <%=keyword %>, <%=list.size() %>건 검색되었습니다.</p>
@@ -81,12 +82,21 @@ $(function(){
 				QnaVO vo=list.get(curPos++);
 				num--;
 			%>
-				<tr  style="text-align:center">
+				<tr>
 					<td><%=vo.getQnaNo() %></td>
 					<td style="text-align:left">
+					<%if(vo.getDelFlag().equals("Y")){ %>
+							<!-- 삭제된 글인 경우 -->
+							<span style="color:gray">삭제된 글입니다.</span>
+					<%}else{ %>
+					<%=Utility.displayRe(vo.getStep()) %>
+					<%if(vo.getStep()>0){ %>
+						<i class="material-icons" style="color: #ff2f6e">subdirectory_arrow_right</i>
+					<%} %>
 					<a href
 ="<%=request.getContextPath() %>/qna/countUpdate.do?qnano=<%=vo.getQnaNo() %>">
 						<%=vo.getTitle() %></a></td>
+					<%}//if %>	
 					<td><%=vo.getAuthor() %></td>
 					<td><%=sdf.format(vo.getRegdate()) %></td>
 					<td><%=vo.getReadCount() %></td>		
@@ -96,38 +106,46 @@ $(function(){
 	  <!--반복처리 끝  -->
 	  </tbody>
 </table>	   
-</div>
-<div class="divPage">
+</div><br><br>
+<div>
 	<!-- 페이지 번호 추가 -->		
 	<!-- 이전 블럭으로 이동 -->
+	<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
 	<%if(pageVo.getFirstPage()>1){ %>
-		<a href="<%=request.getContextPath() %>/qna/list.do?currentPage=<%=pageVo.getFirstPage()-1%>&searchCondition=<%=condition%>&searchKeyword=<%=keyword%>">
-			<img src="../images/first.JPG" alt="이전블럭으로 이동">
-		</a>
+    <li class="page-item"> 
+		<a class="page-link" aria-label="Previous" href="<%=request.getContextPath() %>/qna/list.do?currentPage=<%=pageVo.getFirstPage()-1%>&searchCondition=<%=condition%>&searchKeyword=<%=keyword%>">
+			<span aria-hidden="true">&laquo;</span>
+		</a></li>
 	<%}//if %>
 						
-	<!-- [1][2][3][4][5][6][7][8][9][10] -->
 	<%
 		for(int i=pageVo.getFirstPage();i<=pageVo.getLastPage();i++){
 			if(i>pageVo.getTotalPage()) break; 
 			
 			if(i==pageVo.getCurrentPage()){	%>
-				<span style="color:blue;font-weight: bold">
+			<li class="page-item">
+				<span style="color:#FF2F6E;font-weight: bold" class="page-link">
 					<%=i %></span>
+					</li>
 			<%}else{ %>
-				<a href
+			<li class="page-item">
+				<a class="page-link" style="color: #343a40" href 
 ="<%=request.getContextPath() %>/qna/list.do?currentPage=<%=i%>&searchCondition=<%=condition%>&searchKeyword=<%=keyword%>">
-					[<%=i %>]</a>
+					<%=i %></a></li>
 			<%}//if %>
 	<%	}//for	%>
 	
 	<!-- 다음 블럭으로 이동 -->
 	<%if(pageVo.getLastPage() < pageVo.getTotalPage()){ %>
-		<a href="<%=request.getContextPath() %>/qna/list.do?currentPage=<%=pageVo.getLastPage()+1%>&searchCondition=<%=condition%>&searchKeyword=<%=keyword%>">
-			<img src="../images/last.JPG" alt="다음 블럭으로 이동">
+	<li class="page-item">
+		<a class="page-link" aria-label="Next" href="<%=request.getContextPath() %>/qna/list.do?currentPage=<%=pageVo.getLastPage()+1%>&searchCondition=<%=condition%>&searchKeyword=<%=keyword%>">
+			<span aria-hidden="true">&raquo;</span>
 		</a>
 	<%}//if %>
-	
+	    </li>
+  </ul>
+</nav>
 	<!--  페이지 번호 끝 -->
 </div>
 <div class="divSearch">
@@ -156,8 +174,6 @@ $(function(){
     </form>
 </div>
 
-<div class="divBtn">
-    <a href='<%=request.getContextPath() %>/qna/write.do' >글쓰기</a>
-</div>
+
 
 <%@ include file="../inc/bottom.jsp"%>
