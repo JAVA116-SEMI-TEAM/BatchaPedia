@@ -21,7 +21,6 @@ public class MemInfoDAO {
 		ResultSet rs=null;
 		int result=0;
 		
-		
 		try {
 			con=pool.getConnection();
 			
@@ -95,6 +94,33 @@ public class MemInfoDAO {
 			pool.dbClose(rs, ps, con);
 		}
 	}//
+
+	public String selectMembyCmt(int cmtMemNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		String memId="";
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select m.id as userid from memInfo m join cmtData c" + 
+					" on m.memno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, cmtMemNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				memId=rs.getString("userid");
+			}
+			
+			return memId;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
 	
 	public int checkDup(String userid) throws SQLException {
 		Connection con=null;

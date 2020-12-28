@@ -4,9 +4,9 @@
 /* 로그인 */
 
 article.loginForm{
-	height: 400px;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 200px;
+   height: 400px;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 200px;
 
 article.loginForm {
   height: 400px;
@@ -44,10 +44,10 @@ a:hover {
 
 /* 회원가입 */
 article.regForm{
-	height: 900px;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 150px;
-	margin-left: 30%;
+   height: 900px;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 150px;
+   margin-left: 30%;
 }
 
 input.regInput {
@@ -86,10 +86,9 @@ input#btnChkId {
     width: 100px;
 }
 
-
 .whiteB{
-	background: #FCFCFC;
-	border: 0.5px solid gray;
+   background: #FCFCFC;
+   border: 0.5px solid gray;
 }
 
 .regSubmit{

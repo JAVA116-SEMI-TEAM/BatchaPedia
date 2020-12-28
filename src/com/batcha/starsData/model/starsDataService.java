@@ -30,9 +30,8 @@ public class starsDataService {
 	
 	//셀렉트인데.. 평점 한개만 가져오는 것
 	//이 메소드 결과값이 0이면 결국 평점을 입력하지 않았다는 뜻인데
-	public float getStarsByMemNo(int memNo, int mvNo) throws SQLException {//평점을 부여한 경우 몇점인지 찾기
+	public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//평점을 부여한 경우 몇점인지 찾기
 		return starsDao.getStarsByMemNo(memNo, mvNo);
-	
 	}
 	
 	//평점 입력하기
@@ -52,5 +51,9 @@ public class starsDataService {
 	//특정 회원의 영화별 평점 부여했는지 여부 조회 평점조회에서 확인가능할거같은데 있어야 하나 없애야 하나 고민
 	public int didStars(int memNo, int mvNo) throws SQLException {
 		return starsDao.didStars(memNo, mvNo);
+	}
+
+	public int[] makeStarGraph(List<starsDataVO> starsList) {
+		return starsDao.makeStarGraph(starsList);
 	}
 }

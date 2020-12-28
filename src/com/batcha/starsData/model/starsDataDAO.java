@@ -72,7 +72,7 @@ public class starsDataDAO {
 				starsVo.setMemNo(rs.getInt("memNo"));
 				starsVo.setMvNo(rs.getInt("mvNo"));
 				starsVo.setStarsNo(rs.getInt("starsNo"));
-				starsVo.setStars(rs.getFloat("stars"));
+				starsVo.setStars(rs.getInt("stars"));
 				
 				list.add(starsVo);
 			}
@@ -86,11 +86,11 @@ public class starsDataDAO {
 	
 	//셀렉트인데.. 평점 한개만 가져오는 것
 	//이 메소드 결과값이 0이면 결국 평점을 입력하지 않았다는 뜻인데
-	public float getStarsByMemNo(int memNo, int mvNo) throws SQLException {//평점을 부여한 경우 몇점인지 찾기
+	public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//평점을 부여한 경우 몇점인지 찾기
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		float memStars=0;
+		int memStars=0;
 		
 		try {
 			con=pool.getConnection();
@@ -104,7 +104,7 @@ public class starsDataDAO {
 			rs=ps.executeQuery();
 					
 			if(rs.next()) {
-				memStars=rs.getFloat("stars");
+				memStars=rs.getInt("stars");
 			}
 			System.out.println("특정 회원의 특정 영화에 매긴 평점 조회 결과 memStars="+memStars
 							+", 매개변수 memNo="+memNo+", mvNo="+mvNo);
@@ -130,7 +130,7 @@ public class starsDataDAO {
 			
 			ps.setInt(1, starsVo.getMemNo());
 			ps.setInt(2, starsVo.getMvNo());
-			ps.setFloat(3, starsVo.getStars());
+			ps.setInt(3, starsVo.getStars());
 			
 			cnt=ps.executeUpdate();
 			
@@ -179,7 +179,7 @@ public class starsDataDAO {
 			
 			ps=con.prepareStatement(sql);
 			
-			ps.setFloat(1, starsVo.getStars());
+			ps.setInt(1, starsVo.getStars());
 			ps.setInt(2, starsVo.getMemNo());
 			ps.setInt(3, starsVo.getMvNo());
 			
@@ -225,5 +225,47 @@ public class starsDataDAO {
 			pool.dbClose(rs, ps, con);
 		}
 		
+	}
+
+	public int[] makeStarGraph(List<starsDataVO> starsList) {
+		int[] graphData = {0,0,0,0,0,0,0,0,0,0};
+		
+		for(int i=0; i<starsList.size(); i++) { //평점리스트의 n번째가 평점 몇점인지 가져와서 데이터배열에 입력
+			int star=starsList.get(i).getStars();
+			System.out.println("star="+star);
+			if(star==1) {
+				graphData[0]++;
+				System.out.println("graphData[0]"+graphData[0]);
+			}else if(star==2) {
+				graphData[1]++;
+				System.out.println("graphData[1]"+graphData[1]);
+			}else if(star==3) {
+				graphData[2]++;
+				System.out.println("graphData[2]"+graphData[2]);
+			}else if(star==4) {
+				graphData[3]++;
+				System.out.println("graphData[3]"+graphData[3]);
+			}else if(star==5) {
+				graphData[4]++;
+				System.out.println("graphData[4]"+graphData[4]);
+			}else if(star==6) {
+				graphData[5]++;
+				System.out.println("graphData[5]"+graphData[5]);
+			}else if(star==7) {
+				graphData[6]++;
+				System.out.println("graphData[6]"+graphData[6]);
+			}else if(star==8) {
+				graphData[7]++;
+				System.out.println("graphData[7]"+graphData[7]);
+			}else if(star==9) {
+				graphData[8]++;
+				System.out.println("graphData[8]"+graphData[8]);
+			}else if(star==10) {
+				graphData[9]++;
+				System.out.println("graphData[9]"+graphData[9]);
+			}
+		}
+		
+		return graphData;
 	}
 }

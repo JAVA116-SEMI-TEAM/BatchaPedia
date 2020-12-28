@@ -9,6 +9,10 @@ import java.util.List;
 public class CmtDataService {
 	CmtDataDAO cmtDao;
 	
+	//코멘트 작성여부 확인
+	public final static int DIDNT_WROTE_YET=0;
+	public final static int ALREADY_WROTE=1;
+	
 	public CmtDataService() {
 		cmtDao = new CmtDataDAO();
 	}
@@ -44,5 +48,12 @@ public class CmtDataService {
 	public List<CmtDataVO> selectAllCmt() throws SQLException{
 		return cmtDao.selectAllCmt();
 	}
+
+	public int alreadyWroteOrNot(int memNo, int mvNo) throws SQLException {
+		return cmtDao.alreadyWroteOrNot(memNo, mvNo);
+	}
 	
+	public CmtDataVO selectOneCmt(int memNo, int mvNo) throws SQLException {
+		return cmtDao.selectOneCmt(memNo, mvNo);
+	}
 }

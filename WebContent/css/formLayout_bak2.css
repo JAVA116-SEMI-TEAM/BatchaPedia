@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+article.loginForm {
+  height: 400px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin-top: 200px;
+}
+
+.loginInput {
+  width: 500px;
+  height: 50px;
+}
+
+.pinkB {
+  background: #ff2f6e;
+  border: 0.5px solid;
+}
+
+.center {
+  text-align: center;
+}
+
+.gray {
+  color: gray;
+}
+
+.pink {
+  color: #ff2f6e;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ff2f6e;
+  text-decoration: none;
+}
+
+.label {
+}

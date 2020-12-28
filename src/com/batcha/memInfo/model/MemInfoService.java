@@ -34,6 +34,10 @@ public class MemInfoService {
 	public MemInfoVO selectMember(String userid) throws SQLException{
 		return memInfoDao.selectMember(userid);
 	}
+
+	public String selectMemByCmt(int cmtMemNo) throws SQLException {
+		return memInfoDao.selectMembyCmt(cmtMemNo);
+
 	
 	public int checkDup(String userid) throws SQLException{
 		return memInfoDao.checkDup(userid);

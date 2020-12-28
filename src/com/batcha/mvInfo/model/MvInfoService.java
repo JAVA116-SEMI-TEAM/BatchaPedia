@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MvInfoService {
-	MvInfoDAO mvDao;
+	private MvInfoDAO mvDao;
 	
 	public MvInfoService() {
 		mvDao=new MvInfoDAO();
@@ -33,6 +33,10 @@ public class MvInfoService {
 	//영화 삭제  - delete
 	public int deleteMv(int mvNo) throws SQLException {
 		return mvDao.deleteMv(mvNo);
+	}
+	//박스오피스 가져오기
+	public List<MvInfoVO> selectBoxOfficeList() throws SQLException {
+		return mvDao.selectBoxOfficeList();
 	}
 	
 	public List<MvInfoVO> selectBoxOfficeList() throws SQLException{
