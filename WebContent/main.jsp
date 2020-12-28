@@ -1,77 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="inc/top.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<section class="movieInfo boxOffice-Wrapper" style="margin: 100px;">
-	<h3>박스오피스 Top 5</h3>
-	<div class="movieInfo-boxOffice" 
-		style="display:flex; justify-content: space-between;">
-		<div class="movieInfo-boxOffice__first" style="padding-right: 20px;">
-			<c:set var="boxOfficeFirst" value="${boxOfficeList[0]}"/>
-			<a href="<c:url value='/movie/movieDetail.do?mvNo=${boxOfficeFirst.mvNo}'/>"
-				style="text-decoration: none">
-				<img src="${boxOfficeFirst.thumbnail}" alt="moviePoster"
-					style="width: 100%">
-				<div class="info" >
-				<div>${boxOfficeFirst.mvTitle}</div>
-				<div>${boxOfficeFirst.nation}</div>
-				<div>${boxOfficeFirst.makeYear}</div>
-				</div>
-			</a>
-		</div>
-		<div class="movieInfo-boxOffice__second" style="padding-right: 20px;">
-			<c:set var="boxOfficeSecond" value="${boxOfficeList[1]}"/>
-			<a href="<c:url value='/movie/movieDetail.do?mvNo=${boxOfficeSecond.mvNo}'/>"
-				style="text-decoration: none">
-				<img src="${boxOfficeSecond.thumbnail}" alt="moviePoster"
-					style="width: 100%">
-				<div class="info" >
-				<div>${boxOfficeSecond.mvTitle}</div>
-				<div>${boxOfficeSecond.nation}</div>
-				<div>${boxOfficeSecond.makeYear}</div>
-				</div>
-			</a>
-		</div>
-		<div class="movieInfo-boxOffice__third" style="padding-right: 20px;">
-			<c:set var="boxOfficeThird" value="${boxOfficeList[2]}"/>
-			<a href="<c:url value='/movie/movieDetail.do?mvNo=${boxOfficeThird.mvNo}'/>"
-				style="text-decoration: none">
-				<img src="${boxOfficeThird.thumbnail } alt="moviePoster"
-					style="width: 100%">
-				<div class="info" >
-				<div>${boxOfficeThird.mvTitle}</div>
-				<div>${boxOfficeThird.nation}</div>
-				<div>${boxOfficeThird.makeYear}</div>
-				</div>
-			</a>
-		</div>
-		<div class="movieInfo-boxOffice__fourth" style="padding-right: 20px;">
-			<c:set var="boxOfficeFourth" value="${boxOfficeList[3]}"/>
-			<a href="<c:url value='/movie/movieDetail.do?mvNo=${boxOfficeFourth.mvNo}'/>"
-				style="text-decoration: none; padding-right:10px;">
-				<img src="${boxOfficeFourth.thumbnail }" alt="moviePoster"
-					style="width: 100%">
-				<div class="info" >
-				<div>${boxOfficeFourth.mvTitle}</div>
-				<div>${boxOfficeFourth.nation}</div>
-				<div>${boxOfficeFourth.makeYear}</div>
-				</div>
-			</a>
-		</div>
-		<div class="movieInfo-boxOffice__first" style="padding-right: 10px;">
-			<c:set var="boxOfficeFifth" value="${boxOfficeList[4]}"/>
-			<a href="<c:url value='/movie/movieDetail.do?mvNo=${boxOfficeFifth.mvNo}'/>"
-				style="text-decoration: none">
-				<img src="${boxOfficeFifth.thumbnail }" alt="moviePoster"
-					style="width: 100%">
+	pageEncoding="UTF-8"%>
+<%@ include file="inc/top.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<div class="main">
+<h4 class="mainTitle">박스오피스 Top 5</h4>
+<div class="mainMovie">
+	<c:forEach var="i" begin="0" end="4">
+		<div class="boxOffice mv">
+			<c:set var="boxOffice" value="${boxOfficeList[i]}" />
+			<a
+				href="<c:url value='/movie/movieDetail.do?mvNo=${boxOffice.mvNo}'/>">
+				<img src="${boxOffice.thumbnail }" alt="moviePoster">
 				<div class="info">
-				<div>${boxOfficeFifth.mvTitle}</div>
-				<div>${boxOfficeFifth.nation}</div>
-				<div>${boxOfficeFifth.makeYear}</div>
+					<div class="mvtitle">${boxOffice.mvTitle}</div>
+					<span class="mvinfo">${boxOffice.makeYear} · </span> 
+					<span class="mvinfo">${boxOffice.nation}</span>
+					<div class="mvinfo">${boxOffice.genre }</div>
 				</div>
 			</a>
 		</div>
-	</div>
-</section>
+	</c:forEach>
+</div>
+<br><br>
+<h4 class="mainTitle">흥미진진, #범죄 #스릴러</h4>
+<div class="mainMovie">
+	<c:forEach var="i" begin="0" end="4">
+		<div class="thrillMovies mv">
+			<c:set var="thrillMovie" value="${ThrillMovieList[i]}" />
+			<a
+				href="<c:url value='/movie/movieDetail.do?mvNo=${thrillMovie.mvNo}'/>">
+				<img src="${thrillMovie.thumbnail }" alt="moviePoster">
+				<div class="info">
+					<div class="mvtitle">${thrillMovie.mvTitle}</div>
+					<span class="mvinfo">${thrillMovie.makeYear} · </span> 
+					<span class="mvinfo">${thrillMovie.nation}</span>
+					<div class="mvinfo">${thrillMovie.genre }</div>
+				</div>
+			</a>
+		</div>
+	</c:forEach>
+</div>
+<br><br>
+<h4 class="mainTitle">그 시절 그 영화, #20세기 명작</h4>
+<div class="mainMovie">
+	<c:forEach var="i" begin="0" end="4">
+		<div class="movie20th mv">
+			<c:set var="movie20th" value="${movie20thList[i]}" />
+			<a
+				href="<c:url value='/movie/movieDetail.do?mvNo=${movie20th.mvNo}'/>">
+				<img src="${movie20th.thumbnail }" alt="moviePoster">
+				<div class="info">
+					<div class="mvtitle">${movie20th.mvTitle}</div>
+					<span class="mvinfo">${movie20th.makeYear} · </span> 
+					<span class="mvinfo">${movie20th.nation}</span>
+					<div class="mvinfo">${movie20th.genre }</div>
+				</div>
+			</a>
+		</div>
+	</c:forEach>
+</div>
+<br><br>
+<h4 class="mainTitle">한국 영화 매니아를 위한!</h4>
+<div class="mainMovie">
+	<c:forEach var="i" begin="0" end="4">
+		<div class="korMovie mv">
+			<c:set var="korMovie" value="${korMovieList[i]}" />
+			<a
+				href="<c:url value='/movie/movieDetail.do?mvNo=${korMovie.mvNo}'/>">
+				<img src="${korMovie.thumbnail }" alt="moviePoster">
+				<div class="info">
+					<div class="mvtitle">${korMovie.mvTitle}</div>
+					<span class="mvinfo">${korMovie.makeYear} · </span> 
+					<span class="mvinfo">${korMovie.nation}</span>
+					<div class="mvinfo">${korMovie.genre }</div>
+				</div>
+			</a>
+		</div>
+	</c:forEach>
+</div>
 
-<%@ include file="inc/bottom.jsp" %>
+<br><br>
+<h4 class="mainTitle">시간 순삭! 킬링타임 영화</h4>
+<div class="mainMovie">
+	<c:forEach var="i" begin="0" end="4">
+		<div class="comedyMovie mv">
+			<c:set var="comedyMovie" value="${comedyMovieList[i]}" />
+			<a
+				href="<c:url value='/movie/movieDetail.do?mvNo=${comedyMovie.mvNo}'/>">
+				<img src="${comedyMovie.thumbnail }" alt="moviePoster">
+				<div class="info">
+					<div class="mvtitle">${comedyMovie.mvTitle}</div>
+					<span class="mvinfo">${comedyMovie.makeYear} · </span> 
+					<span class="mvinfo">${comedyMovie.nation}</span>
+					<div class="mvinfo">${comedyMovie.genre }</div>
+				</div>
+			</a>
+		</div>
+	</c:forEach>
+</div>
+
+
+</div>
+<%@ include file="inc/bottom.jsp"%>

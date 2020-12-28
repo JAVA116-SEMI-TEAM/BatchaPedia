@@ -28,7 +28,6 @@ public class MovieDetailController implements Controller{
 	
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-
 		// ============== Parameter, service Setting
 		MvInfoService mvService=new MvInfoService();
 		starsDataService starsService=new starsDataService();

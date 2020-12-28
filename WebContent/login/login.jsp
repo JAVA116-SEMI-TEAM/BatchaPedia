@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/loginStyle.css?ver1.0"/>
 
 <script type="text/javascript">
 $(function(){
@@ -37,7 +38,7 @@ $(function(){
 	}
 %>
 <article class="loginForm">
-	<form name="frmLogin" method="post"	action="login_ok.jsp" class="center">
+	<form name="frmLogin" method="post"	action="login_ok.do" class="center">
 		<fieldset>
 			<div>
 				<input type="text" placeholder=" 아이디" name="userid" id="userid" 
@@ -49,13 +50,13 @@ $(function(){
 			</div><br>
 			<div>
 				<input type="submit" id="lg_submit" class="loginInput pinkB" value="로그인"><br><br>
-				<input type="checkbox" id="chkSave" class="form-check-input"
+				<input type="checkbox" id="chkSave" class="form-check-input" name="chkSave"
 					<%if(ckValue!=null && !ckValue.isEmpty()){ %>
 						checked="checked";
 					<%} %>
 				>
 				<label for="chkSave">아이디 저장하기</label><br><br>
-				<p class="gray">계정이 없으신가요? <a href="#" class="pink">회원가입</a>
+				<p class="gray">계정이 없으신가요? <a href="<%=request.getContextPath()%>/member/register.do" class="pink">회원가입</a>
 			</div>
 		</fieldset>
 	</form>

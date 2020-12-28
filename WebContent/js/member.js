@@ -17,10 +17,6 @@ $(function(){
 	"width=400,height=300,left=0,top=0,location=yes,resizable=yes");
 		});
 		
-		$('#btnZipcode').click(function(){
-			open("../zipcode/zipcode.jsp", "chk",
-	"width=500,height=500,left=0,top=0,location=yes,resizable=yes");
-		});
 });
 
 function validate_userid(id){

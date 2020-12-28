@@ -144,49 +144,6 @@ public class MvInfoDAO {
 		}
 	}
 	
-	//영화 수정 - update
-	public int updateMv(MvInfoVO mVo) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		
-		try {
-			//1,2
-			con=pool.getConnection();
-			
-			//3
-			String sql="update mvInfo " + 
-					" set mvTitle=?,genre=?,director=?, " + 
-					"    actors=?,story=?,thumbnail=?,nation=?, " + 
-					"    makeyear=?,boxoffice=?,startdate=?,enddate=?, " + 
-					"    mvTitleEn=?,mvCode=?" + 
-					" where mvNo=?";
-			
-			ps=con.prepareStatement(sql);
-			ps.setString(1, mVo.getMvTitle());
-			ps.setString(2, mVo.getGenre());
-			ps.setString(3, mVo.getDirector());
-			ps.setString(4, mVo.getActors());
-			ps.setString(5, mVo.getStory());
-			ps.setString(6, mVo.getThumbnail());
-			ps.setString(7, mVo.getNation());
-			ps.setString(8, mVo.getMakeYear());
-			ps.setInt(9, mVo.getBoxOffice());
-			ps.setTimestamp(10, mVo.getStartdate());
-			ps.setTimestamp(11, mVo.getEnddate());
-			ps.setString(12, mVo.getMvTitleEn());
-			ps.setString(13, mVo.getMvCode());
-			ps.setInt(14, mVo.getMvNo());
-			
-			//4
-			int cnt=ps.executeUpdate();
-			System.out.println("영화 수정 결과, cnt="+cnt+", 매개변수 mVo="+mVo);
-			
-			return cnt;
-		}finally {
-			pool.dbClose(ps, con);
-		}
-	}
-	
 	//영화 삭제 - delete
 	public int deleteMv(int mvNo) throws SQLException {
 		Connection con=null;
@@ -356,17 +313,186 @@ public class MvInfoDAO {
 			pool.dbClose(rs, ps, con);
 		}
 	}
+	   
+	   //한국영화
+	   public List<MvInfoVO> selectKorMovie() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where nation='한국' and ROWNUM<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("박스오피스 영화 조회 결과, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
+	   
+	   //20세기 영화
+	   public List<MvInfoVO> select20th() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where makeYear<='2000' and rownum<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("박스오피스 영화 조회 결과, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
+	   //코미디
+	   public List<MvInfoVO> selectComedy() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where genre='코미디' and rownum<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("박스오피스 영화 조회 결과, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
+	   //스릴러,범죄
+	   public List<MvInfoVO> selectThrill() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where (genre='스릴러' or genre='범죄') and rownum<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("박스오피스 영화 조회 결과, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -23,7 +23,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css?ver3.0"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css?ver4.1"/>
 
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/formLayout.css?ver3.0"/> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>

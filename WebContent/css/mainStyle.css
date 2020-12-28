@@ -68,22 +68,41 @@ hr{
    margin-top: 110px;
    margin-left: 100px;
    margin-right: 70px;
-   margin-bottom: 50px;
+   margin-bottom: 100px;
 }
 
-#top5 .mainTitle{
-   font-family: 'Nanum Gothic', sans-serif;
-   font-size: 1.5em;
+.main{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+ 
+.main h4.mainTitle{
+   font-weight: bold;
+    color: #343a40;
+    margin-left: 5px;
+ }
+
+ .main .info .mvtitle{
+    font-weight: bold;
+    color: #343a40;
+ }
+
+ .main .info .mvinfo{
+    color: gray;
+ }
+ 
+ .main img{
+    width: 100%;
+ }
+ 
+ .main .mv{
+   padding: 5px;
 }
 
-.movie .movieInfo ul{
-   margin-top:20px;
-   padding: 0;
-}
-
-.movie .movieInfo li{
-   list-style: none;
-}
-.movie .movieInfo a{
+.main a{
    text-decoration: none;
+}
+
+.main .mainMovie{
+   display: flex;
+   justify-content: space-between;
 }

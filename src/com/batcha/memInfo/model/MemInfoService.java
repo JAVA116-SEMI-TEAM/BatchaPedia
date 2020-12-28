@@ -3,6 +3,9 @@ package com.batcha.memInfo.model;
 import java.sql.SQLException;
 
 public class MemInfoService {
+	//아이디 중복확인시 사용
+	public static final int EXIST_ID=1;  //아이디가 이미 존재하는 경우
+	public static final int NON_EXIST_ID=2; //존재하지 않는 경우
 	
 	//로그인 처리시 사용
 	public static final int LOGIN_OK=1; //로그인 성공
@@ -34,5 +37,13 @@ public class MemInfoService {
 
 	public String selectMemByCmt(int cmtMemNo) throws SQLException {
 		return memInfoDao.selectMembyCmt(cmtMemNo);
+
+	
+	public int checkDup(String userid) throws SQLException{
+		return memInfoDao.checkDup(userid);
+	}
+	
+	public int insertMember(MemInfoVO vo) throws SQLException{
+		return memInfoDao.insertMember(vo);
 	}
 }

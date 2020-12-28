@@ -16,7 +16,7 @@ public class Utility {
 				str+="&nbsp";
 			}//for 
 
-			str+="<img src='../images/re.gif'>";
+			/* str+="<img src='../images/re.gif'>"; */
 		}//if
 
 		return str;

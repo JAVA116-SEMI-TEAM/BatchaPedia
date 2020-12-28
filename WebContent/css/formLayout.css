@@ -2,46 +2,52 @@
 
 
 /* 로그인 */
+
 article.loginForm{
-	height: 400px;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 200px;
+   height: 400px;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 200px;
+
+article.loginForm {
+  height: 400px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin-top: 200px;
 }
 
-.loginInput{
-	width: 500px;
-	height: 50px;
+.loginInput {
+  width: 500px;
+  height: 50px;
 }
 
-.pinkB{
-	background: #FF2F6E;
-	border: 0.5px solid;
+.pinkB {
+  background: #ff2f6e;
+  border: 0.5px solid;
 }
 
-.center{
-	text-align: center;
+.center {
+  text-align: center;
 }
 
-.gray{
-	color: gray;
+.gray {
+  color: gray;
 }
 
-.pink{
-	color: #FF2F6E;
-	text-decoration: none;
+.pink {
+  color: #ff2f6e;
+  text-decoration: none;
 }
 
 a:hover {
-  color: #FF2F6E;
+  color: #ff2f6e;
   text-decoration: none;
 }
 
 /* 회원가입 */
 article.regForm{
-	height: 900px;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 150px;
-	margin-left: 30%;
+   height: 900px;
+   font-family: 'Noto Sans KR', sans-serif;
+   margin-top: 150px;
+   margin-left: 30%;
 }
 
 input.regInput {
@@ -80,10 +86,9 @@ input#btnChkId {
     width: 100px;
 }
 
-
 .whiteB{
-	background: #FCFCFC;
-	border: 0.5px solid gray;
+   background: #FCFCFC;
+   border: 0.5px solid gray;
 }
 
 .regSubmit{
@@ -94,4 +99,3 @@ input#btnChkId {
 .regForm input#userid {
     width: 295px;
     height: 40px;
-}
