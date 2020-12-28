@@ -1,89 +1,108 @@
 @charset "utf-8";
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap");
-
-body {
-  /* display: inline-block;
-  position: relative; */
-  font-family: "Noto Sans KR", sans-serif;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
 /* top */
-#header {
-  position: fixed;
-  top: 0px;
-  z-index: 9999;
+#header{
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-#top {
-  background: white;
+#top{
+	background: white;
 }
 
-#search {
-  font-size: 0.8em;
-  background: #f5f5f7;
-  border: 0;
-  padding-left: 20px;
-  padding-right: 20px;
+#search{
+	font-size: 0.8em;
+	background: #F5F5F7;
+	border:0;
+	padding-left:20px;
+	padding-right: 20px;
 }
 
-#logo {
-  padding-left: 70px;
+
+#logo{
+	padding-left: 70px;
 }
 
-.input-group-text {
-  background: #f5f5f7;
-  border: 0;
+.input-group-text{
+	background: #F5F5F7;
+	border: 0;
 }
 
-#top .nav-item {
-  padding-left: 15px;
+
+#top .nav-item{
+	padding-left: 15px;
 }
 
-#top ul {
-  position: absolute;
-  right: 0;
-  padding-right: 70px;
-  clear: both;
+#top ul{
+	position: absolute;
+	right: 0;
+	padding-right: 70px;
+	clear:both;
 }
 
-hr {
-  margin-top: 80px;
-  margin-bottom: 0;
+hr{
+	margin-top: 75px;
 }
 
 /* footer */
-#footer {
-  font-family: "Noto Sans KR", sans-serif;
-  background: #1c1d1f;
+#footer{
+	font-family: 'Noto Sans KR', sans-serif;
+	background: #1C1D1F;
 }
 
-#footer a,
-#footer p {
-  color: #a5a5a7;
-  font-size: 13px;
-  font-weight: 400;
-  text-decoration: none;
+#footer a, #footer p{
+	color: #a5a5a7;
+    font-size: 13px;
+    font-weight: 400;;
+    text-decoration: none;
 }
 
-#footer div {
-  padding: 30px 100px;
+#footer div{
+	padding: 30px 100px;
 }
 
-#top5 .mainTitle {
-  font-family: "Nanum Gothic", sans-serif;
-  font-size: 1.5em;
+
+/* section */
+#contents{
+	margin-top: 110px;
+	margin-left: 100px;
+	margin-right: 70px;
+	margin-bottom: 100px;
 }
 
-.movie .movieInfo ul {
-  margin-top: 20px;
-  padding: 0;
+.main{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+ 
+.main h4.mainTitle{
+	font-weight: bold;
+ 	color: #343a40;
+ 	margin-left: 5px;
+ }
+
+ .main .info .mvtitle{
+ 	font-weight: bold;
+ 	color: #343a40;
+ }
+
+ .main .info .mvinfo{
+ 	color: gray;
+ }
+ 
+ .main img{
+ 	width: 100%;
+ }
+ 
+ .main .mv{
+	padding: 5px;
 }
 
-.movie .movieInfo li {
-  list-style: none;
+.main a{
+	text-decoration: none;
 }
-.movie .movieInfo a {
-  text-decoration: none;
+
+.main .mainMovie{
+	display: flex;
+	justify-content: space-between;
 }

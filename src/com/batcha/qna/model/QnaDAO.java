@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.batcha.db.ConnectionPoolMgr2;
-import com.mymvc.board.model.BoardVO;
 
 public class QnaDAO {
 	
@@ -19,23 +18,6 @@ private ConnectionPoolMgr2 pool;
 		pool=new ConnectionPoolMgr2();
 	}
 	
-	
-	/*
-	 * public int selectById(String id) throws SQLException { Connection con=null;
-	 * PreparedStatement ps=null; ResultSet rs=null;
-	 * 
-	 * try { //1,2 con=pool.getConnection();
-	 * 
-	 * //3 String sql="select memno from meminfo where id=?";
-	 * ps=con.prepareStatement(sql); ps.setString(1, id);
-	 * 
-	 * //4 rs=ps.executeQuery(); int result=0;
-	 * 
-	 * if(rs.next()) { result=rs.getInt("memno"); }
-	 * System.out.println("회원번호 result="+result+", 매개변수 id="+id);
-	 * 
-	 * return result; }finally { pool.dbClose(rs, ps, con); } }//
-	 */	
 	public int insertQna(QnaVO vo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -45,14 +27,10 @@ private ConnectionPoolMgr2 pool;
 			con=pool.getConnection();
 			
 			//3. ps
-			String sql="insert into qnaboard(qnano, memno, title, content, author, userid, admincheck) " + 
-					"values(qnaBoard_seq.nextval, ?,?,?,?,?,?)";
+			String sql="insert into qnaboard(qnano, memno, title, content, author, userid, admincheck, groupNo) " + 
+					"values(qnaBoard_seq.nextval, ?,?,?,?,?,?,qnaBoard_seq.nextval)";
 			ps=con.prepareStatement(sql);
 			
-			/*
-			 * System.out.println(vo.getMemNo()); System.out.println(vo.getTitle());
-			 * System.out.println(vo.getContent()); System.out.println(vo.getAuthor());
-			 */
 			ps.setInt(1, vo.getMemNo());
 			ps.setString(2, vo.getTitle());
 			ps.setString(3, vo.getContent());
@@ -73,14 +51,6 @@ private ConnectionPoolMgr2 pool;
 	
 	public List<QnaVO> selectAll(String condition, String keyword)
 			throws SQLException{
-		/*
-		select * from board 
-		where name like '%길동%';
-		select * from board 
-		where title like '%안녕%';
-		select * from board 
-		where content like '%내용%';
-		*/
 		
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -96,8 +66,9 @@ private ConnectionPoolMgr2 pool;
 			if(keyword!=null && !keyword.isEmpty()) { //검색
 				sql += " where "+ condition +" like '%' || ? || '%'";
 			}
-			sql += " order by qnano desc";
+			sql += " order by groupno desc, sortno";
 			ps=con.prepareStatement(sql);
+			
 			
 			if(keyword!=null && !keyword.isEmpty()) { //검색
 				ps.setString(1, keyword);
@@ -114,7 +85,14 @@ private ConnectionPoolMgr2 pool;
 				Timestamp regdate=rs.getTimestamp("regdate");
 				int readCount=rs.getInt("readcount");
 				
-				QnaVO vo = new QnaVO(qnaNo, memNo, title, content, author, regdate, readCount);
+				int groupno=rs.getInt("groupno");
+				int step=rs.getInt("step");
+				int sortno=rs.getInt("sortno");
+				String delFlag=rs.getString("delflag");
+				
+				QnaVO vo = new QnaVO(qnaNo, memNo, title, content, author, regdate, readCount,
+						groupno, step, sortno, delFlag);
+				
 				list.add(vo);
 			}
 			System.out.println("글목록 결과 list.size="+list.size()
@@ -177,6 +155,11 @@ private ConnectionPoolMgr2 pool;
 				vo.setReadCount(rs.getInt("readCount"));
 				vo.setUserid(rs.getString("userid"));
 				vo.setAdmincheck(rs.getInt("admincheck"));
+				vo.setGroupno(rs.getInt("groupno"));
+				vo.setStep(rs.getInt("step"));
+				vo.setSortNo(rs.getInt("sortno"));
+				vo.setDelFlag(rs.getString("delflag"));
+				vo.setMemNo(rs.getInt("memno"));
 			}
 			
 			System.out.println("글 상세보기 결과 vo="+vo+", 매개변수 qnano="+qnano);
@@ -188,6 +171,32 @@ private ConnectionPoolMgr2 pool;
 	}//
 	
 	public int deleteQna(int qnano) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		
+		try {
+			//1,2
+			con=pool.getConnection();
+			
+			//3
+			/* String sql="delete from qnaboard where qnano=?"; */
+			String sql="update qnaboard " + 
+					" set delflag='Y'" + 
+					" where qnano=?";
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, qnano);
+			
+			//4
+			int cnt=ps.executeUpdate();
+			System.out.println("글 삭제 결과, cnt="+cnt+", 매개변수 qnano="+qnano);
+			
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}//
+	
+	public int deleteQnaAdmin(int qnano) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		
@@ -236,6 +245,65 @@ private ConnectionPoolMgr2 pool;
 		}finally {
 			pool.dbClose(ps, con);
 		}
+	}//
+	
+	public int reply(QnaVO vo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		
+		int cnt=0;
+		try {
+			//1,2
+			con=pool.getConnection();
+			
+			con.setAutoCommit(false);  //자동커밋이 안되도록 막는다
+			//트랜잭션 시작
+			
+			//[1] update - sortNo 1 증가
+			//3
+			String sql="update qnaboard" + 
+					" set sortno=sortno+1" + 
+					" where groupno=? and sortno>?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, vo.getGroupno());
+			ps.setInt(2, vo.getSortNo());
+			
+			//4
+			cnt=ps.executeUpdate();
+			
+			//[2] insert
+			sql="insert into qnaboard(qnano, memno, title, content, "+
+					" author, userid, admincheck, groupNo, step, sortNo) " + 
+					" values(qnaBoard_seq.nextval, ?,?,?,?,?,?,?,?,?)";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, vo.getMemNo());
+			ps.setString(2, vo.getTitle());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getAuthor());
+			ps.setString(5, vo.getUserid());
+			ps.setInt(6, vo.getAdmincheck());
+			
+			ps.setInt(7, vo.getGroupno());
+			ps.setInt(8, vo.getStep()+1);
+			ps.setInt(9, vo.getSortNo()+1);
+			
+			cnt = ps.executeUpdate();
+			System.out.println("답변하기 결과, cnt="+cnt+", 매개변수 vo="
+				+ vo);
+			
+			con.commit(); //트랙잭션 종료, 성공
+		}catch(SQLException e) {
+			con.rollback();  //트랜잭션 실패
+			e.printStackTrace();
+		}finally {
+			con.setAutoCommit(true);
+			pool.dbClose(ps, con);
+		}
+		
+		return cnt;
 	}//
 	
 }

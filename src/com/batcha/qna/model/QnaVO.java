@@ -14,10 +14,6 @@ public class QnaVO {
 	private int step ; /* 단계 */
 	private int sortNo; /* 소트넘버 */
 	private String delFlag;/* 삭제여부 */
-	private String fileName; /* 파일이름 */
-	private long fileSize; /* 파일크기 */
-	private int downCount; /* 다운로드횟수 */
-	private String originalFileName; /* 오리지널파일이름 */
 	private String userid;
 	private int admincheck;
 	
@@ -25,10 +21,8 @@ public class QnaVO {
 		super();
 	}
 
-	
 	public QnaVO(int qnaNo, int memNo, String title, String content, String author, Timestamp regdate, int readCount,
-			int groupno, int step, int sortNo, String delFlag, String fileName, long fileSize, int downCount,
-			String originalFileName, String userid, int admincheck) {
+			int groupno, int step, int sortNo, String delFlag, String userid, int admincheck) {
 		super();
 		this.qnaNo = qnaNo;
 		this.memNo = memNo;
@@ -41,16 +35,13 @@ public class QnaVO {
 		this.step = step;
 		this.sortNo = sortNo;
 		this.delFlag = delFlag;
-		this.fileName = fileName;
-		this.fileSize = fileSize;
-		this.downCount = downCount;
-		this.originalFileName = originalFileName;
 		this.userid = userid;
 		this.admincheck = admincheck;
 	}
+	
 
-
-	public QnaVO(int qnaNo, int memNo, String title, String content, String author, Timestamp regdate, int readCount) {
+	public QnaVO(int qnaNo, int memNo, String title, String content, String author, Timestamp regdate, int readCount,
+			int groupno, int step, int sortNo, String delFlag) {
 		super();
 		this.qnaNo = qnaNo;
 		this.memNo = memNo;
@@ -59,6 +50,10 @@ public class QnaVO {
 		this.author = author;
 		this.regdate = regdate;
 		this.readCount = readCount;
+		this.groupno = groupno;
+		this.step = step;
+		this.sortNo = sortNo;
+		this.delFlag = delFlag;
 	}
 
 	public int getQnaNo() {
@@ -149,38 +144,6 @@ public class QnaVO {
 		this.delFlag = delFlag;
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public int getDownCount() {
-		return downCount;
-	}
-
-	public void setDownCount(int downCount) {
-		this.downCount = downCount;
-	}
-
-	public String getOriginalFileName() {
-		return originalFileName;
-	}
-
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
-	}
-
 	public String getUserid() {
 		return userid;
 	}
@@ -189,34 +152,22 @@ public class QnaVO {
 		this.userid = userid;
 	}
 
-
 	public int getAdmincheck() {
 		return admincheck;
 	}
-
 
 	public void setAdmincheck(int admincheck) {
 		this.admincheck = admincheck;
 	}
 
-
 	@Override
 	public String toString() {
 		return "QnaVO [qnaNo=" + qnaNo + ", memNo=" + memNo + ", title=" + title + ", content=" + content + ", author="
 				+ author + ", regdate=" + regdate + ", readCount=" + readCount + ", groupno=" + groupno + ", step="
-				+ step + ", sortNo=" + sortNo + ", delFlag=" + delFlag + ", fileName=" + fileName + ", fileSize="
-				+ fileSize + ", downCount=" + downCount + ", originalFileName=" + originalFileName + ", userid="
-				+ userid + ", admincheck=" + admincheck + ", getQnaNo()=" + getQnaNo() + ", getMemNo()=" + getMemNo()
-				+ ", getTitle()=" + getTitle() + ", getContent()=" + getContent() + ", getAuthor()=" + getAuthor()
-				+ ", getRegdate()=" + getRegdate() + ", getReadCount()=" + getReadCount() + ", getGroupno()="
-				+ getGroupno() + ", getStep()=" + getStep() + ", getSortNo()=" + getSortNo() + ", getDelFlag()="
-				+ getDelFlag() + ", getFileName()=" + getFileName() + ", getFileSize()=" + getFileSize()
-				+ ", getDownCount()=" + getDownCount() + ", getOriginalFileName()=" + getOriginalFileName()
-				+ ", getUserid()=" + getUserid() + ", getAdmincheck()=" + getAdmincheck() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ step + ", sortNo=" + sortNo + ", delFlag=" + delFlag + ", userid=" + userid + ", admincheck="
+				+ admincheck + "]";
 	}
 
-	
 	
 	
 }

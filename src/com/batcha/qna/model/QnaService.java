@@ -41,4 +41,12 @@ private QnaDAO qnaDao;
 	public int updateQna(QnaVO vo) throws SQLException{
 		return qnaDao.updateQna(vo);
 	}
+	
+	public int reply(QnaVO vo) throws SQLException{
+		return qnaDao.reply(vo);
+	}
+
+	public int deleteQnaAdmin(int qnano) throws SQLException{
+		return qnaDao.deleteQnaAdmin(qnano);
+	}
 }
