@@ -8,16 +8,17 @@
 }
 
 .companyWrraper{
-	padding: 0 50px;
+	padding: 0 100px;
 }
+
 .row {
-    display: -ms-flexbox;
     display: flex;
+	display: -ms-flexbox;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right:100px !important;
+    margin-left:100px !important;
 }
 .intro-text {
   margin-bottom: 40px;

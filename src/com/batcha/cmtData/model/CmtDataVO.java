@@ -99,5 +99,4 @@ public class CmtDataVO {
 				+ cmtRegdate + ", agrCnt=" + agrCnt + ", dagrCnt=" + dagrCnt + ", memNo=" + memNo + ", mvNo=" + mvNo
 				+ "]";
 	}
-
 }

@@ -59,7 +59,6 @@ public class CmtListController implements Controller {
 		//3
 		request.setAttribute("pageVo", pageVo);
 		request.setAttribute("cmtList", cmtList);
-		request.setAttribute("cmtListSize", cmtList.size());
 		request.setAttribute("mvNo", mvNo);
 		
 		return "movie/cmtList";

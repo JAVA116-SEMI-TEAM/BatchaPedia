@@ -19,18 +19,18 @@
 			            <img src="../images/bin2010.jpg" class="profile"/>
 			            <div class="card-body">
 			               <h5 class="card-title">이현빈</h5>
-			               <p class="card-text">Someday I wanna work in a Brain lab</p>
-			               <a href="http://www.jquery2dotnet.com/" class="btn btn-dark btn-sm">Contact</a>
+			               <p class="card-text">Web / DL / ML / EDU</p>
+			               <a href="https://github.com/jazzo5947" class="btn btn-dark btn-sm">Contact</a>
 			            </div>
 			         </div>
 			      </div>
 				  <div class="col-md-4">
 			         <div class="card mb-4 border-dark">
-			            <img class="card-img-top" src="//placeimg.com/290/180/any" alt="Card image cap">
+			            <img class="card-img-top" src="../images/sojeong.jpg" alt="Card image cap">
 			            <div class="card-body">
 			               <h5 class="card-title">배소정</h5>
 			               <p class="card-text">웹개발자 입니다.</p>
-			               <a href="http://www.jquery2dotnet.com/" class="btn btn-dark btn-sm">Go somewhere</a>
+			               <a href="#" class="btn btn-dark btn-sm">Contact</a>
 			            </div>
 			         </div>
 			      </div>  
@@ -40,17 +40,17 @@
 			            <div class="card-body">
 			               <h5 class="card-title">남은별</h5>
 			               <p class="card-text">웹개발자 입니다.</p>
-			               <a href="http://www.jquery2dotnet.com/" class="btn btn-dark btn-sm">Go somewhere</a>
+			               <a href="#" class="btn btn-dark btn-sm">Contact</a>
 			            </div>
 			         </div>
 			      </div>  
 			      <div class="col-md-4">
 			         <div class="card mb-4 border-dark">
-			            <img class="card-img-top" src="//placeimg.com/290/180/any" alt="Card image cap">
+			            <img class="card-img-top" src="../images/eunbi.jpg" alt="Card image cap">
 			            <div class="card-body">
 			               <h5 class="card-title">서은비</h5>
 			               <p class="card-text">웹개발자 입니다.</p>
-			               <a href="http://www.jquery2dotnet.com/" class="btn btn-dark btn-sm">Go somewhere</a>
+			               <a href="#" class="btn btn-dark btn-sm">Contact</a>
 			            </div>
 			         </div>
 			      </div>

@@ -9,7 +9,13 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 .MovieDetailWrapper{
-    margin: 110px 100px 50px 100px;
+    width: 1000px;
+    margin: auto;
+}
+
+.movieDetail-info__btns{
+	display: flex;
+	justify-content: space-between;	
 }
 
 .stars{
@@ -28,6 +34,11 @@ body {
 
 .star{
 	width: 30px;
+}
+
+.starsDiv{
+	display: flex;
+	justify-content: space-between;
 }
 
 .movieDetail-info{
@@ -105,20 +116,75 @@ body {
 	item-align: center;
 }
 
-.movieDeatil-commentWrite {
-    width: 100%;
-}
-
 .movieDetail-starsGraph{
   position: relative;
-  margin: 40px;
   margin-bottom: 120px;
-  height: 20vh;
-  width: 800px;
+  height: 200px;
 }
 
 .movieDetail-starsGraph-graph{
-	width: 500px;
-	height: 100px;
+	height: 150px;
 	position: relative;
+}
+
+.movieDetail-comment__list{
+	min-height: 100px;
+}
+
+.cmtList-eachCmt__empty{
+	height: 100px;
+	width: 900px;
+	display: table;
+	text-align: center;
+}
+
+.cmtList-eachCmt__empty p{
+	text-align:center;
+	display:table-cell;
+	vertical-align:middle;
+	color:#7f7f7f;
+}
+
+.cmtList-eachCmt {
+	font-color:#343a40;
+}
+
+.cmtList-eachCmt__cmtTop{
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.cmtList-eachCmt__userid{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.cmtList-eachCmt__contents{
+	border: 1px solid #e5e5e5;
+	border-radius: 10px;
+}
+
+.cmtList-eachCmt__contents{
+	border: 1px solid #a5a5a7;
+	padding: 10px;
+	width: 100%;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.cmtList-eachCmt__cmtButtons{
+	
+}
+
+.cmtList-warningMsg{
+	font-size: 1.2em;
+}
+
+.cmtList-eachCmt__cmtButtons a {
+	margin-left: 5px;
+}
+
+.cmtList-Paging{
+	text-align: center;
 }

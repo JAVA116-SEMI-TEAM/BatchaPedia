@@ -77,9 +77,8 @@ public class CmtDataDAO {
 		try {
 			con=pool.getConnection();
 			
-			String sql="update cmtdata" + 
-					" set cmttext=?, cmtregdate=sysdate" + 
-					" where cmtno=?";
+			String sql="delete from cmtdata where cmtno=?";
+			
 			ps=con.prepareStatement(sql);
 			
 			ps.setInt(1, cmtNo);
@@ -126,6 +125,7 @@ public class CmtDataDAO {
 				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
 				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
 				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
+				cmtVo.setUserid(rs.getString("userid"));
 				
 				if(isMemNo) {
 					cmtVo.setMemNo(no);
@@ -248,7 +248,6 @@ public class CmtDataDAO {
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		CmtDataVO cmtVo=null;
 		
 		try {
 			con=pool.getConnection();
@@ -260,9 +259,11 @@ public class CmtDataDAO {
 			ps.setInt(2, mvNo);
 			
 			rs=ps.executeQuery();
-			
+			CmtDataVO cmtVo=null;
+			System.out.println("if문 전 rs.next()="+rs.next());
 			if(rs.next()) {
-				System.out.println("rs.next()="+rs.next());
+				System.out.println("if문 후 rs.next()="+rs.next());
+				cmtVo.setUserid(rs.getString("userid"));
 				cmtVo.setCmtNo(rs.getInt("cmtNo"));
 				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
 				cmtVo.setCmtText(rs.getString("cmtText"));
@@ -270,7 +271,6 @@ public class CmtDataDAO {
 				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
 				cmtVo.setMemNo(memNo);
 				cmtVo.setMvNo(mvNo);
-				
 			}
 			System.out.println("코멘트 작성여부 조회 결과 cmtVo="+cmtVo+", 매개변수 memNo="+memNo+", mvNo="+mvNo);
 			return cmtVo;

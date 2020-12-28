@@ -69,28 +69,37 @@ public class MovieDetailController implements Controller{
 		request.setAttribute("mvVo", mvVo);
 
 		// ================ info - 평점정보 ===================
+		//평점 작성여부, 평점 작성했으면 몇점인지 세팅을 해줘야겠네
+		
 		int didStars=0;
 		int memStars=0;
-		
+		starsDataVO starsVo=new starsDataVO();
 		if(memNo>0) { //로그인 되어 있으면
 			try {
 				//평점여부조회
 				didStars=starsService.didStars(memNo, mvNo);
 				if(didStars==starsDataService.YES_YOU_DID) { //영화평점 가져오기
 					memStars=starsService.getStarsByMemNo(memNo, mvNo);
-				}else if(didStars==starsDataService.NO_YOU_DIDNT) {
-					memStars=0;
 				}
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
+			
+			if(request.getParameter("starSelect") != null || request.getParameter("starSelect").isEmpty()) {
+				memStars=Integer.parseInt(request.getParameter("starSelect"));
+				starsVo.setMemNo(memNo);
+				starsVo.setMvNo(mvNo);
+				starsVo.setStars(memStars);
+				int cntdelete=starsService.deleteStars(memNo, mvNo);
+				System.out.println("평점 수정을 위한 기존평점 삭제 cntdelete="+cntdelete);
+				int cntinsert=starsService.insertStars(starsVo);
+			}
 		}
+		
 		request.setAttribute("didStars", didStars);
 		request.setAttribute("memStars", memStars);
 
 		// ================ info - 킵정보 ===================
-		keepDataVO keepVo=new keepDataVO();
-
 		boolean keptCheck=false; //초기화, 논유저면 그대로 false
 		if(memNo>0) { //유저인 경우는 isKept 확인
 			int cnt=0;
@@ -104,12 +113,30 @@ public class MovieDetailController implements Controller{
 			}
 		}		
 		
-		String keepBtn="";
+		String strKeep="나중에 볼 영화";
+		String strUnKeep="볼 영화에서 제외";
+		
+		String keepBtnValue=strKeep;
 		if(request.getParameter("keepBtn")!=null) {
-			System.out.println("keepBtn의 값="+request.getParameter("keepBtn"));
-			keepBtn=request.getParameter("keepBtn");
+			if(request.getParameter("keepBtn").equals(strKeep)) {
+				keepBtnValue=strUnKeep;
+				try {
+					int cnt=keepService.insertKeep(memNo, mvNo);
+					System.out.println("킵목록에 추가 결과 cnt="+cnt);
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}else {
+				keepBtnValue=strKeep;
+				try {
+					int cnt=keepService.deleteKeep(memNo, mvNo);
+					System.out.println("킵목록에서 제거 결과 cnt="+cnt);
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-
+		request.setAttribute("keepBtnValue", keepBtnValue);
 		request.setAttribute("keptCheck", keptCheck);
 
 		// ================ cmtWrite ===================
@@ -180,7 +207,6 @@ public class MovieDetailController implements Controller{
 		//3
 		request.setAttribute("pageVo", pageVo);
 		request.setAttribute("cmtList", cmtList);
-		request.setAttribute("cmtListSize", cmtList.size());
 		request.setAttribute("mvNo", mvNo);
 		
 		

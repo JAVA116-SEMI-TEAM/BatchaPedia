@@ -19,27 +19,21 @@ public class CmtWriteController implements Controller {
 		//파라미터 받아오기
 		//코멘트 작성 관련 파라미터 받기
 		String userid=request.getParameter("userid");
+		System.out.println("userid="+userid);
 		String strMemNo=request.getParameter("memNo");
 		String strMvNo=request.getParameter("mvNo");
 		String cmtText=request.getParameter("cmtText");
+		System.out.println("코멘트 내용"+cmtText);
 		int memNo=Integer.parseInt(strMemNo);
 		int mvNo=Integer.parseInt(strMvNo);
 		
-		//서비스, VO 객체생성
-		MemInfoService memService=new MemInfoService();
+		//서비스, CmtVO 객체생성
 		CmtDataService cmtService=new CmtDataService();
-		MemInfoVO memVo=null;
-		
-		try {
-			memVo=memService.selectMember(userid);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-
 		CmtDataVO cmtVo=new CmtDataVO();
+		cmtVo.setUserid(userid);
+		System.out.println("getUserid="+cmtVo.getUserid());
 		cmtVo.setMemNo(memNo);
 		cmtVo.setCmtText(cmtText);
-		cmtVo.setUserid(userid);
 		cmtVo.setMvNo(mvNo);
 		
 		//로직
