@@ -1,4 +1,18 @@
+<%@page import="com.batcha.memInfo.model.MemInfoService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script>
+var s_userid=<%=session.getAttribute("userid")%>
+
+$(function(){
+	$('form[name=starsSelectsForm]').submit(function(){
+		if($('s_userid').length<1){
+			alert("로그인 후 평점을 선택하세요.");
+			event.preventDefault();
+			return false;
+		}
+	});
+});
+</script>
 <!-- <form name="starsfrm" method="post" action="">
  	<div id="stars" class="stars" onclick="clickedCoords(event)">
 		마우스오버 효과를 js로 만들어주고 클릭했을 때 어떤 요소가 어떤 상태인지에 따라 평점 입력 
@@ -14,51 +28,22 @@
 		<div><i id="fifthStar" class="fas fa-star fa-2x star star-mono"></i></div>
 		<input type="text" value="" id="coordSet">
 	</div>이게 바뀔 때마다 값을 보내는 함수 작성 가능할까 -->
-	<script>
-	//로그인 안 한 상태에서 버튼 누르면 로그인하세요 얼럿
-	
-	//로그인 안 한 상태로 코멘트입력 버튼 누르면 로그인하세요 얼럿
-	
-	//
-		
-	
-	</script>
 	<div class="starsDiv" style="display: flex;">
 		<form method="post" action="" name="starsSelectsForm">
 			<select id="starSelect" name="starSelect">
-				<option value="0" selected="selected">평점을 선택하세요</option>
-				<option value="1"
-				<c:if test="${memStars == 1}"> selected="selected" </c:if>
-				>1점</option>
-				<option value="2"
-				<c:if test="${memStars == 2}"> selected="selected" </c:if>
-				>2점</option>
-				<option value="3"
-				<c:if test="${memStars == 3}"> selected="selected" </c:if>
-				>3점</option>
-				<option value="4"
-				<c:if test="${memStars == 4}"> selected="selected" </c:if>
-				>4점</option>
-				<option value="5"
-				<c:if test="${memStars == 5}"> selected="selected" </c:if>
-				>5점</option>
-				<option value="6"
-				<c:if test="${memStars == 6}"> selected="selected" </c:if>
-				>6점</option>
-				<option value="7"
-				<c:if test="${memStars == 7}"> selected="selected" </c:if>
-				>7점</option>
-				<option value="8"
-				<c:if test="${memStars == 8}"> selected="selected" </c:if>
-				>8점</option>
-				<option value="9"
-				<c:if test="${memStars == 9}"> selected="selected" </c:if>
-				>9점</option>
-				<option value="10"
-				<c:if test="${memStars == 10}"> selected="selected" </c:if>
-				>10점</option>
+				<option value="0" selected>평점을 선택하세요</option>
+				<option value="1" <c:if test="${memStars == 1}"> selected="selected" </c:if> >1점</option>
+				<option value="2" <c:if test="${memStars == 2}"> selected="selected" </c:if> >2점</option>
+				<option value="3" <c:if test="${memStars == 3}"> selected="selected" </c:if> >3점</option>
+				<option value="4" <c:if test="${memStars == 4}"> selected="selected" </c:if> >4점</option>
+				<option value="5" <c:if test="${memStars == 5}"> selected="selected" </c:if> >5점</option>
+				<option value="6" <c:if test="${memStars == 6}"> selected="selected" </c:if> >6점</option>
+				<option value="7" <c:if test="${memStars == 7}"> selected="selected" </c:if> >7점</option>
+				<option value="8" <c:if test="${memStars == 8}"> selected="selected" </c:if> >8점</option>
+				<option value="9" <c:if test="${memStars == 9}"> selected="selected" </c:if> >9점</option>
+				<option value="10" <c:if test="${memStars == 10}"> selected="selected" </c:if> >10점</option>
 			</select>
-			<input type="submit" value="평점 입력" class="btn btn-sm btn-dark"/>
+			<input type="submit" value="평점 입력" name="submitStar" id="submitStar" class="btn btn-sm btn-dark"/>
 		</form>
 	</div>
 		<script type="text/javascript">

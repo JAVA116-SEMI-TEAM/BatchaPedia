@@ -17,7 +17,7 @@ function pageFunc(curPage){
 	<input type="hidden" name="currentPage" value="${pageVo.currentPage}">
 	<input type="hidden" name="mvNo" value="${cmt.mvNo}">
 </form>
-	<h3>코멘트 ${fn:length(cmtList)}건</h3>
+	<h4>코멘트 ${fn:length(cmtList)}건</h4>
 	<div class="movieDetail-comment__list">
 			<!-- 코멘트가 없을 때 -->
 			<c:if test="${empty cmtList}">
@@ -44,12 +44,12 @@ function pageFunc(curPage){
 						<div class="cmtList-eachCmt__contents">
 							<p class="cmtList-eachCmt__contents__text">${cmt.cmtText}</p>
 						</div>
-						<div class="cmtList-eachCmt__cmtButtons">
+						<%-- <div class="cmtList-eachCmt__cmtButtons">
 							공감<a href="#" class="btn btn-group-xs"><i class="fas fa-thumbs-up"></i></a>
 						    <a href="#" class="btn btn-group-xs"><i class="far fa-thumbs-up"></i></a>${cmt.agrCnt}
 						       비공감<a href="#" class="btn btn-group-xs"><i class="fas fa-thumbs-down"></i></a>
 						    <a href="#" class="btn btn-group-xs"><i class="far fa-thumbs-down"></i></a>${cmt.dagrCnt}
-						</div>
+						</div> --%>
 					</div>
 				</c:if>
 			</c:forEach>

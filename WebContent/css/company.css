@@ -1,4 +1,9 @@
 /* section */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+* {
+   font-family: 'Noto Sans KR', sans-serif;
+}
 #contents {
     width: 100%;
     margin: 60px 0 0 0;
@@ -13,12 +18,10 @@
 
 .row {
     display: flex;
-	display: -ms-flexbox;
+    display: -ms-flexbox;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-right:100px !important;
-    margin-left:100px !important;
 }
 .intro-text {
   margin-bottom: 40px;

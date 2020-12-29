@@ -39,10 +39,6 @@ public class MvInfoService {
 		return mvDao.selectBoxOfficeList();
 	}
 	
-	public List<MvInfoVO> selectBoxOfficeList() throws SQLException{
-		return mvDao.selectBoxOfficeList();
-	}
-	
 	//한국영화
 	public List<MvInfoVO> selectKorMovie() throws SQLException{
 		return mvDao.selectKorMovie();
