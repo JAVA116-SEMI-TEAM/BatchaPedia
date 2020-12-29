@@ -55,8 +55,22 @@ public class MvInfoService {
 	}
 	
 	//스릴러,범죄
-	   public List<MvInfoVO> selectThrill() throws SQLException{
-		   return mvDao.selectThrill();
-	   }
+   public List<MvInfoVO> selectThrill() throws SQLException{
+	   return mvDao.selectThrill();
+   }
 	
+	//키워드로 영화 검색 - select(option,keyword)
+	public List<MvInfoVO> selectAllMv(String option,String keyword) throws SQLException {
+		return mvDao.selectAllMv(option, keyword);
+	}
+	
+	//영화 수정(MvEditOkController) - update
+	public int updateMvInfo(MvInfoVO mVo) throws SQLException {
+		return mvDao.updateMvInfo(mVo);
+	}
+	
+	//영화 검색 - select(SearchKeyword)
+	public List<MvInfoVO> searchMv(String mvSearchKeyword) throws SQLException{
+		return mvDao.searchMv(mvSearchKeyword);
+	}
 }

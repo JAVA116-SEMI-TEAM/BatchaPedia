@@ -495,4 +495,157 @@ public class MvInfoDAO {
 			   pool.dbClose(rs, ps, con);
 		   }
 	   }
+	   
+	 //영화 수정(MvEditOkController) - update
+		public int updateMvInfo(MvInfoVO mVo) throws SQLException {
+			Connection con=null;
+			PreparedStatement ps=null;
+			System.out.println(mVo);
+			try {
+				//1,2
+				con=pool.getConnection();
+				
+				//3
+				String sql="update mvInfo " + 
+						" set mvTitle=?,genre=?,director=?, " + 
+						" actors=?,story=?,thumbnail=?,nation=?, " + 
+						" makeyear=?,mvTitleEn=?,mvCode=? " + 
+						" where mvNo=?";
+				
+				ps=con.prepareStatement(sql);
+				ps.setString(1, mVo.getMvTitle());
+				ps.setString(2, mVo.getGenre());
+				ps.setString(3, mVo.getDirector());
+				ps.setString(4, mVo.getActors());
+				ps.setString(5, mVo.getStory());
+				ps.setString(6, mVo.getThumbnail());
+				ps.setString(7, mVo.getNation());
+				ps.setString(8, mVo.getMakeYear());
+				ps.setString(9, mVo.getMvTitleEn());
+				ps.setString(10, mVo.getMvCode());
+				ps.setInt(11, mVo.getMvNo());
+				
+				//4
+				int cnt=ps.executeUpdate();
+				System.out.println("영화 수정 결과, cnt="+cnt+", 매개변수 mVo="+mVo);
+				
+				return cnt;
+			}finally {
+				pool.dbClose(ps, con);
+			}
+		}
+		
+		//키워드로 영화 검색
+		public List<MvInfoVO> selectAllMv(String option,String keyword) throws SQLException {
+			Connection con=null;
+			PreparedStatement ps=null;
+			ResultSet rs=null;
+			
+			List<MvInfoVO> list = new ArrayList<MvInfoVO>();
+			try {
+				//1,2
+				con=pool.getConnection();
+				
+				//3
+				String sql="select * from mvInfo ";
+				if(keyword!=null && !keyword.isEmpty()) {
+					sql+=" where "+option+" like '%' || ? ||'%' ";
+				}
+				
+				sql+=" order by mvNo desc";
+				ps=con.prepareStatement(sql);
+				
+				//4
+				if(keyword!=null && !keyword.isEmpty()) {
+					ps.setString(1, keyword); 
+				}
+				
+				rs=ps.executeQuery();
+
+				while(rs.next()) {
+					int mvNo=rs.getInt("mvNo");
+					String mvTitle=rs.getString("mvTitle");
+					String genre=rs.getString("genre");
+					String director=rs.getString("director");
+					String actors=rs.getString("actors");
+					String story=rs.getString("story");
+					String thumbnail=rs.getString("thumbnail");
+					String nation=rs.getString("nation");
+					String makeYear=rs.getString("makeYear");
+					int boxOffice=rs.getInt("boxOffice");
+					Timestamp startdate=rs.getTimestamp("startdate");
+					Timestamp enddate=rs.getTimestamp("enddate");
+					Timestamp regdate=rs.getTimestamp("regdate");
+					String mvCode=rs.getString("mvCode");
+					String mvTitleEn=rs.getString("mvTitleEn");
+					
+					MvInfoVO vo = new MvInfoVO(mvNo, mvTitle, genre, director, 
+							actors, story, thumbnail, nation, makeYear,
+							boxOffice, startdate, enddate, regdate, mvCode, mvTitleEn);
+					list.add(vo);
+				}
+				System.out.println("영화 조회 결과, list.size="+list.size()
+					+", 매개변수 option="+option+", keyword="+keyword);
+				
+				return list;
+			}finally {
+				pool.dbClose(rs, ps, con);
+			}
+		}
+		
+		//영화 검색 - select(SearchKeyword)
+		public List<MvInfoVO> searchMv(String mvSearchKeyword) throws SQLException{
+			Connection con=null;
+			PreparedStatement ps=null;
+			ResultSet rs=null;
+			List<MvInfoVO> list = new ArrayList<MvInfoVO>();
+			
+			try {
+				//1,2
+				con=pool.getConnection();
+				
+				//3
+				String sql="select * from mvInfo " + 
+						" where mvTitle like '%' || ? || '%'" + 
+						" or director like '%' || ? || '%'" + 
+						" or actors like '%' || ? || '%'";
+				ps=con.prepareStatement(sql);
+				ps.setString(1, mvSearchKeyword);
+				ps.setString(2, mvSearchKeyword);
+				ps.setString(3, mvSearchKeyword);
+				
+				//4
+				rs=ps.executeQuery();
+				while(rs.next()) {
+					int mvNo=rs.getInt("mvNo");
+					String mvTitle=rs.getString("mvTitle");
+					String genre=rs.getString("genre");
+					String director=rs.getString("director");
+					String actors=rs.getString("actors");
+					String story=rs.getString("story");
+					String thumbnail=rs.getString("thumbnail");
+					String nation=rs.getString("nation");
+					String makeYear=rs.getString("makeYear");
+					int boxOffice=rs.getInt("boxOffice");
+					Timestamp startdate=rs.getTimestamp("startdate");
+					Timestamp enddate=rs.getTimestamp("enddate");
+					Timestamp regdate=rs.getTimestamp("regdate");
+					String mvCode=rs.getString("mvCode");
+					String mvTitleEn=rs.getString("mvTitleEn");
+					
+					MvInfoVO mVo = new MvInfoVO(mvNo, mvTitle, genre, 
+							director, actors, story, thumbnail, nation, 
+							makeYear, boxOffice, startdate, enddate,
+							regdate, mvCode, mvTitleEn);
+					
+					list.add(mVo);
+				}
+				System.out.println("영화 검색 결과, list.size="+list.size());
+				
+				return list;
+			}finally {
+				pool.dbClose(rs, ps, con);
+			}
+		}
+		
 }
