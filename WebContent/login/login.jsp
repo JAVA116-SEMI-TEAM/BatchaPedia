@@ -38,7 +38,7 @@ $(function(){
    }
 %>
 <article class="loginForm">
-   <form name="frmLogin" method="post" action="login_ok.do" class="center">
+   <form name="frmLogin" method="post"   action="login_ok.do" class="center">
       <fieldset>
          <div>
             <input type="text" placeholder=" 아이디" name="userid" id="userid" 

@@ -19,10 +19,11 @@
 <meta charset="UTF-8">
 <title>BatchaPedia</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css?ver3.0"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css?ver4.1"/>
 
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/formLayout.css?ver3.0"/> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
@@ -61,7 +62,7 @@
       <a class="nav-link" href="<%=request.getContextPath()%>/login/logout.do">로그아웃</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<%=request.getContextPath()%>/myPage/myPage.do">마이페이지</a>
+      <a class="nav-link" href="#">마이페이지</a>
     </li>
     <%} %>   
       <li class="nav-item dropdown">
@@ -69,9 +70,9 @@
            고객센터
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="<%=request.getContextPath() %>/notice/noticemain.do">공지사항</a>
+        <a class="dropdown-item" href="#">공지사항</a>
         <a class="dropdown-item" href="#">FAQ</a>
-        <a class="dropdown-item" href="#">Q&A</a>
+        <a class="dropdown-item" href="<%=request.getContextPath()%>/qna/list.do">Q&A</a>
       </div>
     </li>
     
