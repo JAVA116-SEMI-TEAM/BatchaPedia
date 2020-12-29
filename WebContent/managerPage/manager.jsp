@@ -12,11 +12,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+
 <%@ include file="../inc/top.jsp"%>
 
 <style type="text/css">
@@ -90,8 +87,7 @@ h2.page-header {
 .total1 {
     width: 30%;
     float: left;
-/*     margin-right: 20px; */
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 a.quicklink.link1 {
@@ -200,25 +196,6 @@ a.quicklink {
 
 </style>
 
-<script src="//www.google.com/jsapi"></script>
-<script>
-var data = [
-  ['년월일', '가입자'],
-  ['9', 8],
-  ['10', 10],
-  ['11', 11],
-  ['12', 4],
-];
-var options = {
-  title: '월별 가입자(단위:명)',
-  width: 400, height: 500
-};
-google.load('visualization', '1.0', {'packages':['corechart']});
-google.setOnLoadCallback(function() {
-  var chart = new google.visualization.ColumnChart(document.querySelector('#chart_div'));
-  chart.draw(google.visualization.arrayToDataTable(data), options);
-});
-</script>
 
 </head>
 <%
@@ -243,9 +220,9 @@ google.setOnLoadCallback(function() {
 		<div class="row">
 			<div id="admin-sidebar" class="col-md-2 p-x-0 p-y-3 nav-warp">
 			<ul class="sidenav admin-sidenav list-unstyled">
-				<li><a href="#">매니저페이지</a></li>
+				<li><a href="<%=request.getContextPath()%>/managerPage/manager.do">매니저페이지</a></li>
 				<li><a href="#">영화목록관리</a></li>
-				<li><a href="#">NavLink 3</a></li>
+				<li><a href="<%=request.getContextPath()%>/managerPage/notice.do">공지사항</a></li>
 			</ul>
 		</div>
 			<div class="col-md-10 content-warp">
@@ -301,55 +278,11 @@ google.setOnLoadCallback(function() {
                             </div>
                             
 						
-			<!-- 새로 가입한 사람 -->
-			<div class="row mid-contant" style="clear: both;">
-				<div class="col-md-5 totalchart">
-					<h3>총 가입자 수</h3>
-					<div id="chart_div"></div>
-				</div>
-				<div class="col-md-5 newmemtable">
-					<h3>새로운가입자</h3>
-					<table class="table table-hover table-sm">
-						<thead>
-							<tr>
-								<th>
-									#
-								</th>
-								<th>
-									Product
-								</th>
-								<th>
-									Payment Taken
-								</th>
-								<th>
-									Status
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Default
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
 				
 			<!-- 회원테이블 -->
 				<div class="table-responsive row memtable">
 					<h3 class="sub-header">회원테이블</h3>
-					<table class="table table-striped table-hover col-md-10">
+					<table class="table table-hover col-md-10">
 						<thead>
 							<tr>
 								<th>회원번호</th>
@@ -468,5 +401,8 @@ google.setOnLoadCallback(function() {
 		
 	</div>
 
-</body>
-</html>
+
+
+<div style="clear: both;"></div>
+
+<%@ include file="../inc/bottom.jsp" %>

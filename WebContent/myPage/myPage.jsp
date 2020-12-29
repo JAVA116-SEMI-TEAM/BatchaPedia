@@ -1,18 +1,11 @@
+<%@page import="com.batcha.mycmt.model.MyCmtVO"%>
+<%@page import="com.batcha.mymv.model.MyMvVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.batcha.memInfo.model.MemInfoVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 <script type="text/javascript">
 	$(document)
@@ -132,6 +125,10 @@
 					});
 </script>
 <style type="text/css">
+.jumbotron.mysection {
+    margin-bottom: 90px;
+}
+
 .MultiCarousel {
 	float: left;
 	overflow: hidden;
@@ -212,8 +209,8 @@
 }
 
 .mycard {
-	background-color: #1C1D1F;
-	margin-bottom: 80px;
+    background-color: #1C1D1F;
+    margin-bottom: 95px;
 }
 .cardtitle{
 	float: left;
@@ -234,28 +231,69 @@
 }
 
 .pad1 img{
-width: 100%;
-height: 100%;
+	width: 100%;
+	height: 100%;
+	float: left;
 }
 
-.jumbotron{
-	background-color: #fff;
+.mainCmt-warp {
+    width: 100%;
+    margin-bottom: 150px;
+    position: relative;
 }
 
-.img-responsive {
-    width: 80px;
-    height: 121px;
+.go-cmt {
+    float: right;
+    padding: 0px 10px 5px 3px;
+    
 }
+
+.go-cmta{
+	color: #343a40 ;
+	
+}
+
+
+.mycmtRd {
+    margin: 7px;
+    height: 162px;
+    clear: both;
+}
+
+.mycmtsbox {
+    height: 211px;
+    width: 264px;
+    margin: 0 5px 0;
+    /* padding: 5px; */
+    float: left;
+    padding: 0 5px;
+}
+
+.maincmt-title{
+	float: left;
+}
+
 
 </style>
+
+<%
+
+	HttpSession session1=request.getSession();
+	String myId=(String)session1.getAttribute("userid");
+	
+	List<MyMvVO> mvlist = (List<MyMvVO>)request.getAttribute("mvlist");
+	
+%>
 <body>
+	<input type="hidden" name="myno" value="<%=myId%>">
 	<div class="container">
 		<div id="top-wrap">
 			<div id="mytitle">
-				<h2 class="page-header">님의 페이지입니다</h2>
+				<h2 class="page-header"><%=myId %>님의 페이지입니다
+				</h2>
 			</div>
 			<div id="myedit">
-				<a href="#">회원정보수정</a>
+				<a href="<%=request.getContextPath()%>/myPage/myDetail.do">회원정보수정</a>
 			</div>
 		</div>
 
@@ -304,8 +342,8 @@ height: 100%;
 
 			</div>
 		</div>
-		
-		
+
+
 
 		<!--찜목록 카드 -->
 		<div class="cardtitlewrap">
@@ -313,7 +351,7 @@ height: 100%;
 				<h3>#찜목록</h3>
 			</div>
 			<div class="cardmore">
-				<a href="#">더보기</a>
+				<a href="<%=request.getContextPath()%>/myPage/mymv.do">더보기</a>
 			</div>
 		</div>
 		<div class="mycard">
@@ -321,12 +359,17 @@ height: 100%;
 				<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1"
 					id="MultiCarousel" data-interval="1000">
 					<div class="MultiCarousel-inner">
-					<!-- for 문으로 영화 찜 목록 불러오기 -->
+						<!-- for 문으로 영화 찜 목록 불러오기 -->
+						<%for(int i=0;i<mvlist.size();i++){%>
+						<%MyMvVO mmvo=mvlist.get(i); %>
 						<div class="item">
 							<div class="pad1">
-								<img alt="" src="<%=request.getContextPath()%>/images/movie_image.jpg">
+								<div>
+									<img src="<%=mmvo.getThumbnail() %>" alt="영화 사진"> <span><%=mmvo.getMvTitle() %></span>
+								</div>
 							</div>
 						</div>
+						<%}%>
 					</div>
 					<button class="btn btn-primary leftLst"><</button>
 					<button class="btn btn-primary rightLst">></button>
@@ -334,41 +377,13 @@ height: 100%;
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-md-6">
-				<h2 class="page-header">My Comments</h2>
-					<!-- First Comment -->
-					<div class="row">
-						<div class="col-md-2 col-sm-2 hidden-xs">
-							<figure class="thumbnail">
-								<img class="img-responsive"
-									src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
-							</figure>
-						</div>
-						<div class="col-md-10 col-sm-10">
-							<div class="panel panel-default arrow left">
-								<div class="panel-body">
-									<div class="text-left">
-										<div class="mycomment">영화이름</div>
-										<div class="mycomment">내 평점</div>
-									</div>
-									<div class="comment-post">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-											elit, sed do eiusmod tempor incididunt ut labore et dolore
-											magna aliqua. Ut enim ad minim veniam</p>
-									</div>
-									<p class="text-right">
-										<a href="#" class="btn"> 더보기</a>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-			</div>
-			<div class="col-md-6"></div>
+		<div class="mainCmt-warp">
+			<div class="maincmt-title"><h3>#내 코멘트<h3></div>
+			<%@ include file="/myPage/mainCmt.jsp" %>
 		</div>
 
 	</div>
+	<div style="clear: both;"></div>
 </body>
-</html>
+
 <%@ include file="../inc/bottom.jsp"%>

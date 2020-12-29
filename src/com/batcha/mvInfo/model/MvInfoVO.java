@@ -11,20 +11,21 @@ public class MvInfoVO {
 	private String story;
 	private String thumbnail;
 	private String nation;
-	private String showYear; //Í∞úÎ¥âÎÖÑÎèÑ
-	private String makeYear; //Ï†úÏûëÎÖÑÎèÑ
-	private int boxOffice; //Î∞ïÏä§Ïò§ÌîºÏä§ ÏàúÏúÑ
+	private String makeYear; //¡¶¿€≥‚µµ
+	private int boxOffice; //π⁄Ω∫ø¿««Ω∫ º¯¿ß
 	private Timestamp startdate;
 	private Timestamp enddate;
 	private Timestamp regdate;
+	private String mvCode;
+	private String mvTitleEn;
 	
 	public MvInfoVO() {
 		super();
 	}
-	
+
 	public MvInfoVO(int mvNo, String mvTitle, String genre, String director, String actors, String story,
-			String thumbnail, String nation, String showYear, String makeYear, int boxOffice, Timestamp startdate,
-			Timestamp enddate, Timestamp regdate) {
+			String thumbnail, String nation, String makeYear, int boxOffice, Timestamp startdate, Timestamp enddate,
+			Timestamp regdate, String mvCode, String mvTitleEn) {
 		super();
 		this.mvNo = mvNo;
 		this.mvTitle = mvTitle;
@@ -34,14 +35,15 @@ public class MvInfoVO {
 		this.story = story;
 		this.thumbnail = thumbnail;
 		this.nation = nation;
-		this.showYear = showYear;
 		this.makeYear = makeYear;
 		this.boxOffice = boxOffice;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.regdate = regdate;
+		this.mvCode = mvCode;
+		this.mvTitleEn = mvTitleEn;
 	}
-	
+
 	public int getMvNo() {
 		return mvNo;
 	}
@@ -90,12 +92,7 @@ public class MvInfoVO {
 	public void setNation(String nation) {
 		this.nation = nation;
 	}
-	public String getShowYear() {
-		return showYear;
-	}
-	public void setShowYear(String showYear) {
-		this.showYear = showYear;
-	}
+
 	public String getMakeYear() {
 		return makeYear;
 	}
@@ -127,12 +124,28 @@ public class MvInfoVO {
 		this.regdate = regdate;
 	}
 	
+	public String getMvCode() {
+		return mvCode;
+	}
+
+	public void setMvCode(String mvCode) {
+		this.mvCode = mvCode;
+	}
+
+	public String getMvTitleEn() {
+		return mvTitleEn;
+	}
+
+	public void setMvTitleEn(String mvTitleEn) {
+		this.mvTitleEn = mvTitleEn;
+	}
+
 	@Override
 	public String toString() {
 		return "MvInfoVO [mvNo=" + mvNo + ", mvTitle=" + mvTitle + ", genre=" + genre + ", director=" + director
 				+ ", actors=" + actors + ", story=" + story + ", thumbnail=" + thumbnail + ", nation=" + nation
-				+ ", showYear=" + showYear + ", makeYear=" + makeYear + ", boxOffice=" + boxOffice + ", startdate="
-				+ startdate + ", enddate=" + enddate + ", regdate=" + regdate + "]";
+				+ ", makeYear=" + makeYear + ", boxOffice=" + boxOffice + ", startdate=" + startdate + ", enddate="
+				+ enddate + ", regdate=" + regdate + ", mvCode=" + mvCode + ", mvTitleEn=" + mvTitleEn + "]";
 	}
 	
 }

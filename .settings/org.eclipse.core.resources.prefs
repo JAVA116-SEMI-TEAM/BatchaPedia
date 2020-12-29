@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/com/batcha/common/PagingVO.java=UTF-8
+encoding//src/com/batcha/common/Utility.java=UTF-8
+encoding//src/com/batcha/db/ConnectionPoolMgr2.java=UTF-8
+encoding//src/com/batcha/manager/controller/managerController.java=UTF-8
+encoding//src/com/batcha/memInfo/model/MemInfoDAO.java=UTF-8
+encoding//src/com/batcha/memInfo/model/MemInfoService.java=UTF-8
+encoding//src/com/batcha/mvInfo/model/MvInfoService.java=EUC-KR
+encoding//src/com/controller/DispatcherServlet.java=UTF-8
+encoding/<project>=UTF-8

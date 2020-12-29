@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+fieldset {
+    text-align: center;
+    height: 400px;
+    font-family: "Noto Sans KR", sans-serif;
+    margin-top: 200px;
+}
+
+input#userid {
+    width: 500px;
+    height: 50px;
+}
+
+input#pwd {
+    width: 500px;
+    height: 50px;
+}
+
+input#lg_submit {
+    width: 500px;
+    height: 50px;
+    border: 0.5px solid;
+    background: #ff2f6e;
+}
+
+
+a.pink {
+    color: #ff2f6e;
+    text-decoration: none;
+}
+
+p.gray {
+    color: gray;
+}

@@ -5,10 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.batcha.db.ConnectionPoolMgr2;
@@ -369,5 +366,6 @@ public class MemInfoDAO {
 			pool.dbClose(ps, con);
 		}
 	}
+	
 	
 }
