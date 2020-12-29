@@ -2,7 +2,7 @@
     <section class="movieDetail-starsGraph">
 		<div class="movieDetail-starsGraph-header">
 			<!-- todo 실제 더미데이터 입력 후 평점 끌어와서 그래프 그리기 -->
-			<h3>평점분포</h3>
+			<h4>평점분포</h4>
 			<span>${avgStars}점 (${memCntOfMv} 명 참여)</span>
 		</div>
 		<canvas id="starsGraph">
@@ -14,7 +14,6 @@
 			<c:forEach items="${graphData}" var="item">
 			starsData.push("${item}")
 			</c:forEach>
-			console.log("starsData[0]="+starsData[0]);//여기까진 정상이야
 			
 			var graphData = document.getElementById('starsGraph').getContext('2d');
 			var myChart = new Chart(graphData, {

@@ -228,7 +228,7 @@ public class MvInfoDAO {
 	
 
 	//영화 수정(MvEditOkController) - update
-	public int updateMvInfo(MvInfoVO mVo) throws SQLException {
+	public int updateMv(MvInfoVO mVo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		

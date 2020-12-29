@@ -73,25 +73,26 @@ public class MovieDetailController implements Controller{
 		int didStars=0;
 		int memStars=0;
 		starsDataVO starsVo=new starsDataVO();
-		if(memNo>0) { //로그인 되어 있으면
+		if(userid.length()>0) { //로그인 되어 있으면
 			try {
 				//평점여부조회
 				didStars=starsService.didStars(memNo, mvNo);
 				if(didStars==starsDataService.YES_YOU_DID) { //영화평점 가져오기
 					memStars=starsService.getStarsByMemNo(memNo, mvNo);
 				}
+			
+				if(request.getParameter("starSelect")!=null) {
+					memStars=Integer.parseInt(request.getParameter("starSelect"));
+					starsVo.setMemNo(memNo);
+					starsVo.setMvNo(mvNo);
+					starsVo.setStars(memStars);
+					int cntdelete=starsService.deleteStars(memNo, mvNo);
+					System.out.println("평점 수정을 위한 기존평점 삭제 cntdelete="+cntdelete);
+					int cntinsert=starsService.insertStars(starsVo);
+				}
+				
 			}catch(SQLException e) {
 				e.printStackTrace();
-			}
-			
-			if(request.getParameter("starSelect") != null || request.getParameter("starSelect").isEmpty()) {
-				memStars=Integer.parseInt(request.getParameter("starSelect"));
-				starsVo.setMemNo(memNo);
-				starsVo.setMvNo(mvNo);
-				starsVo.setStars(memStars);
-				int cntdelete=starsService.deleteStars(memNo, mvNo);
-				System.out.println("평점 수정을 위한 기존평점 삭제 cntdelete="+cntdelete);
-				int cntinsert=starsService.insertStars(starsVo);
 			}
 		}
 		

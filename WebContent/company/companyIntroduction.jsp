@@ -6,7 +6,6 @@
 </script>
 
 <title>회사소개 - BatchaPedia Introduction</title>
-
 <section class="companyWrraper">
 	<section class="companyIntro">
 		<h2 class="company-header">BatchaPedia</h2>

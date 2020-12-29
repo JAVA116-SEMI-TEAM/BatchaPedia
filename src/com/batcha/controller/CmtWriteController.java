@@ -19,11 +19,9 @@ public class CmtWriteController implements Controller {
 		//파라미터 받아오기
 		//코멘트 작성 관련 파라미터 받기
 		String userid=request.getParameter("userid");
-		System.out.println("userid="+userid);
 		String strMemNo=request.getParameter("memNo");
 		String strMvNo=request.getParameter("mvNo");
 		String cmtText=request.getParameter("cmtText");
-		System.out.println("코멘트 내용"+cmtText);
 		int memNo=Integer.parseInt(strMemNo);
 		int mvNo=Integer.parseInt(strMvNo);
 		
