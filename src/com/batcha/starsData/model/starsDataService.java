@@ -8,52 +8,52 @@ import java.util.List;
 
 public class starsDataService {
 
-   starsDataDAO starsDao;
+	starsDataDAO starsDao;
 
-   //mvNo¿¡ ÇØ´çÇÏ´Â ¿µÈ­¿¡ memNoÈ¸¿øÀÌ ÆòÁ¡À» ¸Å°å´ÂÁö ¿©ºÎ ÆÇº°
-   public final static int YES_YOU_DID=1;
-   public final static int NO_YOU_DIDNT=0;
-   
-   public starsDataService() {
-      starsDao=new starsDataDAO();
-   }
+	//mvNoì— í•´ë‹¹í•˜ëŠ” ì˜í™”ì— memNoíšŒì›ì´ í‰ì ì„ ë§¤ê²¼ëŠ”ì§€ ì—¬ë¶€ íŒë³„
+	public final static int YES_YOU_DID=1;
+	public final static int NO_YOU_DIDNT=0;
+	
+	public starsDataService() {
+		starsDao=new starsDataDAO();
+	}
 
-   //¿µÈ­ÀÇ Æò±Õ ÆòÁ¡ Á¶È¸
-   public float getAvgStars(int mvNo) throws SQLException {
-      return starsDao.getAvgStars(mvNo);
-   }
-   
-   //È¸¿ø/¿µÈ­¹øÈ£·Î ÆòÁ¡¸®½ºÆ® Á¶È¸ÇÏ±â. list.size·Î È¸¿ø/¿µÈ­º° ÆòÁ¡ °³¼öµµ È®ÀÎ °¡´É
-   public List<starsDataVO> selectAllStarsByNo(int no, boolean isMemNo) throws SQLException{
-      return starsDao.selectAllStarsByNo(no, isMemNo);
-   }
-   
-   //¼¿·ºÆ®ÀÎµ¥.. ÆòÁ¡ ÇÑ°³¸¸ °¡Á®¿À´Â °Í
-   //ÀÌ ¸Ş¼Òµå °á°ú°ªÀÌ 0ÀÌ¸é °á±¹ ÆòÁ¡À» ÀÔ·ÂÇÏÁö ¾Ê¾Ò´Ù´Â ¶æÀÎµ¥
-   public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//ÆòÁ¡À» ºÎ¿©ÇÑ °æ¿ì ¸îÁ¡ÀÎÁö Ã£±â
-      return starsDao.getStarsByMemNo(memNo, mvNo);
-   }
-   
-   //ÆòÁ¡ ÀÔ·ÂÇÏ±â
-   public int insertStars(starsDataVO starsVo) throws SQLException {
-      return starsDao.insertStars(starsVo);
-   }
-   
-   //Æ¯Á¤ È¸¿øÀÇ Æ¯Á¤ ¿µÈ­ ÆòÁ¡ »èÁ¦ÇÏ±â
-   public int deleteStars(int memNo, int mvNo) throws SQLException {
-      return starsDao.deleteStars(memNo, mvNo);
-   }
-   
-   public int updateStars(starsDataVO starsVo) throws SQLException {
-      return starsDao.updateStars(starsVo);
-   }
-   
-   //Æ¯Á¤ È¸¿øÀÇ ¿µÈ­º° ÆòÁ¡ ºÎ¿©Çß´ÂÁö ¿©ºÎ Á¶È¸ ÆòÁ¡Á¶È¸¿¡¼­ È®ÀÎ°¡´ÉÇÒ°Å°°Àºµ¥ ÀÖ¾î¾ß ÇÏ³ª ¾ø¾Ö¾ß ÇÏ³ª °í¹Î
-   public int didStars(int memNo, int mvNo) throws SQLException {
-      return starsDao.didStars(memNo, mvNo);
-   }
+	//ì˜í™”ì˜ í‰ê·  í‰ì  ì¡°íšŒ
+	public float getAvgStars(int mvNo) throws SQLException {
+		return starsDao.getAvgStars(mvNo);
+	}
+	
+	//íšŒì›/ì˜í™”ë²ˆí˜¸ë¡œ í‰ì ë¦¬ìŠ¤íŠ¸ ì¡°íšŒí•˜ê¸°. list.sizeë¡œ íšŒì›/ì˜í™”ë³„ í‰ì  ê°œìˆ˜ë„ í™•ì¸ ê°€ëŠ¥
+	public List<starsDataVO> selectAllStarsByNo(int no, boolean isMemNo) throws SQLException{
+		return starsDao.selectAllStarsByNo(no, isMemNo);
+	}
+	
+	//ì…€ë ‰íŠ¸ì¸ë°.. í‰ì  í•œê°œë§Œ ê°€ì ¸ì˜¤ëŠ” ê²ƒ
+	//ì´ ë©”ì†Œë“œ ê²°ê³¼ê°’ì´ 0ì´ë©´ ê²°êµ­ í‰ì ì„ ì…ë ¥í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ëœ»ì¸ë°
+	public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//í‰ì ì„ ë¶€ì—¬í•œ ê²½ìš° ëª‡ì ì¸ì§€ ì°¾ê¸°
+		return starsDao.getStarsByMemNo(memNo, mvNo);
+	}
+	
+	//í‰ì  ì…ë ¥í•˜ê¸°
+	public int insertStars(starsDataVO starsVo) throws SQLException {
+		return starsDao.insertStars(starsVo);
+	}
+	
+	//íŠ¹ì • íšŒì›ì˜ íŠ¹ì • ì˜í™” í‰ì  ì‚­ì œí•˜ê¸°
+	public int deleteStars(int memNo, int mvNo) throws SQLException {
+		return starsDao.deleteStars(memNo, mvNo);
+	}
+	
+	public int updateStars(starsDataVO starsVo) throws SQLException {
+		return starsDao.updateStars(starsVo);
+	}
+	
+	//íŠ¹ì • íšŒì›ì˜ ì˜í™”ë³„ í‰ì  ë¶€ì—¬í–ˆëŠ”ì§€ ì—¬ë¶€ ì¡°íšŒ í‰ì ì¡°íšŒì—ì„œ í™•ì¸ê°€ëŠ¥í• ê±°ê°™ì€ë° ìˆì–´ì•¼ í•˜ë‚˜ ì—†ì• ì•¼ í•˜ë‚˜ ê³ ë¯¼
+	public int didStars(int memNo, int mvNo) throws SQLException {
+		return starsDao.didStars(memNo, mvNo);
+	}
 
-   public int[] makeStarGraph(List<starsDataVO> starsList) {
-      return starsDao.makeStarGraph(starsList);
-   }
+	public int[] makeStarGraph(List<starsDataVO> starsList) {
+		return starsDao.makeStarGraph(starsList);
+	}
 }

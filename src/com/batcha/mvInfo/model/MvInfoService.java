@@ -4,36 +4,59 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MvInfoService {
-	MvInfoDAO mvDao;
+	private MvInfoDAO mvDao;
 	
 	public MvInfoService() {
 		mvDao=new MvInfoDAO();
 	}
 	
-	//¿µÈ­ µî·Ï - insert
+	//ì˜í™” ë“±ë¡ - insert
 	public int insertMv(MvInfoVO vo) throws SQLException {
 		return mvDao.insertMv(vo);
 	}
 	
-	//¿µÈ­ ÀüÃ¼ Á¶È¸ - select
+	//ì˜í™” ì „ì²´ ì¡°íšŒ - select
 	public List<MvInfoVO> selectAllMv() throws SQLException {
 		return mvDao.selectAllMv();
 	}
 
-	//¹øÈ£·Î ¿µÈ­ Á¶È¸ - select(mvNo)
+	//ë²ˆí˜¸ë¡œ ì˜í™” ì¡°íšŒ - select(mvNo)
 	public MvInfoVO selectMv(int mvNo) throws SQLException {
 		return mvDao.selectMv(mvNo);
 	}
 	
-	//¿µÈ­ ¼öÁ¤ - update
+	//ì˜í™” ìˆ˜ì • - update
 	public int updateMv(MvInfoVO mVo) throws SQLException {
 		return mvDao.updateMv(mVo);
 	}
 	
-	//¿µÈ­ »èÁ¦  - delete
+	//ì˜í™” ì‚­ì œ  - delete
 	public int deleteMv(int mvNo) throws SQLException {
 		return mvDao.deleteMv(mvNo);
 	}
+	//ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ê°€ì ¸ì˜¤ê¸°
+	public List<MvInfoVO> selectBoxOfficeList() throws SQLException {
+		return mvDao.selectBoxOfficeList();
+	}
 	
+	//í•œêµ­ì˜í™”
+	public List<MvInfoVO> selectKorMovie() throws SQLException{
+		return mvDao.selectKorMovie();
+	}
+	
+	//20ì„¸ê¸° ì˜í™”
+	public List<MvInfoVO> select20th() throws SQLException{
+		return mvDao.select20th();
+	}
+	
+	//ì½”ë¯¸ë””
+	public List<MvInfoVO> selectComedy() throws SQLException{
+		return mvDao.selectComedy();
+	}
+	
+	//ìŠ¤ë¦´ëŸ¬,ë²”ì£„
+	   public List<MvInfoVO> selectThrill() throws SQLException{
+		   return mvDao.selectThrill();
+	   }
 	
 }

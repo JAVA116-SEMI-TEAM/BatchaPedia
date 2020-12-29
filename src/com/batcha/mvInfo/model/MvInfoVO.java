@@ -1,6 +1,7 @@
 package com.batcha.mvInfo.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class MvInfoVO {
 	private int mvNo;
@@ -11,8 +12,8 @@ public class MvInfoVO {
 	private String story;
 	private String thumbnail;
 	private String nation;
-	private String makeYear; //Á¦ÀÛ³âµµ
-	private int boxOffice; //¹Ú½º¿ÀÇÇ½º ¼øÀ§
+	private String makeYear; //ì œì‘ë…„ë„
+	private int boxOffice; //ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ìˆœìœ„
 	private Timestamp startdate;
 	private Timestamp enddate;
 	private Timestamp regdate;
@@ -47,48 +48,63 @@ public class MvInfoVO {
 	public int getMvNo() {
 		return mvNo;
 	}
+
 	public void setMvNo(int mvNo) {
 		this.mvNo = mvNo;
 	}
+
 	public String getMvTitle() {
 		return mvTitle;
 	}
+
 	public void setMvTitle(String mvTitle) {
 		this.mvTitle = mvTitle;
 	}
+
 	public String getGenre() {
 		return genre;
 	}
+
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
+
 	public String getDirector() {
 		return director;
 	}
+
 	public void setDirector(String director) {
 		this.director = director;
 	}
+
 	public String getActors() {
 		return actors;
 	}
+
 	public void setActors(String actors) {
 		this.actors = actors;
 	}
+
 	public String getStory() {
 		return story;
 	}
+
 	public void setStory(String story) {
 		this.story = story;
 	}
+
 	public String getThumbnail() {
 		return thumbnail;
 	}
+
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+
 	public String getNation() {
 		return nation;
 	}
+
 	public void setNation(String nation) {
 		this.nation = nation;
 	}
@@ -96,34 +112,43 @@ public class MvInfoVO {
 	public String getMakeYear() {
 		return makeYear;
 	}
+
 	public void setMakeYear(String makeYear) {
 		this.makeYear = makeYear;
 	}
+
 	public int getBoxOffice() {
 		return boxOffice;
 	}
+
 	public void setBoxOffice(int boxOffice) {
 		this.boxOffice = boxOffice;
 	}
+
 	public Timestamp getStartdate() {
 		return startdate;
 	}
+
 	public void setStartdate(Timestamp startdate) {
 		this.startdate = startdate;
 	}
+
 	public Timestamp getEnddate() {
 		return enddate;
 	}
+
 	public void setEnddate(Timestamp enddate) {
 		this.enddate = enddate;
 	}
+
 	public Timestamp getRegdate() {
 		return regdate;
 	}
+
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
 	}
-	
+
 	public String getMvCode() {
 		return mvCode;
 	}
@@ -147,5 +172,5 @@ public class MvInfoVO {
 				+ ", makeYear=" + makeYear + ", boxOffice=" + boxOffice + ", startdate=" + startdate + ", enddate="
 				+ enddate + ", regdate=" + regdate + ", mvCode=" + mvCode + ", mvTitleEn=" + mvTitleEn + "]";
 	}
-	
+
 }

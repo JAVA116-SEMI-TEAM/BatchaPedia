@@ -7,14 +7,15 @@ import com.controller.Controller;
 
 public class LoginController implements Controller{
 
-   @Override
-   public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-      return "/login/login.jsp";
-   }
+	@Override
+	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		return "/login/login.jsp";
+	}
 
-   @Override
-   public boolean isRedirect() {
-      return false;
-   }
+	@Override
+	public boolean isRedirect() {
+		return false;
+	}
 
 }
+

@@ -8,8 +8,8 @@
 </head>
 <body>
 <%
-   session.invalidate();
-   response.sendRedirect("../main.do");
+	session.invalidate();
+	response.sendRedirect("../main.do");
 %>
 </body>
 </html>

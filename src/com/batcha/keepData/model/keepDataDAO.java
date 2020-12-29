@@ -11,136 +11,136 @@ import com.batcha.db.ConnectionPoolMgr2;
 import com.batcha.mvInfo.model.MvInfoVO;
 
 public class keepDataDAO {
-   ConnectionPoolMgr2 pool;
-   
-   public keepDataDAO() {
-      pool=new ConnectionPoolMgr2();
-   }
-   
-   //ÅµÀÇ µ¥ÀÌÅÍ Æ¯¼º»ó ¾÷µ¥ÀÌÆ®±â´ÉÀº ºÒÇÊ¿äÇÏ¿© Á¦¿ÜÇÔ
-   //Åµ¸ñ·Ï¿¡ Ãß°¡
-   public int insertKeep(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="insert into keepData(keepno, memno, mvno)" + 
-               " values(keepData_seq.nextval, ?, ?)";
-         
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         int cnt=ps.executeUpdate();
-         System.out.println("Âò Ãß°¡ °á°ú cnt="+cnt+", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //Åµ¸ñ·Ï¿¡¼­ »èÁ¦
-   public int deleteKeep(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="delete from keepdata" + 
-                  " where memno=? and mvno=?";
-         
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         int cnt=ps.executeUpdate();
-         System.out.println("Âò »èÁ¦ °á°ú cnt="+cnt+", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //È¸¿øº°, ¿µÈ­º° ¸ğµç Åµ¸®½ºÆ® ²¨³»±â. ÃÑ °³¼ö°¡ ÇÊ¿äÇÏ¸é list.size·Î È°¿ë °¡´É
-   public List<keepDataVO> selectAllKeepByMemNo(int no, boolean isMemNo) throws SQLException{
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      List<keepDataVO> list=null;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select * from keepdata where ";
-         
-         if(isMemNo) {
-            sql+=" memNo=?";
-         }else {
-            sql+=" mvNo=?";
-         }
-         
-         sql+=" order by keepno desc";
-         
-         rs=ps.executeQuery();
-         
-         while(rs.next()) {
-            keepDataVO keepVo=new keepDataVO();
-            keepVo.setKeepNo(rs.getInt("keepNo"));
-            
-            if(isMemNo) {
-               keepVo.setMemNo(no);
-               keepVo.setMvNo(rs.getInt("mvNo"));
-            }else {
-               keepVo.setMemNo(rs.getInt("memNo"));
-               keepVo.setMvNo(no);
-            }
-            
-            list.add(keepVo);
-         }
-         
-         System.out.println("È¸¿ø/¿µÈ­º° Âò¸ñ·Ï ÀüÃ¼Á¶È¸ °á°ú list.size="+list.size()
-                        +", ¸Å°³º¯¼ö no="+no+", isMemNo="+isMemNo);
-         return list;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   }
-   
-   //ÅµµÅÀÖ´ÂÁö È®ÀÎÇÏ±â
-   public int isKept(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      keepDataVO keepVo=null;
-      int result=0;
-      try {
-         con=pool.getConnection();
-         
-         String sql="select count(*) as count from keepData where mvno=? and memno=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, mvNo);
-         ps.setInt(2, memNo);
-         
-         rs=ps.executeQuery();
-         
-         if(rs.next()) {
-            if(rs.getInt("count")==keepDataService.IS_KEPT) {
-               result=keepDataService.IS_KEPT;
-            }else{
-               result=keepDataService.IS_NOT_KEPT;               
-            }
-         }
-         
-         System.out.println("Âò ¿©ºÎ Á¶È¸ °á°ú result="+result+", ¸Å°³º¯¼ö mvNo="+mvNo+", memNo="+memNo);
-         return result;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   }
+	ConnectionPoolMgr2 pool;
+	
+	public keepDataDAO() {
+		pool=new ConnectionPoolMgr2();
+	}
+	
+	//í‚µì˜ ë°ì´í„° íŠ¹ì„±ìƒ ì—…ë°ì´íŠ¸ê¸°ëŠ¥ì€ ë¶ˆí•„ìš”í•˜ì—¬ ì œì™¸í•¨
+	//í‚µëª©ë¡ì— ì¶”ê°€
+	public int insertKeep(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="insert into keepData(keepno, memno, mvno)" + 
+					" values(keepData_seq.nextval, ?, ?)";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			int cnt=ps.executeUpdate();
+			System.out.println("ì°œ ì¶”ê°€ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//í‚µëª©ë¡ì—ì„œ ì‚­ì œ
+	public int deleteKeep(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="delete from keepdata" + 
+					   " where memno=? and mvno=?";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			int cnt=ps.executeUpdate();
+			System.out.println("ì°œ ì‚­ì œ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//íšŒì›ë³„, ì˜í™”ë³„ ëª¨ë“  í‚µë¦¬ìŠ¤íŠ¸ êº¼ë‚´ê¸°. ì´ ê°œìˆ˜ê°€ í•„ìš”í•˜ë©´ list.sizeë¡œ í™œìš© ê°€ëŠ¥
+	public List<keepDataVO> selectAllKeepByMemNo(int no, boolean isMemNo) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<keepDataVO> list=null;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from keepdata where ";
+			
+			if(isMemNo) {
+				sql+=" memNo=?";
+			}else {
+				sql+=" mvNo=?";
+			}
+			
+			sql+=" order by keepno desc";
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				keepDataVO keepVo=new keepDataVO();
+				keepVo.setKeepNo(rs.getInt("keepNo"));
+				
+				if(isMemNo) {
+					keepVo.setMemNo(no);
+					keepVo.setMvNo(rs.getInt("mvNo"));
+				}else {
+					keepVo.setMemNo(rs.getInt("memNo"));
+					keepVo.setMvNo(no);
+				}
+				
+				list.add(keepVo);
+			}
+			
+			System.out.println("íšŒì›/ì˜í™”ë³„ ì°œëª©ë¡ ì „ì²´ì¡°íšŒ ê²°ê³¼ list.size="+list.size()
+								+", ë§¤ê°œë³€ìˆ˜ no="+no+", isMemNo="+isMemNo);
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	//í‚µë¼ìˆëŠ”ì§€ í™•ì¸í•˜ê¸°
+	public int isKept(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		keepDataVO keepVo=null;
+		int result=0;
+		try {
+			con=pool.getConnection();
+			
+			String sql="select count(*) as count from keepData where mvno=? and memno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, mvNo);
+			ps.setInt(2, memNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getInt("count")==keepDataService.IS_KEPT) {
+					result=keepDataService.IS_KEPT;
+				}else{
+					result=keepDataService.IS_NOT_KEPT;					
+				}
+			}
+			
+			System.out.println("ì°œ ì—¬ë¶€ ì¡°íšŒ ê²°ê³¼ result="+result+", ë§¤ê°œë³€ìˆ˜ mvNo="+mvNo+", memNo="+memNo);
+			return result;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
 }

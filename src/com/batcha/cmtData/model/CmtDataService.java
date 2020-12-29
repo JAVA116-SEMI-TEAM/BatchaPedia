@@ -7,53 +7,53 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CmtDataService {
-   CmtDataDAO cmtDao;
-   
-   //ÄÚ¸àÆ® ÀÛ¼º¿©ºÎ È®ÀÎ
-   public final static int DIDNT_WROTE_YET=0;
-   public final static int ALREADY_WROTE=1;
-   
-   public CmtDataService() {
-      cmtDao = new CmtDataDAO();
-   }
+	CmtDataDAO cmtDao;
+	
+	//ì½”ë©˜íŠ¸ ì‘ì„±ì—¬ë¶€ í™•ì¸
+	public final static int DIDNT_WROTE_YET=0;
+	public final static int ALREADY_WROTE=1;
+	
+	public CmtDataService() {
+		cmtDao = new CmtDataDAO();
+	}
 
-   //ÄÚ¸àÆ® Ãß°¡ ¸Ş¼Òµå
-   public int insertCmt(CmtDataVO cmtVo) throws SQLException {
-      return cmtDao.insertCmt(cmtVo);
-   }
-   
-   //ÄÚ¸àÆ® ¾÷µ¥ÀÌÆ® ¸Ş¼Òµå
-   public int updateCmt(CmtDataVO cmtVo) throws SQLException {
-      return cmtDao.updateCmt(cmtVo);
-   }
-   
-   //ÄÚ¸àÆ® »èÁ¦ ¸Ş¼Òµå
-   public int deleteCmt(int cmtNo) throws SQLException {
-      return cmtDao.deleteCmt(cmtNo);
-   }
-   
-   //ÄÚ¸àÆ®¸¦ ¿µÈ­¹øÈ£³ª ¸â¹ö¹øÈ£¿¡ µû¶ó ¼¿·ºÆ®ÇÏ´Â ¸Ş¼Òµå
-   //no°¡ È¸¿ø¹øÈ£¸é isMemNo=true, ¿µÈ­¹øÈ£¸é false·Î ¸Å°³º¯¼ö ÁÙ °Í
-   public List<CmtDataVO> selectCmtByNo(int no, boolean isMemNo) throws SQLException{
-      return cmtDao.selectCmtByNo(no, isMemNo);
-   }
-   
-   //È¸¿øÀÌ³ª ¿µÈ­¹øÈ£¿¡ µû¸¥ ÄÚ¸àÆ® °³¼ö °¡Á®¿À±â
-   //no°¡ È¸¿ø¹øÈ£¸é isMemNo=true, ¿µÈ­¹øÈ£¸é false·Î ¸Å°³º¯¼ö ÁÙ °Í
-   public int getCmtCntByNo(int no, boolean isMemNo) throws SQLException{
-      return cmtDao.getCmtCntByNo(no, isMemNo);
-   }
-   
-   //ÄÚ¸àÆ® ÀüÃ¼¸ñ·Ï.. ÀÌ°É ¾µ °÷ÀÌ ÀÖÀ»±î?
-   public List<CmtDataVO> selectAllCmt() throws SQLException{
-      return cmtDao.selectAllCmt();
-   }
+	//ì½”ë©˜íŠ¸ ì¶”ê°€ ë©”ì†Œë“œ
+	public int insertCmt(CmtDataVO cmtVo) throws SQLException {
+		return cmtDao.insertCmt(cmtVo);
+	}
+	
+	//ì½”ë©˜íŠ¸ ì—…ë°ì´íŠ¸ ë©”ì†Œë“œ
+	public int updateCmt(CmtDataVO cmtVo) throws SQLException {
+		return cmtDao.updateCmt(cmtVo);
+	}
+	
+	//ì½”ë©˜íŠ¸ ì‚­ì œ ë©”ì†Œë“œ
+	public int deleteCmt(int cmtNo) throws SQLException {
+		return cmtDao.deleteCmt(cmtNo);
+	}
+	
+	//ì½”ë©˜íŠ¸ë¥¼ ì˜í™”ë²ˆí˜¸ë‚˜ ë©¤ë²„ë²ˆí˜¸ì— ë”°ë¼ ì…€ë ‰íŠ¸í•˜ëŠ” ë©”ì†Œë“œ
+	//noê°€ íšŒì›ë²ˆí˜¸ë©´ isMemNo=true, ì˜í™”ë²ˆí˜¸ë©´ falseë¡œ ë§¤ê°œë³€ìˆ˜ ì¤„ ê²ƒ
+	public List<CmtDataVO> selectCmtByNo(int no, boolean isMemNo) throws SQLException{
+		return cmtDao.selectCmtByNo(no, isMemNo);
+	}
+	
+	//íšŒì›ì´ë‚˜ ì˜í™”ë²ˆí˜¸ì— ë”°ë¥¸ ì½”ë©˜íŠ¸ ê°œìˆ˜ ê°€ì ¸ì˜¤ê¸°
+	//noê°€ íšŒì›ë²ˆí˜¸ë©´ isMemNo=true, ì˜í™”ë²ˆí˜¸ë©´ falseë¡œ ë§¤ê°œë³€ìˆ˜ ì¤„ ê²ƒ
+	public int getCmtCntByNo(int no, boolean isMemNo) throws SQLException{
+		return cmtDao.getCmtCntByNo(no, isMemNo);
+	}
+	
+	//ì½”ë©˜íŠ¸ ì „ì²´ëª©ë¡.. ì´ê±¸ ì“¸ ê³³ì´ ìˆì„ê¹Œ?
+	public List<CmtDataVO> selectAllCmt() throws SQLException{
+		return cmtDao.selectAllCmt();
+	}
 
-   public int alreadyWroteOrNot(int memNo, int mvNo) throws SQLException {
-      return cmtDao.alreadyWroteOrNot(memNo, mvNo);
-   }
-   
-   public CmtDataVO selectOneCmt(int memNo, int mvNo) throws SQLException {
-      return cmtDao.selectOneCmt(memNo, mvNo);
-   }
+	public int alreadyWroteOrNot(int memNo, int mvNo) throws SQLException {
+		return cmtDao.alreadyWroteOrNot(memNo, mvNo);
+	}
+	
+	public CmtDataVO selectOneCmt(int memNo, int mvNo) throws SQLException {
+		return cmtDao.selectOneCmt(memNo, mvNo);
+	}
 }

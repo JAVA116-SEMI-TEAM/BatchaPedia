@@ -10,262 +10,262 @@ import java.util.List;
 import com.batcha.db.ConnectionPoolMgr2;
 
 public class starsDataDAO {
-   ConnectionPoolMgr2 pool;
-   
-   public starsDataDAO() {
-      pool=new ConnectionPoolMgr2();
-   }
-   
-   //¿µÈ­ÀÇ Æò±Õ ÆòÁ¡ Á¶È¸
-   public float getAvgStars(int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      float avgStars=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select TRUNC(AVG(NVL(stars, 0)), 1) as avgStars from starsData where mvNo=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, mvNo);
-         
-         rs=ps.executeQuery();
-         
-         if(rs.next()) {
-            avgStars=rs.getFloat("avgStars");
-         }
-         
-         System.out.println("¿µÈ­ÀÇ ÆòÁ¡ Á¶È¸ °á°ú stars="+avgStars+", ¸Å°³º¯¼ö mvNo="+mvNo);
-         return avgStars;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   }
-   
-   //È¸¿ø/¿µÈ­¹øÈ£·Î ÆòÁ¡¸®½ºÆ® Á¶È¸ÇÏ±â. list.size·Î È¸¿ø/¿µÈ­º° ÆòÁ¡ °³¼öµµ È®ÀÎ °¡´É
-   public List<starsDataVO> selectAllStarsByNo(int no, boolean isMemNo) throws SQLException{
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      List<starsDataVO> list = new ArrayList<starsDataVO>();
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select * from starsData where";
-         
-         if(isMemNo) {
-            sql+=" memNo=? order by memNo desc";
-         }else {
-            sql+=" mvNo=? order by mvNo desc";
-         }
-               
-         ps=con.prepareStatement(sql);
-         ps.setInt(1, no);
-         
-         rs=ps.executeQuery();
-         
-         while(rs.next()) {
-            starsDataVO starsVo=new starsDataVO();
-            starsVo.setMemNo(rs.getInt("memNo"));
-            starsVo.setMvNo(rs.getInt("mvNo"));
-            starsVo.setStarsNo(rs.getInt("starsNo"));
-            starsVo.setStars(rs.getInt("stars"));
-            
-            list.add(starsVo);
-         }
-         System.out.println("È¸¿ø ¶Ç´Â ¿µÈ­¹øÈ£·Î ÀüÃ¼Á¶È¸ °á°ú list.size="+list.size()
-                       +", ¸Å°³º¯¼ö no="+no+", isMemNo="+isMemNo);
-         return list;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   }
-   
-   //¼¿·ºÆ®ÀÎµ¥.. ÆòÁ¡ ÇÑ°³¸¸ °¡Á®¿À´Â °Í
-   //ÀÌ ¸Ş¼Òµå °á°ú°ªÀÌ 0ÀÌ¸é °á±¹ ÆòÁ¡À» ÀÔ·ÂÇÏÁö ¾Ê¾Ò´Ù´Â ¶æÀÎµ¥
-   public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//ÆòÁ¡À» ºÎ¿©ÇÑ °æ¿ì ¸îÁ¡ÀÎÁö Ã£±â
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      int memStars=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select stars from starsData where memno=? and mvno=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         rs=ps.executeQuery();
-               
-         if(rs.next()) {
-            memStars=rs.getInt("stars");
-         }
-         System.out.println("Æ¯Á¤ È¸¿øÀÇ Æ¯Á¤ ¿µÈ­¿¡ ¸Å±ä ÆòÁ¡ Á¶È¸ °á°ú memStars="+memStars
-                     +", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-         return memStars;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   
-   }
-   
-   //ÆòÁ¡ ÀÔ·ÂÇÏ±â
-   public int insertStars(starsDataVO starsVo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      int cnt=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="insert into starsdata(starsno, memNo, mvNo, stars)"
-               + " values(starsdata_seq.nextval, ?, ?, ?)";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, starsVo.getMemNo());
-         ps.setInt(2, starsVo.getMvNo());
-         ps.setInt(3, starsVo.getStars());
-         
-         cnt=ps.executeUpdate();
-         
-         System.out.println("ÆòÁ¡ ÀÔ·Â °á°ú cnt="+cnt+", ¸Å°³º¯¼ö starsVo="+starsVo);
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //Æ¯Á¤ È¸¿øÀÇ Æ¯Á¤ ¿µÈ­ ÆòÁ¡ »èÁ¦ÇÏ±â
-   public int deleteStars(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      int cnt=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="delete from starsData where memNo=? and mvNo=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         cnt=ps.executeUpdate();
-         
-         System.out.println("ÆòÁ¡ »èÁ¦ °á°ú cnt="+cnt+", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   public int updateStars(starsDataVO starsVo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      int cnt=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="update starsData"
-               + " set stars=?"
-               + " where memNo=? and mvNo=?";
-         
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, starsVo.getStars());
-         ps.setInt(2, starsVo.getMemNo());
-         ps.setInt(3, starsVo.getMvNo());
-         
-         cnt=ps.executeUpdate();
-         
-         System.out.println("ÆòÁ¡ ¾÷µ¥ÀÌÆ® °á°ú cnt="+cnt+", ¸Å°³º¯¼ö starsVo="+starsVo);
-         
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //Æ¯Á¤ È¸¿øÀÇ ¿µÈ­º° ÆòÁ¡ ºÎ¿©Çß´ÂÁö ¿©ºÎ Á¶È¸
-   public int didStars(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      int didStars=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select count(*) as count from starsdata where memno=? and mvno=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         rs=ps.executeQuery();
-         
-         if(rs.next()) {
-            if(rs.getInt("count")>0) { //Ä«¿îÆ®°¡ ÀÖÀ¸¸é
-               didStars=starsDataService.YES_YOU_DID;
-            }else {
-               didStars=starsDataService.NO_YOU_DIDNT;
-            }
-         }
-         
-         System.out.println("È¸¿øÀÇ Æ¯Á¤¿µÈ­ ÆòÁ¡ºÎ¿©¿©ºÎ °á°ú didStar="+didStars+", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-         return didStars;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-      
-   }
+	ConnectionPoolMgr2 pool;
+	
+	public starsDataDAO() {
+		pool=new ConnectionPoolMgr2();
+	}
+	
+	//ì˜í™”ì˜ í‰ê·  í‰ì  ì¡°íšŒ
+	public float getAvgStars(int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		float avgStars=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select TRUNC(AVG(NVL(stars, 0)), 1) as avgStars from starsData where mvNo=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, mvNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				avgStars=rs.getFloat("avgStars");
+			}
+			
+			System.out.println("ì˜í™”ì˜ í‰ì  ì¡°íšŒ ê²°ê³¼ stars="+avgStars+", ë§¤ê°œë³€ìˆ˜ mvNo="+mvNo);
+			return avgStars;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	//íšŒì›/ì˜í™”ë²ˆí˜¸ë¡œ í‰ì ë¦¬ìŠ¤íŠ¸ ì¡°íšŒí•˜ê¸°. list.sizeë¡œ íšŒì›/ì˜í™”ë³„ í‰ì  ê°œìˆ˜ë„ í™•ì¸ ê°€ëŠ¥
+	public List<starsDataVO> selectAllStarsByNo(int no, boolean isMemNo) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<starsDataVO> list = new ArrayList<starsDataVO>();
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from starsData where";
+			
+			if(isMemNo) {
+				sql+=" memNo=? order by memNo desc";
+			}else {
+				sql+=" mvNo=? order by mvNo desc";
+			}
+					
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				starsDataVO starsVo=new starsDataVO();
+				starsVo.setMemNo(rs.getInt("memNo"));
+				starsVo.setMvNo(rs.getInt("mvNo"));
+				starsVo.setStarsNo(rs.getInt("starsNo"));
+				starsVo.setStars(rs.getInt("stars"));
+				
+				list.add(starsVo);
+			}
+			System.out.println("íšŒì› ë˜ëŠ” ì˜í™”ë²ˆí˜¸ë¡œ ì „ì²´ì¡°íšŒ ê²°ê³¼ list.size="+list.size()
+							  +", ë§¤ê°œë³€ìˆ˜ no="+no+", isMemNo="+isMemNo);
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	//ì…€ë ‰íŠ¸ì¸ë°.. í‰ì  í•œê°œë§Œ ê°€ì ¸ì˜¤ëŠ” ê²ƒ
+	//ì´ ë©”ì†Œë“œ ê²°ê³¼ê°’ì´ 0ì´ë©´ ê²°êµ­ í‰ì ì„ ì…ë ¥í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ëœ»ì¸ë°
+	public int getStarsByMemNo(int memNo, int mvNo) throws SQLException {//í‰ì ì„ ë¶€ì—¬í•œ ê²½ìš° ëª‡ì ì¸ì§€ ì°¾ê¸°
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int memStars=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select stars from starsData where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+					
+			if(rs.next()) {
+				memStars=rs.getInt("stars");
+			}
+			System.out.println("íŠ¹ì • íšŒì›ì˜ íŠ¹ì • ì˜í™”ì— ë§¤ê¸´ í‰ì  ì¡°íšŒ ê²°ê³¼ memStars="+memStars
+							+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return memStars;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	
+	}
+	
+	//í‰ì  ì…ë ¥í•˜ê¸°
+	public int insertStars(starsDataVO starsVo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="insert into starsdata(starsno, memNo, mvNo, stars)"
+					+ " values(starsdata_seq.nextval, ?, ?, ?)";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, starsVo.getMemNo());
+			ps.setInt(2, starsVo.getMvNo());
+			ps.setInt(3, starsVo.getStars());
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("í‰ì  ì…ë ¥ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ starsVo="+starsVo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//íŠ¹ì • íšŒì›ì˜ íŠ¹ì • ì˜í™” í‰ì  ì‚­ì œí•˜ê¸°
+	public int deleteStars(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="delete from starsData where memNo=? and mvNo=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("í‰ì  ì‚­ì œ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	public int updateStars(starsDataVO starsVo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="update starsData"
+					+ " set stars=?"
+					+ " where memNo=? and mvNo=?";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, starsVo.getStars());
+			ps.setInt(2, starsVo.getMemNo());
+			ps.setInt(3, starsVo.getMvNo());
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("í‰ì  ì—…ë°ì´íŠ¸ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ starsVo="+starsVo);
+			
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//íŠ¹ì • íšŒì›ì˜ ì˜í™”ë³„ í‰ì  ë¶€ì—¬í–ˆëŠ”ì§€ ì—¬ë¶€ ì¡°íšŒ
+	public int didStars(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int didStars=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select count(*) as count from starsdata where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getInt("count")>0) { //ì¹´ìš´íŠ¸ê°€ ìˆìœ¼ë©´
+					didStars=starsDataService.YES_YOU_DID;
+				}else {
+					didStars=starsDataService.NO_YOU_DIDNT;
+				}
+			}
+			
+			System.out.println("íšŒì›ì˜ íŠ¹ì •ì˜í™” í‰ì ë¶€ì—¬ì—¬ë¶€ ê²°ê³¼ didStar="+didStars+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return didStars;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+		
+	}
 
-   public int[] makeStarGraph(List<starsDataVO> starsList) {
-      int[] graphData = {0,0,0,0,0,0,0,0,0,0};
-      
-      for(int i=0; i<starsList.size(); i++) { //ÆòÁ¡¸®½ºÆ®ÀÇ n¹øÂ°°¡ ÆòÁ¡ ¸îÁ¡ÀÎÁö °¡Á®¿Í¼­ µ¥ÀÌÅÍ¹è¿­¿¡ ÀÔ·Â
-         int star=starsList.get(i).getStars();
-         System.out.println("star="+star);
-         if(star==1) {
-            graphData[0]++;
-            System.out.println("graphData[0]"+graphData[0]);
-         }else if(star==2) {
-            graphData[1]++;
-            System.out.println("graphData[1]"+graphData[1]);
-         }else if(star==3) {
-            graphData[2]++;
-            System.out.println("graphData[2]"+graphData[2]);
-         }else if(star==4) {
-            graphData[3]++;
-            System.out.println("graphData[3]"+graphData[3]);
-         }else if(star==5) {
-            graphData[4]++;
-            System.out.println("graphData[4]"+graphData[4]);
-         }else if(star==6) {
-            graphData[5]++;
-            System.out.println("graphData[5]"+graphData[5]);
-         }else if(star==7) {
-            graphData[6]++;
-            System.out.println("graphData[6]"+graphData[6]);
-         }else if(star==8) {
-            graphData[7]++;
-            System.out.println("graphData[7]"+graphData[7]);
-         }else if(star==9) {
-            graphData[8]++;
-            System.out.println("graphData[8]"+graphData[8]);
-         }else if(star==10) {
-            graphData[9]++;
-            System.out.println("graphData[9]"+graphData[9]);
-         }
-      }
-      
-      return graphData;
-   }
+	public int[] makeStarGraph(List<starsDataVO> starsList) {
+		int[] graphData = {0,0,0,0,0,0,0,0,0,0};
+		
+		for(int i=0; i<starsList.size(); i++) { //í‰ì ë¦¬ìŠ¤íŠ¸ì˜ në²ˆì§¸ê°€ í‰ì  ëª‡ì ì¸ì§€ ê°€ì ¸ì™€ì„œ ë°ì´í„°ë°°ì—´ì— ì…ë ¥
+			int star=starsList.get(i).getStars();
+			System.out.println("star="+star);
+			if(star==1) {
+				graphData[0]++;
+				System.out.println("graphData[0]"+graphData[0]);
+			}else if(star==2) {
+				graphData[1]++;
+				System.out.println("graphData[1]"+graphData[1]);
+			}else if(star==3) {
+				graphData[2]++;
+				System.out.println("graphData[2]"+graphData[2]);
+			}else if(star==4) {
+				graphData[3]++;
+				System.out.println("graphData[3]"+graphData[3]);
+			}else if(star==5) {
+				graphData[4]++;
+				System.out.println("graphData[4]"+graphData[4]);
+			}else if(star==6) {
+				graphData[5]++;
+				System.out.println("graphData[5]"+graphData[5]);
+			}else if(star==7) {
+				graphData[6]++;
+				System.out.println("graphData[6]"+graphData[6]);
+			}else if(star==8) {
+				graphData[7]++;
+				System.out.println("graphData[7]"+graphData[7]);
+			}else if(star==9) {
+				graphData[8]++;
+				System.out.println("graphData[8]"+graphData[8]);
+			}else if(star==10) {
+				graphData[9]++;
+				System.out.println("graphData[9]"+graphData[9]);
+			}
+		}
+		
+		return graphData;
+	}
 }

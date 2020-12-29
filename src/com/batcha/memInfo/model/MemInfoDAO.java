@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.batcha.db.ConnectionPoolMgr2;
 
 public class MemInfoDAO {
@@ -24,10 +23,8 @@ public class MemInfoDAO {
 		ResultSet rs=null;
 		int result=0;
 
-
 		try {
 			con=pool.getConnection();
-
 			String sql="select pwd from memInfo" + 
 					" where id=? and outdate is null";
 			ps=con.prepareStatement(sql);
@@ -57,12 +54,11 @@ public class MemInfoDAO {
 	public MemInfoVO selectMember(String userid) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
-		ResultSet rs=null;
-
+		ResultSet rs=null;		
 		MemInfoVO vo = new MemInfoVO();
 		try {
 			con=pool.getConnection();
-
+			
 			String sql="select * from memInfo where id=?";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, userid);
@@ -99,7 +95,6 @@ public class MemInfoDAO {
 			pool.dbClose(rs, ps, con);
 		}
 	}//
-
 	//중복체크
 	public int checkDup(String userid) throws SQLException {
 		Connection con=null;
@@ -366,6 +361,32 @@ public class MemInfoDAO {
 			pool.dbClose(ps, con);
 		}
 	}
-	
-	
+}
+
+	public String selectMembyCmt(int cmtMemNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		String memId="";
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select m.id as userid from memInfo m join cmtData c" + 
+					" on m.memno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, cmtMemNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				memId=rs.getString("userid");
+			}
+			
+			return memId;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
 }

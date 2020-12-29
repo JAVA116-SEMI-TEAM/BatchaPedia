@@ -12,7 +12,6 @@ public class MemInfoService {
 	public static final int EXIST_ID=1; //이미 존재
 	public static final int NON_EXIST_ID=2; //
 	
-	
  	private static int memNo=0;
 	private MemInfoDAO memInfoDao;
 	
@@ -69,6 +68,13 @@ public class MemInfoService {
 	public int totalCount() throws SQLException {
 		return memInfoDao.totalCount();
 	}
+
+	public String selectMemByCmt(int cmtMemNo) throws SQLException {
+		return memInfoDao.selectMembyCmt(cmtMemNo);
+	}
 	
-	
+	public int checkDup(String userid) throws SQLException{
+		return memInfoDao.checkDup(userid);
+	}
+
 }

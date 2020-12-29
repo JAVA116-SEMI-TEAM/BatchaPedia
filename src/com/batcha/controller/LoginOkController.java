@@ -12,60 +12,62 @@ import com.batcha.memInfo.model.MemInfoVO;
 import com.controller.Controller;
 
 public class LoginOkController implements Controller {
-   
-   @Override
-   public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-      HttpSession session = request.getSession();
-      
-      String userid=request.getParameter("userid");
-      String pwd=request.getParameter("pwd");
-      String chkSave=request.getParameter("chkSave");
-      
-      //2
-      MemInfoService service=new MemInfoService();
-      String msg="·Î±×ÀÎ Ã³¸® ½ÇÆĞ", url="/login/login.do";
-      try{
-         int result=service.loginCheck(userid, pwd);
-         if(result==service.LOGIN_OK){
-            //1) ¼¼¼Ç¿¡ ÀúÀå
-             session.setAttribute("userid", userid);
-              MemInfoVO vo=service.selectMember(userid);
-              session.setAttribute("userName", vo.getName());
-              session.setAttribute("memberno", vo.getMemNo());
-              session.setAttribute("pwd", vo.getPwd());
-              session.setAttribute("adminCheck", vo.getAdminCheck());
-            
-            //2) ÄíÅ°¿¡ ÀúÀå  - ¾ÆÀÌµğ ÀúÀåÇÏ±â Ã¼Å©ÇÑ °æ¿ì¿¡¸¸
-             Cookie ck = new Cookie("ck_userid", userid);
-                  ck.setPath("/");  
-                  if(chkSave != null){  //Ã¼Å©ÇÑ °æ¿ì
-                     ck.setMaxAge(1000*24*60*60);  //ÄíÅ° À¯È¿±â°£ 1000ÀÏ
-                     response.addCookie(ck);
-                  }else{ //Ã¼Å©ÇÏÁö ¾ÊÀº °æ¿ì
-                     ck.setMaxAge(0);  //ÄíÅ° »èÁ¦
-                     response.addCookie(ck);
-                  }
+	
+	@Override
+	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		HttpSession session = request.getSession();
+		
+		String userid=request.getParameter("userid");
+		String pwd=request.getParameter("pwd");
+		String chkSave=request.getParameter("chkSave");
+		
+		System.out.println("ì²´í¬ì„¸ì´ë²„"+chkSave);
+		
+		//2
+		MemInfoService service=new MemInfoService();
+		String msg="ë¡œê·¸ì¸ ì²˜ë¦¬ ì‹¤íŒ¨", url="/login/login.do";
+		try{
+			int result=service.loginCheck(userid, pwd);
+			if(result==service.LOGIN_OK){
+				//1) ì„¸ì…˜ì— ì €ì¥
+			    session.setAttribute("userid", userid);
+		        MemInfoVO vo=service.selectMember(userid);
+		        session.setAttribute("userName", vo.getName());
+		        session.setAttribute("memberno", vo.getMemNo());
+		        session.setAttribute("pwd", vo.getPwd());
+		        session.setAttribute("adminCheck", vo.getAdminCheck());
+				
+				//2) ì¿ í‚¤ì— ì €ì¥  - ì•„ì´ë”” ì €ì¥í•˜ê¸° ì²´í¬í•œ ê²½ìš°ì—ë§Œ
+				 Cookie ck = new Cookie("ck_userid", userid);
+		            ck.setPath("/");  
+		            if(chkSave != null){  //ì²´í¬í•œ ê²½ìš°
+		               ck.setMaxAge(1000*24*60*60);  //ì¿ í‚¤ ìœ íš¨ê¸°ê°„ 1000ì¼
+		               response.addCookie(ck);
+		            }else{ //ì²´í¬í•˜ì§€ ì•Šì€ ê²½ìš°
+		               ck.setMaxAge(0);  //ì¿ í‚¤ ì‚­ì œ
+		               response.addCookie(ck);
+		            }
 
-            msg=vo.getName() + "´Ô ·Î±×ÀÎµÇ¾ú½À´Ï´Ù.";
-            url="/main.do";
-         }else if(result==MemInfoService.PWD_DISAGREE){
-            msg="ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
-         }else if(result==MemInfoService.ID_NONE){
-            msg="ÇØ´ç ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";         
-         }
-      }catch(SQLException e){
-         e.printStackTrace();
-      }
-      
-      //3
-      request.setAttribute("msg", msg);
-      request.setAttribute("url", url);
-      return "/common/message.jsp";
-   }
+				msg=vo.getName() + "ë‹˜ ë¡œê·¸ì¸ë˜ì—ˆìŠµë‹ˆë‹¤.";
+				url="/main.do";
+			}else if(result==MemInfoService.PWD_DISAGREE){
+				msg="ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+			}else if(result==MemInfoService.ID_NONE){
+				msg="í•´ë‹¹ ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";			
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		//3
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		return "/common/message.jsp";
+	}
 
-   @Override
-   public boolean isRedirect() {
-      return false;
-   }
+	@Override
+	public boolean isRedirect() {
+		return false;
+	}
 
 }

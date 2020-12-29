@@ -16,8 +16,7 @@ public class MvInfoDAO {
 	public MvInfoDAO() {
 		pool=new ConnectionPoolMgr2();
 	}
-	
-	//¿µÈ­ µî·Ï - insert
+	//ì˜í™” ë“±ë¡ - insert
 	public int insertMv(MvInfoVO vo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps = null;
@@ -48,14 +47,14 @@ public class MvInfoDAO {
 			
 			//3
 			int cnt=ps.executeUpdate();
-			System.out.println("¿µÈ­ µî·Ï °á°ú, cnt="+cnt+", ¸Å°³º¯¼ö vo="+vo);
+			System.out.println("ì˜í™” ë“±ë¡ ê²°ê³¼, cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ vo="+vo);
 			return cnt;
 		}finally {
 			pool.dbClose(ps, con);
 		}
 	}
 	
-	//¿µÈ­ ÀüÃ¼ Á¶È¸ - select
+	//ì˜í™” ì „ì²´ ì¡°íšŒ - select
 	public List<MvInfoVO> selectAllMv() throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -94,7 +93,7 @@ public class MvInfoDAO {
 						boxOffice, startdate, enddate, regdate, mvCode, mvTitleEn);
 				list.add(vo);
 			}
-			System.out.println("¿µÈ­ Á¶È¸ °á°ú, list.size="+list.size());
+			System.out.println("ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size());
 			
 			return list;
 		}finally {
@@ -102,7 +101,7 @@ public class MvInfoDAO {
 		}
 	}
 	
-	//¹øÈ£·Î ¿µÈ­ Á¶È¸ - select(mvNo)
+	//ë²ˆí˜¸ë¡œ ì˜í™” ì¡°íšŒ - select(mvNo)
 	public MvInfoVO selectMv(int mvNo) throws SQLException {
 
 		Connection con=null;
@@ -138,57 +137,14 @@ public class MvInfoDAO {
 				vo.setMvTitleEn(rs.getString("mvTitleEn"));
 				
 			}
-			System.out.println("¿µÈ­ »ó¼¼ Á¶È¸ °á°ú, vo="+vo+", ¸Å°³º¯¼ö mvNo="+mvNo);
+			System.out.println("ì˜í™” ìƒì„¸ ì¡°íšŒ ê²°ê³¼, vo="+vo+", ë§¤ê°œë³€ìˆ˜ mvNo="+mvNo);
 			return vo;
 		}finally {
 			pool.dbClose(rs, ps, con);
 		}
 	}
 	
-	//¿µÈ­ ¼öÁ¤ - update
-	public int updateMv(MvInfoVO mVo) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		
-		try {
-			//1,2
-			con=pool.getConnection();
-			
-			//3
-			String sql="update mvInfo " + 
-					" set mvTitle=?,genre=?,director=?, " + 
-					"    actors=?,story=?,thumbnail=?,nation=?, " + 
-					"    makeyear=?,boxoffice=?,startdate=?,enddate=?, " + 
-					"    mvTitleEn=?,mvCode=?" + 
-					" where mvNo=?";
-			
-			ps=con.prepareStatement(sql);
-			ps.setString(1, mVo.getMvTitle());
-			ps.setString(2, mVo.getGenre());
-			ps.setString(3, mVo.getDirector());
-			ps.setString(4, mVo.getActors());
-			ps.setString(5, mVo.getStory());
-			ps.setString(6, mVo.getThumbnail());
-			ps.setString(7, mVo.getNation());
-			ps.setString(8, mVo.getMakeYear());
-			ps.setInt(9, mVo.getBoxOffice());
-			ps.setTimestamp(10, mVo.getStartdate());
-			ps.setTimestamp(11, mVo.getEnddate());
-			ps.setString(12, mVo.getMvTitleEn());
-			ps.setString(13, mVo.getMvCode());
-			ps.setInt(14, mVo.getMvNo());
-			
-			//4
-			int cnt=ps.executeUpdate();
-			System.out.println("¿µÈ­ ¼öÁ¤ °á°ú, cnt="+cnt+", ¸Å°³º¯¼ö mVo="+mVo);
-			
-			return cnt;
-		}finally {
-			pool.dbClose(ps, con);
-		}
-	}
-	
-	//¿µÈ­ »èÁ¦ - delete
+	//ì˜í™” ì‚­ì œ - delete
 	public int deleteMv(int mvNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -204,7 +160,7 @@ public class MvInfoDAO {
 			
 			//4
 			int cnt=ps.executeUpdate();
-			System.out.println("¿µÈ­ »èÁ¦ °á°ú, cnt="+cnt+", ¸Å°³º¯¼ö mvNo="+mvNo);
+			System.out.println("ì˜í™” ì‚­ì œ ê²°ê³¼, cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ mvNo="+mvNo);
 			
 			return cnt;
 		}finally {
@@ -212,7 +168,7 @@ public class MvInfoDAO {
 		}
 	}
 
-	//Å°¿öµå·Î ¿µÈ­ °Ë»ö
+	//í‚¤ì›Œë“œë¡œ ì˜í™” ê²€ìƒ‰
 	public List<MvInfoVO> selectAllMv(String option,String keyword) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -261,8 +217,8 @@ public class MvInfoDAO {
 						boxOffice, startdate, enddate, regdate, mvCode, mvTitleEn);
 				list.add(vo);
 			}
-			System.out.println("¿µÈ­ Á¶È¸ °á°ú, list.size="+list.size()
-				+", ¸Å°³º¯¼ö option="+option+", keyword="+keyword);
+			System.out.println("ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size()
+				+", ë§¤ê°œë³€ìˆ˜ option="+option+", keyword="+keyword);
 			
 			return list;
 		}finally {
@@ -271,8 +227,8 @@ public class MvInfoDAO {
 	}
 	
 
-	//¿µÈ­ ¼öÁ¤(MvEditOkController) - update
-	public int updateMvInfo(MvInfoVO mVo) throws SQLException {
+	//ì˜í™” ìˆ˜ì •(MvEditOkController) - update
+	public int updateMv(MvInfoVO mVo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		
@@ -304,25 +260,239 @@ public class MvInfoDAO {
 			
 			//4
 			int cnt=ps.executeUpdate();
-			System.out.println("¿µÈ­ ¼öÁ¤ °á°ú, cnt="+cnt+", ¸Å°³º¯¼ö mVo="+mVo);
+			System.out.println("ì˜í™” ìˆ˜ì • ê²°ê³¼, cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ mVo="+mVo);
 			
 			return cnt;
 		}finally {
 			pool.dbClose(ps, con);
 		}
 	}
-	
+
+	//ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ë¦¬ìŠ¤íŠ¸
+	public List<MvInfoVO> selectBoxOfficeList() throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		try {
+			//1,2
+			con=pool.getConnection();
+			
+			//3
+			String sql="select * from mvInfo where boxOffice is not null order by boxOffice";
+			ps=con.prepareStatement(sql);
+			
+			//4
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				MvInfoVO vo=new MvInfoVO();
+				vo.setMvNo(rs.getInt("mvNo"));
+				vo.setMvCode(rs.getString("mvCode"));
+				vo.setMvTitle(rs.getString("mvTitle"));
+				vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				vo.setGenre(rs.getString("genre"));
+				vo.setDirector(rs.getString("director"));
+				vo.setActors(rs.getString("actors"));
+				vo.setStory(rs.getString("story"));
+				vo.setThumbnail(rs.getString("thumbnail"));
+				vo.setNation(rs.getString("nation"));
+				vo.setMakeYear(rs.getString("makeYear"));
+				vo.setBoxOffice(rs.getInt("boxOffice"));
+				vo.setStartdate(rs.getTimestamp("startdate"));
+				vo.setEnddate(rs.getTimestamp("enddate"));
+				vo.setRegdate(rs.getTimestamp("regdate"));
+				
+				list.add(vo);
+			}
+			System.out.println("ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size());
+			System.out.println(list.get(0));
+			System.out.println(list.get(1));
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	   
+	   //í•œêµ­ì˜í™”
+	   public List<MvInfoVO> selectKorMovie() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where nation='í•œêµ­' and ROWNUM<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
+	   
+	   //20ì„¸ê¸° ì˜í™”
+	   public List<MvInfoVO> select20th() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where makeYear<='2000' and rownum<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
+	   //ì½”ë¯¸ë””
+	   public List<MvInfoVO> selectComedy() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where genre='ì½”ë¯¸ë””' and rownum<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
+	   //ìŠ¤ë¦´ëŸ¬,ë²”ì£„
+	   public List<MvInfoVO> selectThrill() throws SQLException {
+		   Connection con=null;
+		   PreparedStatement ps=null;
+		   ResultSet rs=null;
+		   List<MvInfoVO> list=new ArrayList<MvInfoVO>();
+		   try {
+			   //1,2
+			   con=pool.getConnection();
+			   
+			   //3
+			   String sql="select * from mvinfo where (genre='ìŠ¤ë¦´ëŸ¬' or genre='ë²”ì£„') and rownum<=5";
+			   ps=con.prepareStatement(sql);
+			   
+			   //4
+			   rs=ps.executeQuery();
+			   
+			   while(rs.next()) {
+				   MvInfoVO vo=new MvInfoVO();
+				   vo.setMvNo(rs.getInt("mvNo"));
+				   vo.setMvCode(rs.getString("mvCode"));
+				   vo.setMvTitle(rs.getString("mvTitle"));
+				   vo.setMvTitleEn(rs.getString("mvTitleEn"));
+				   vo.setGenre(rs.getString("genre"));
+				   vo.setDirector(rs.getString("director"));
+				   vo.setActors(rs.getString("actors"));
+				   vo.setStory(rs.getString("story"));
+				   vo.setThumbnail(rs.getString("thumbnail"));
+				   vo.setNation(rs.getString("nation"));
+				   vo.setMakeYear(rs.getString("makeYear"));
+				   vo.setBoxOffice(rs.getInt("boxOffice"));
+				   vo.setStartdate(rs.getTimestamp("startdate"));
+				   vo.setEnddate(rs.getTimestamp("enddate"));
+				   vo.setRegdate(rs.getTimestamp("regdate"));
+				   
+				   list.add(vo);
+			   }
+			   System.out.println("ë°•ìŠ¤ì˜¤í”¼ìŠ¤ ì˜í™” ì¡°íšŒ ê²°ê³¼, list.size="+list.size());
+			   System.out.println(list.get(0));
+			   System.out.println(list.get(1));
+			   return list;
+		   }finally {
+			   pool.dbClose(rs, ps, con);
+		   }
+	   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

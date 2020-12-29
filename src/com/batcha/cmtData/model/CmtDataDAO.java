@@ -10,272 +10,272 @@ import java.util.List;
 import com.batcha.db.ConnectionPoolMgr2;
 
 public class CmtDataDAO {
-   private ConnectionPoolMgr2 pool;
-   
-   public CmtDataDAO() {
-      pool=new ConnectionPoolMgr2();
-   }
-   
-   //ÄÚ¸àÆ® Ãß°¡ ¸Ş¼Òµå
-   public int insertCmt(CmtDataVO cmtVo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      int cnt=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="insert into cmtData(cmtno, cmttext, mvno, memno, userid)"
-               + " values(cmtData_seq.nextval, ?, ?, ?, ?)";
-         ps=con.prepareStatement(sql);
-         
-         ps.setString(1, cmtVo.getCmtText());
-         ps.setInt(2, cmtVo.getMvNo());
-         ps.setInt(3, cmtVo.getMemNo());
-         ps.setString(4, cmtVo.getUserid());
-         
-         cnt=ps.executeUpdate();
-         System.out.println("ÄÚ¸àÆ® µî·Ï °á°ú cnt="+cnt+", ¸Å°³º¯¼ö cmtVo="+cmtVo);
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //ÄÚ¸àÆ® ¾÷µ¥ÀÌÆ® ¸Ş¼Òµå
-   public int updateCmt(CmtDataVO cmtVo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      int cnt=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="update cmtdata" + 
-               " set cmttext=?, cmtregdate=sysdate" + 
-               " where cmtno=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setString(1, cmtVo.getCmtText());
-         ps.setInt(2, cmtVo.getCmtNo());
-         
-         cnt=ps.executeUpdate();
-         
-         System.out.println("ÄÚ¸àÆ® ¼öÁ¤ °á°ú cnt="+cnt+", ¸Å°³º¯¼ö cmtVo="+cmtVo);
-         return cnt;
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //ÄÚ¸àÆ® »èÁ¦ ¸Ş¼Òµå
-   public int deleteCmt(int cmtNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      int cnt=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="delete from cmtdata where cmtno=?";
-         
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, cmtNo);
-         
-         cnt=ps.executeUpdate();
-         
-         System.out.println("ÄÚ¸àÆ® »èÁ¦ °á°ú cnt="+cnt+", ¸Å°³º¯¼ö cmtNo="+cmtNo);
-         return cnt;
-         
-      }finally {
-         pool.dbClose(ps, con);
-      }
-   }
-   
-   //ÄÚ¸àÆ®¸¦ ¿µÈ­¹øÈ£³ª ¸â¹ö¹øÈ£¿¡ µû¶ó ¼¿·ºÆ®ÇÏ´Â ¸Ş¼Òµå
-   //no°¡ È¸¿ø¹øÈ£¸é isMemNo=true, ¿µÈ­¹øÈ£¸é false·Î ¸Å°³º¯¼ö ÁÙ °Í
-   public List<CmtDataVO> selectCmtByNo(int no, boolean isMemNo) throws SQLException{
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      List<CmtDataVO> list=new ArrayList<CmtDataVO>();
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select * from cmtData where";      
-         
-         if(isMemNo) {
-            sql+=" memNo=?";
-         }else {
-            sql+=" mvNo=?";
-         }
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, no);
-         
-         rs=ps.executeQuery();
-         
-         while(rs.next()) {
-            CmtDataVO cmtVo=new CmtDataVO();
-            
-            cmtVo.setCmtNo(rs.getInt("cmtNo"));
-            cmtVo.setCmtText(rs.getString("cmtText"));
-            cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
-            cmtVo.setAgrCnt(rs.getInt("agrCnt"));
-            cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
-            cmtVo.setUserid(rs.getString("userid"));
-            
-            if(isMemNo) {
-               cmtVo.setMemNo(no);
-               cmtVo.setMvNo(rs.getInt("mvNo"));
-            }else {
-               cmtVo.setMemNo(rs.getInt("memNo"));
-               cmtVo.setMvNo(no);
-            }
-            list.add(cmtVo);
-         }
-         System.out.println("ÄÚ¸àÆ® ÀüÃ¼Á¶È¸ °á°ú list.size="+list.size()+", ¸Å°³º¯¼ö no="+no+", isMemNo="+isMemNo);
-         return list;
-      }finally{
-         pool.dbClose(rs, ps, con);
-      }
-   }
-   
-   //È¸¿øÀÌ³ª ¿µÈ­¹øÈ£¿¡ µû¸¥ ÄÚ¸àÆ® °³¼ö °¡Á®¿À±â
-   //no°¡ È¸¿ø¹øÈ£¸é isMemNo=true, ¿µÈ­¹øÈ£¸é false·Î ¸Å°³º¯¼ö ÁÙ °Í
-   public int getCmtCntByNo(int no, boolean isMemNo) throws SQLException{
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      int cnt=0;
-      try {
-         con=pool.getConnection();
-         
-         String sql="select count(*) from cmtData where";
-         
-         if(isMemNo) {
-            sql+=" memNo=? order by cmtno desc";
-         }else {
-            sql+=" mvNo=? order by cmtno desc";
-         }
-      
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, no);
-         
-         rs=ps.executeQuery();
-         
-         while(rs.next()) {
-            cnt=rs.getInt("count");
-         }
-         
-         System.out.println("ÄÚ¸àÆ® ¿µÈ­/È¸¿ø¹øÈ£´ç °³¼ö cnt="+cnt+", ¸Å°³º¯¼ö no="+no+", isMemNo="+isMemNo);
-         return cnt;
-         
-      }finally{
-         pool.dbClose(rs, ps, con);
-      }
-   }
-   
-   //ÄÚ¸àÆ® ÀüÃ¼¸ñ·Ï.. ÀÌ°É ¾µ °÷ÀÌ ÀÖÀ»±î?
-   public List<CmtDataVO> selectAllCmt() throws SQLException{
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      List<CmtDataVO> list=null;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select * from cmtData";
-         ps=con.prepareStatement(sql);
-         rs=ps.executeQuery();
-         
-         while(rs.next()) {
-            CmtDataVO cmtVo=new CmtDataVO();
-            cmtVo.setCmtNo(rs.getInt("cmtNo"));
-            cmtVo.setCmtText(rs.getString("cmtText"));
-            cmtVo.setMemNo(rs.getInt("memNo"));
-            cmtVo.setMvNo(rs.getInt("mvNo"));
-            cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
-            
-            list.add(cmtVo);
-         }
-         
-         System.out.println("ÄÚ¸àÆ® ÀüÃ¼Á¶È¸ °á°ú list.size="+list.size());
-         return list;
-         
-      }finally{
-         pool.dbClose(rs, ps, con);
-      }
-   }
+	private ConnectionPoolMgr2 pool;
+	
+	public CmtDataDAO() {
+		pool=new ConnectionPoolMgr2();
+	}
+	
+	//ì½”ë©˜íŠ¸ ì¶”ê°€ ë©”ì†Œë“œ
+	public int insertCmt(CmtDataVO cmtVo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="insert into cmtData(cmtno, cmttext, mvno, memno, userid)"
+					+ " values(cmtData_seq.nextval, ?, ?, ?, ?)";
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, cmtVo.getCmtText());
+			ps.setInt(2, cmtVo.getMvNo());
+			ps.setInt(3, cmtVo.getMemNo());
+			ps.setString(4, cmtVo.getUserid());
+			
+			cnt=ps.executeUpdate();
+			System.out.println("ì½”ë©˜íŠ¸ ë“±ë¡ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ cmtVo="+cmtVo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//ì½”ë©˜íŠ¸ ì—…ë°ì´íŠ¸ ë©”ì†Œë“œ
+	public int updateCmt(CmtDataVO cmtVo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="update cmtdata" + 
+					" set cmttext=?, cmtregdate=sysdate" + 
+					" where cmtno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, cmtVo.getCmtText());
+			ps.setInt(2, cmtVo.getCmtNo());
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("ì½”ë©˜íŠ¸ ìˆ˜ì • ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ cmtVo="+cmtVo);
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//ì½”ë©˜íŠ¸ ì‚­ì œ ë©”ì†Œë“œ
+	public int deleteCmt(int cmtNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		int cnt=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="delete from cmtdata where cmtno=?";
+			
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, cmtNo);
+			
+			cnt=ps.executeUpdate();
+			
+			System.out.println("ì½”ë©˜íŠ¸ ì‚­ì œ ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ cmtNo="+cmtNo);
+			return cnt;
+			
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	//ì½”ë©˜íŠ¸ë¥¼ ì˜í™”ë²ˆí˜¸ë‚˜ ë©¤ë²„ë²ˆí˜¸ì— ë”°ë¼ ì…€ë ‰íŠ¸í•˜ëŠ” ë©”ì†Œë“œ
+	//noê°€ íšŒì›ë²ˆí˜¸ë©´ isMemNo=true, ì˜í™”ë²ˆí˜¸ë©´ falseë¡œ ë§¤ê°œë³€ìˆ˜ ì¤„ ê²ƒ
+	public List<CmtDataVO> selectCmtByNo(int no, boolean isMemNo) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<CmtDataVO> list=new ArrayList<CmtDataVO>();
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from cmtData where";		
+			
+			if(isMemNo) {
+				sql+=" memNo=?";
+			}else {
+				sql+=" mvNo=?";
+			}
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, no);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				CmtDataVO cmtVo=new CmtDataVO();
+				
+				cmtVo.setCmtNo(rs.getInt("cmtNo"));
+				cmtVo.setCmtText(rs.getString("cmtText"));
+				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
+				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
+				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
+				cmtVo.setUserid(rs.getString("userid"));
+				
+				if(isMemNo) {
+					cmtVo.setMemNo(no);
+					cmtVo.setMvNo(rs.getInt("mvNo"));
+				}else {
+					cmtVo.setMemNo(rs.getInt("memNo"));
+					cmtVo.setMvNo(no);
+				}
+				list.add(cmtVo);
+			}
+			System.out.println("ì½”ë©˜íŠ¸ ì „ì²´ì¡°íšŒ ê²°ê³¼ list.size="+list.size()+", ë§¤ê°œë³€ìˆ˜ no="+no+", isMemNo="+isMemNo);
+			return list;
+		}finally{
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	//íšŒì›ì´ë‚˜ ì˜í™”ë²ˆí˜¸ì— ë”°ë¥¸ ì½”ë©˜íŠ¸ ê°œìˆ˜ ê°€ì ¸ì˜¤ê¸°
+	//noê°€ íšŒì›ë²ˆí˜¸ë©´ isMemNo=true, ì˜í™”ë²ˆí˜¸ë©´ falseë¡œ ë§¤ê°œë³€ìˆ˜ ì¤„ ê²ƒ
+	public int getCmtCntByNo(int no, boolean isMemNo) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int cnt=0;
+		try {
+			con=pool.getConnection();
+			
+			String sql="select count(*) from cmtData where";
+			
+			if(isMemNo) {
+				sql+=" memNo=? order by cmtno desc";
+			}else {
+				sql+=" mvNo=? order by cmtno desc";
+			}
+		
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, no);
+			
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				cnt=rs.getInt("count");
+			}
+			
+			System.out.println("ì½”ë©˜íŠ¸ ì˜í™”/íšŒì›ë²ˆí˜¸ë‹¹ ê°œìˆ˜ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ no="+no+", isMemNo="+isMemNo);
+			return cnt;
+			
+		}finally{
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	//ì½”ë©˜íŠ¸ ì „ì²´ëª©ë¡.. ì´ê±¸ ì“¸ ê³³ì´ ìˆì„ê¹Œ?
+	public List<CmtDataVO> selectAllCmt() throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<CmtDataVO> list=null;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from cmtData";
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				CmtDataVO cmtVo=new CmtDataVO();
+				cmtVo.setCmtNo(rs.getInt("cmtNo"));
+				cmtVo.setCmtText(rs.getString("cmtText"));
+				cmtVo.setMemNo(rs.getInt("memNo"));
+				cmtVo.setMvNo(rs.getInt("mvNo"));
+				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
+				
+				list.add(cmtVo);
+			}
+			
+			System.out.println("ì½”ë©˜íŠ¸ ì „ì²´ì¡°íšŒ ê²°ê³¼ list.size="+list.size());
+			return list;
+			
+		}finally{
+			pool.dbClose(rs, ps, con);
+		}
+	}
 
-   public int alreadyWroteOrNot(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      int result=0;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select count(*) as count from cmtData where memno=? and mvno=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         rs=ps.executeQuery();
-         
-         if(rs.next()) {
-            int count=rs.getInt("count");
-            if(count>0) { //ÀÛ¼ºÇß´Ù¸é
-               result=CmtDataService.ALREADY_WROTE;
-            }else if(count==0) { //ÀÛ¼ºÇÏÁö ¾Ê¾Ò´Ù¸é
-               result=CmtDataService.DIDNT_WROTE_YET;
-            }
-         }
-         System.out.println("ÄÚ¸àÆ® ÀÛ¼º¿©ºÎ Á¶È¸ °á°ú result="+result+", ¸Å°³º¯¼ö memNo"+memNo+", mvNo="+mvNo);
-         return result;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   }
-   
-   public CmtDataVO selectOneCmt(int memNo, int mvNo) throws SQLException {
-      Connection con=null;
-      PreparedStatement ps=null;
-      ResultSet rs=null;
-      
-      try {
-         con=pool.getConnection();
-         
-         String sql="select * from cmtData where memno=? and mvno=?";
-         ps=con.prepareStatement(sql);
-         
-         ps.setInt(1, memNo);
-         ps.setInt(2, mvNo);
-         
-         rs=ps.executeQuery();
-         CmtDataVO cmtVo=null;
-         System.out.println("if¹® Àü rs.next()="+rs.next());
-         if(rs.next()) {
-            System.out.println("if¹® ÈÄ rs.next()="+rs.next());
-            cmtVo.setUserid(rs.getString("userid"));
-            cmtVo.setCmtNo(rs.getInt("cmtNo"));
-            cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
-            cmtVo.setCmtText(rs.getString("cmtText"));
-            cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
-            cmtVo.setAgrCnt(rs.getInt("agrCnt"));
-            cmtVo.setMemNo(memNo);
-            cmtVo.setMvNo(mvNo);
-         }
-         System.out.println("ÄÚ¸àÆ® ÀÛ¼º¿©ºÎ Á¶È¸ °á°ú cmtVo="+cmtVo+", ¸Å°³º¯¼ö memNo="+memNo+", mvNo="+mvNo);
-         return cmtVo;
-      }finally {
-         pool.dbClose(rs, ps, con);
-      }
-   }
+	public int alreadyWroteOrNot(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int result=0;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select count(*) as count from cmtData where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+			
+			if(rs.next()) {
+				int count=rs.getInt("count");
+				if(count>0) { //ì‘ì„±í–ˆë‹¤ë©´
+					result=CmtDataService.ALREADY_WROTE;
+				}else if(count==0) { //ì‘ì„±í•˜ì§€ ì•Šì•˜ë‹¤ë©´
+					result=CmtDataService.DIDNT_WROTE_YET;
+				}
+			}
+			System.out.println("ì½”ë©˜íŠ¸ ì‘ì„±ì—¬ë¶€ ì¡°íšŒ ê²°ê³¼ result="+result+", ë§¤ê°œë³€ìˆ˜ memNo"+memNo+", mvNo="+mvNo);
+			return result;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
+	public CmtDataVO selectOneCmt(int memNo, int mvNo) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		try {
+			con=pool.getConnection();
+			
+			String sql="select * from cmtData where memno=? and mvno=?";
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, memNo);
+			ps.setInt(2, mvNo);
+			
+			rs=ps.executeQuery();
+			CmtDataVO cmtVo=null;
+			System.out.println("ifë¬¸ ì „ rs.next()="+rs.next());
+			if(rs.next()) {
+				System.out.println("ifë¬¸ í›„ rs.next()="+rs.next());
+				cmtVo.setUserid(rs.getString("userid"));
+				cmtVo.setCmtNo(rs.getInt("cmtNo"));
+				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
+				cmtVo.setCmtText(rs.getString("cmtText"));
+				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
+				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
+				cmtVo.setMemNo(memNo);
+				cmtVo.setMvNo(mvNo);
+			}
+			System.out.println("ì½”ë©˜íŠ¸ ì‘ì„±ì—¬ë¶€ ì¡°íšŒ ê²°ê³¼ cmtVo="+cmtVo+", ë§¤ê°œë³€ìˆ˜ memNo="+memNo+", mvNo="+mvNo);
+			return cmtVo;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
 }

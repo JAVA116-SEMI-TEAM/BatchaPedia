@@ -7,34 +7,34 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class keepDataService {
-   keepDataDAO keepDao;
-   
-   //Åµ µÆ´ÂÁö ¾ÈµÆ´ÂÁö ÆÇ´ÜÇÒ¶§ ¾µ °Í?
-   public final static int IS_NOT_KEPT=0;
-   public final static int IS_KEPT=1;
-   
-   
-   public keepDataService() {
-      keepDao=new keepDataDAO();
-   }
-   
-   public int isKept(int memNo, int mvNo) throws SQLException {
-      return keepDao.isKept(memNo, mvNo);
-   }
-   
-   //Åµ¸ñ·Ï¿¡ Ãß°¡
-   public int insertKeep(int memNo, int mvNo) throws SQLException {
-      return keepDao.insertKeep(memNo, mvNo);
-   }
-   
-   //Åµ¸ñ·Ï¿¡¼­ »èÁ¦
-   public int deleteKeep(int memNo, int mvNo) throws SQLException {
-      return keepDao.deleteKeep(memNo, mvNo);
-   }   
-   
-   //È¸¿øº°, ¿µÈ­º° ¸ğµç Åµ¸®½ºÆ® ²¨³»±â. ÃÑ °³¼ö°¡ ÇÊ¿äÇÏ¸é list.size·Î È°¿ë °¡´É
-   public List<keepDataVO> selectAllKeepByMemNo(int no, boolean isMemNo) throws SQLException{
-      return keepDao.selectAllKeepByMemNo(no, isMemNo);
-   }
-   
+	keepDataDAO keepDao;
+	
+	//í‚µ ëëŠ”ì§€ ì•ˆëëŠ”ì§€ íŒë‹¨í• ë•Œ ì“¸ ê²ƒ?
+	public final static int IS_NOT_KEPT=0;
+	public final static int IS_KEPT=1;
+	
+	
+	public keepDataService() {
+		keepDao=new keepDataDAO();
+	}
+	
+	public int isKept(int memNo, int mvNo) throws SQLException {
+		return keepDao.isKept(memNo, mvNo);
+	}
+	
+	//í‚µëª©ë¡ì— ì¶”ê°€
+	public int insertKeep(int memNo, int mvNo) throws SQLException {
+		return keepDao.insertKeep(memNo, mvNo);
+	}
+	
+	//í‚µëª©ë¡ì—ì„œ ì‚­ì œ
+	public int deleteKeep(int memNo, int mvNo) throws SQLException {
+		return keepDao.deleteKeep(memNo, mvNo);
+	}	
+	
+	//íšŒì›ë³„, ì˜í™”ë³„ ëª¨ë“  í‚µë¦¬ìŠ¤íŠ¸ êº¼ë‚´ê¸°. ì´ ê°œìˆ˜ê°€ í•„ìš”í•˜ë©´ list.sizeë¡œ í™œìš© ê°€ëŠ¥
+	public List<keepDataVO> selectAllKeepByMemNo(int no, boolean isMemNo) throws SQLException{
+		return keepDao.selectAllKeepByMemNo(no, isMemNo);
+	}
+	
 }

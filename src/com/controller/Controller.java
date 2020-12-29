@@ -7,5 +7,5 @@ public interface Controller {
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response)
 			throws Throwable; 
 	
-	public boolean isRedirect(); //리다이렉트할지, 포워드할지 결정
+	public boolean isRedirect(); //
 }
