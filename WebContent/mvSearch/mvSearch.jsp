@@ -111,7 +111,7 @@ List<MvInfoVO> mvList = (List<MvInfoVO>) request.getAttribute("mvList");
 			</div>
 			<div style="float: right">
 				<a id="more" style="margin-right:30px;"
-			href="<%=request.getContextPath()%>/mvSearch/mvSearchRes.do?mvSearchKeyword=<%=searchKeyword %>">
+			href="<%=request.getContextPath()%>/mvSearch/mvSearchRes.do?mvmvSearchk=<%=mvSearchk %>">
 				더보기</a>
 			</div>
 			<br>

@@ -32,9 +32,9 @@
 <div class="mvSearchRes">
 	<div class="SearchRes" id="SearchRes">
 			<div>
-			<%if(searchKeyword!=null || searchKeyword.isEmpty()){ %>	
+			<%if(mvSearchk!=null || mvSearchk.isEmpty()){ %>	
 				
-				<p id="keyword">검색어 : <%=searchKeyword %>, 검색결과 : <%=searchList.size()%>건</p>			
+				<p id="keyword">검색어 : <%=mvSearchk %>, 검색결과 : <%=searchList.size()%>건</p>			
 			<%} %>	
 			</div>
 			<hr style="margin-top:10px;margin-bottom:0px">

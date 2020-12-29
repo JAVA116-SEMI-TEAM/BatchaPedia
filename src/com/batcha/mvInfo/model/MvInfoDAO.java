@@ -54,6 +54,8 @@ public class MvInfoDAO {
 		}
 	}
 	
+	
+	
 	//영화 전체 조회 - select
 	public List<MvInfoVO> selectAllMv() throws SQLException {
 		Connection con=null;
@@ -532,64 +534,6 @@ public class MvInfoDAO {
 				return cnt;
 			}finally {
 				pool.dbClose(ps, con);
-			}
-		}
-		
-		//키워드로 영화 검색
-		public List<MvInfoVO> selectAllMv(String option,String keyword) throws SQLException {
-			Connection con=null;
-			PreparedStatement ps=null;
-			ResultSet rs=null;
-			
-			List<MvInfoVO> list = new ArrayList<MvInfoVO>();
-			try {
-				//1,2
-				con=pool.getConnection();
-				
-				//3
-				String sql="select * from mvInfo ";
-				if(keyword!=null && !keyword.isEmpty()) {
-					sql+=" where "+option+" like '%' || ? ||'%' ";
-				}
-				
-				sql+=" order by mvNo desc";
-				ps=con.prepareStatement(sql);
-				
-				//4
-				if(keyword!=null && !keyword.isEmpty()) {
-					ps.setString(1, keyword); 
-				}
-				
-				rs=ps.executeQuery();
-
-				while(rs.next()) {
-					int mvNo=rs.getInt("mvNo");
-					String mvTitle=rs.getString("mvTitle");
-					String genre=rs.getString("genre");
-					String director=rs.getString("director");
-					String actors=rs.getString("actors");
-					String story=rs.getString("story");
-					String thumbnail=rs.getString("thumbnail");
-					String nation=rs.getString("nation");
-					String makeYear=rs.getString("makeYear");
-					int boxOffice=rs.getInt("boxOffice");
-					Timestamp startdate=rs.getTimestamp("startdate");
-					Timestamp enddate=rs.getTimestamp("enddate");
-					Timestamp regdate=rs.getTimestamp("regdate");
-					String mvCode=rs.getString("mvCode");
-					String mvTitleEn=rs.getString("mvTitleEn");
-					
-					MvInfoVO vo = new MvInfoVO(mvNo, mvTitle, genre, director, 
-							actors, story, thumbnail, nation, makeYear,
-							boxOffice, startdate, enddate, regdate, mvCode, mvTitleEn);
-					list.add(vo);
-				}
-				System.out.println("영화 조회 결과, list.size="+list.size()
-					+", 매개변수 option="+option+", keyword="+keyword);
-				
-				return list;
-			}finally {
-				pool.dbClose(rs, ps, con);
 			}
 		}
 		

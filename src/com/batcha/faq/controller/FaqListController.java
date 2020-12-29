@@ -29,7 +29,6 @@ public class FaqListController implements Controller {
 		try {
 			
 			FaqVO faqVo = new FaqVO();
-			faqVo.setOpt("login");
 			faqList=faqService.selectAllFaq(); //전체
 		}catch(SQLException e) {
 			e.printStackTrace();
