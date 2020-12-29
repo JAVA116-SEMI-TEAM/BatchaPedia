@@ -1,3 +1,5 @@
+<%@page import="com.batcha.mvInfo.model.MvInfoVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -12,6 +14,12 @@
    if(t_userid!=null && !t_userid.isEmpty()){
       t_isLogin=true; //로그인이 된 경우에만 true
    }
+   
+  List<MvInfoVO> searchList =(List<MvInfoVO>)request.getAttribute("searchList");
+  String mvSearchk=request.getParameter("mvSearchk");
+  if(mvSearchk==null || mvSearchk.isEmpty()){
+      mvSearchk="";
+  }
 %>
 <!DOCTYPE html>
 <html>
@@ -38,18 +46,18 @@
   
   <!-- Links -->
   <ul class="navbar-nav">
-    <form class="form-inline" action="#">
+    <form class="form-inline" action="<%=request.getContextPath()%>/mvSearch/mvSearch.do" method="post">
     <div class="input-group">
       <div class="input-group-prepend">
-        <label class="input-group-text" for="search"><i class='fas fa-search'></i></label>
+        <span class="input-group-text"><i class='fas fa-search'></i></span>
       </div>
-      <input type="text" class="form-control" placeholder="영화를 검색하세요." id="search">
+      <input type="text" class="form-control" placeholder="영화를 검색하세요." 
+      id="search" name="mvSearchKeyword" value="<%=searchKeyword %>">
     </div>
   </form>
-  
-<!--    <li class="nav-item">
-      <a class="nav-link" href="#">영화검색</a>
-    </li> -->
+	<li class="nav-item">
+     <a class="nav-link" href="<%=request.getContextPath()%>/mvSearch/mvSearch.do?mvSearchKeyword=<%=searchKeyword %>">영화검색</a>
+    </li>
     <%if(!t_isLogin){ //로그인 안 된 경우 %>
     <li class="nav-item">
       <a class="nav-link" href="<%=request.getContextPath()%>/login/login.do">로그인</a>
@@ -71,7 +79,7 @@
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="<%=request.getContextPath() %>/notice/noticemain.do">공지사항</a>
-        <a class="dropdown-item" href="#">FAQ</a>
+         <a class="dropdown-item"href="<%=request.getContextPath() %>/faqMgr/faqList.do">FAQ</a>
         <a class="dropdown-item" href="<%=request.getContextPath()%>/qna/list.do">Q&A</a>
       </div>
     </li>
