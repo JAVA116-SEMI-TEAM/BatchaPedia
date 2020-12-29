@@ -62,7 +62,7 @@
       <a class="nav-link" href="<%=request.getContextPath()%>/login/logout.do">로그아웃</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">마이페이지</a>
+       <a class="nav-link" href="<%=request.getContextPath()%>/myPage/myPage.do">마이페이지</a>
     </li>
     <%} %>   
       <li class="nav-item dropdown">
@@ -70,7 +70,7 @@
            고객센터
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">공지사항</a>
+        <a class="dropdown-item" href="<%=request.getContextPath() %>/notice/noticemain.do">공지사항</a>
         <a class="dropdown-item" href="#">FAQ</a>
         <a class="dropdown-item" href="<%=request.getContextPath()%>/qna/list.do">Q&A</a>
       </div>

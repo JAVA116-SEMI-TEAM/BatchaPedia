@@ -361,7 +361,6 @@ public class MemInfoDAO {
 			pool.dbClose(ps, con);
 		}
 	}
-}
 
 	public String selectMembyCmt(int cmtMemNo) throws SQLException {
 		Connection con=null;
