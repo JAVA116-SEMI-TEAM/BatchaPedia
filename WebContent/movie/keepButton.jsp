@@ -23,5 +23,5 @@ $(function(){
 				<form action="" method="post" name="keepBtnForm">
 					<input type="submit" name="keepBtn" id="keepBtn"
 value="${keepBtnValue}" class="btn btn-outline-primary">
-				</form>
-			</div>
+		</form>
+	</div>

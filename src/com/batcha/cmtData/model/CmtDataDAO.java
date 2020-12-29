@@ -156,9 +156,9 @@ public class CmtDataDAO {
 			String sql="select count(*) from cmtData where";
 			
 			if(isMemNo) {
-				sql+=" memNo=?";
+				sql+=" memNo=? order by cmtno desc";
 			}else {
-				sql+=" mvNo=?";
+				sql+=" mvNo=? order by cmtno desc";
 			}
 		
 			ps=con.prepareStatement(sql);

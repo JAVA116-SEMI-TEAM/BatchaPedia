@@ -29,28 +29,28 @@ function pageFunc(curPage){
 			<c:if test="${!empty cmtList}">  <!-- 코멘트리스트가 비어있지 않다면 -->
 				<c:set var="num" value="${pageVo.num}"/> <!-- 전체 코멘트 개수를 세팅하고 -->
 				<c:set var="curPos" value="${pageVo.curPos}"/> <!-- 현재 출력된 코멘트의 위치를 세팅한다 -->
-				<c:forEach var="i" begin="0" end="${pageVo.pageSize}"> <!-- 페이지사이즈만큼 돌릴거야 포문을 -->
+				<c:forEach var="i" begin="1" end="${pageVo.pageSize}"> <!-- 페이지사이즈만큼 돌릴거야 포문을 -->
 				<c:if test="${num>=1}"> <!-- 하나라도 출력할 코멘트가 남아있다면 -->
 					<c:set var="cmt" value="${cmtList[curPos]}"/> <!-- 코멘트 객체를 만들어 -->
 					<c:set var="userid" value="${fn:substring(cmt.userid,0,4)}"/>
 					<c:set var="curPos" value="${curPos+1}"/>
 					<c:set var="num" value="${num-1}"/>
-					<div class="cmtList-eachCmt">
-						<div class="cmtList-eachCmt__cmtTop">
-							<span class="cmtList-eachCmt__userid">${userid}****</span>
-							<span class="cmtList-eachCmt__cmtRegDate">
-								<fmt:formatDate value="${cmt.cmtRegdate}" pattern="yyyy-MM-dd" /></span>
+						<div class="cmtList-eachCmt">
+							<div class="cmtList-eachCmt__cmtTop">
+								<span class="cmtList-eachCmt__userid">${userid}****</span>
+								<span class="cmtList-eachCmt__cmtRegDate">
+									<fmt:formatDate value="${cmt.cmtRegdate}" pattern="yyyy-MM-dd" /></span>
+							</div>
+							<div class="cmtList-eachCmt__contents">
+								<p class="cmtList-eachCmt__contents__text">${cmt.cmtText}</p>
+							</div>
+							<%-- <div class="cmtList-eachCmt__cmtButtons">
+								공감<a href="#" class="btn btn-group-xs"><i class="fas fa-thumbs-up"></i></a>
+							    <a href="#" class="btn btn-group-xs"><i class="far fa-thumbs-up"></i></a>${cmt.agrCnt}
+							       비공감<a href="#" class="btn btn-group-xs"><i class="fas fa-thumbs-down"></i></a>
+							    <a href="#" class="btn btn-group-xs"><i class="far fa-thumbs-down"></i></a>${cmt.dagrCnt}
+							</div> --%>
 						</div>
-						<div class="cmtList-eachCmt__contents">
-							<p class="cmtList-eachCmt__contents__text">${cmt.cmtText}</p>
-						</div>
-						<%-- <div class="cmtList-eachCmt__cmtButtons">
-							공감<a href="#" class="btn btn-group-xs"><i class="fas fa-thumbs-up"></i></a>
-						    <a href="#" class="btn btn-group-xs"><i class="far fa-thumbs-up"></i></a>${cmt.agrCnt}
-						       비공감<a href="#" class="btn btn-group-xs"><i class="fas fa-thumbs-down"></i></a>
-						    <a href="#" class="btn btn-group-xs"><i class="far fa-thumbs-down"></i></a>${cmt.dagrCnt}
-						</div> --%>
-					</div>
 				</c:if>
 			</c:forEach>
 		</c:if>
@@ -58,7 +58,7 @@ function pageFunc(curPage){
 	<div class="cmtList-Paging">
 		<!-- 이전 블록으로 이동 -->
 		<c:if test="${pageVo.firstPage>1}">
-			<a href="#" onclick="pageFunc(${pageVo.firstPage-1})">
+			<a href="<c:url value='/movie/movieDetail.do?mvNo=${mvNo}&currentPage=${pageVo.firstPage-1}'/>" >
 				<i class="fas fa-caret-left"></i>
 			</a>
 		</c:if>
@@ -69,13 +69,13 @@ function pageFunc(curPage){
 					<span style="font-weight: bold; color:#FF2F6E;">${i}</span>
 				</c:if>
 				<c:if test="${pageVo.currentPage!=i}">
-					<a href="#" style="color:#343a40;" onclick="pageFunc(${i})">[${i}]</a>
+					<a href="<c:url value='/movie/movieDetail.do?mvNo=${mvNo}&currentPage=${i}'/>" style="color:#343a40;" onclick="pageFunc(${i})">[${i}]</a>
 				</c:if>
 			</c:if>
 		</c:forEach>
 		<!-- 다음 블록으로 이동 -->
 		<c:if test="${pageVo.lastPage<pageVo.totalPage}">
-			<a href="#" onclick="pageFunc(${pageVo.lastPage+1})">
+			<a href="<c:url value='/movie/movieDetail.do?mvNo=${mvNo}&currentPage=${pageVo.lastPage+1}'/>">
 				<i class="fas fa-caret-right"></i>
 			</a>
 		</c:if>
