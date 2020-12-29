@@ -61,5 +61,4 @@ $(function(){
 		</fieldset>
 	</form>
 </article>			
-
 <%@ include file="../inc/bottom.jsp" %>

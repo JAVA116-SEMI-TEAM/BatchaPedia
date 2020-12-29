@@ -1,6 +1,13 @@
 package com.batcha.common;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import com.batcha.memInfo.model.MemInfoVO;
 
 public class Utility {
 	public static final String TEST_DIR
@@ -27,6 +34,16 @@ public class Utility {
 		String result=title;
 		if(title.length()>len) {
 			result=title.substring(0, len)+"...";
+		}
+
+		return result;
+	}
+	
+	public static String cutCmt (String cmtText, int len) {
+		//제목이 30자 이상인 경우 일부만 추출하기
+		String result=cmtText;
+		if(cmtText.length()>len) {
+			result=cmtText.substring(0, len)+"...";
 		}
 
 		return result;
