@@ -1,41 +1,20 @@
 package com.batcha.mvInfo.controller;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.batcha.common.Utility;
 import com.batcha.mvInfo.model.MvInfoService;
 import com.batcha.mvInfo.model.MvInfoVO;
 import com.controller.Controller;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.oreilly.servlet.multipart.Part;
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
-
-import java.util.*;
-import java.io.*;
 
 
 public class MvWriteOkController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		/*
-		 2. 영화 등록 처리 - mvWrite_ok.jsp
-			/mvInfo/mvWrite_ok.do=> MvWriteOkController
-			=> /common/message.jsp로 포워드
-			(=> /mvInfo/mvList.do 로 redirect) 
-		 */
-		
+
 		//1
 		//
 		String mvCode=request.getParameter("mvCode");

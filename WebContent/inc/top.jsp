@@ -9,6 +9,12 @@
    if(t_userid!=null && !t_userid.isEmpty()){
       t_isLogin=true; //로그인이 된 경우에만 true
    }
+
+    List<MvInfoVO> searchList =(List<MvInfoVO>)request.getAttribute("searchList");
+	String searchKeyword=request.getParameter("mvSearchKeyword");
+	if(searchKeyword==null || searchKeyword.isEmpty()){
+		searchKeyword="";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -22,14 +28,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mainStyle.css"/>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
 </head>
-<%
-	List<MvInfoVO> searchList =(List<MvInfoVO>)request.getAttribute("searchList");
-	String searchKeyword=request.getParameter("mvSearchKeyword");
-	if(searchKeyword==null || searchKeyword.isEmpty()){
-		searchKeyword="";
-	}
 
-%>
 <body>
 <nav class="navbar navbar-expand-sm navbar-light fixed-top" id="top">
   <!-- logo -->
@@ -49,7 +48,7 @@
     </div>
   </form>
 	<li class="nav-item">
-     <%--  <a class="nav-link" href="<%=request.getContextPath()%>/mvSearch/mvSearch.do?mvSearchKeyword=<%=searchKeyword %>">영화검색</a> --%>
+     <a class="nav-link" href="<%=request.getContextPath()%>/mvSearch/mvSearch.do?mvSearchKeyword=<%=searchKeyword %>">영화검색</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">로그인</a>

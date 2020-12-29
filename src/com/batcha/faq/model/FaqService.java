@@ -34,12 +34,4 @@ public class FaqService {
 	public int deleteFaq(int faqNo) throws SQLException {
 		return faqDao.deleteFaq(faqNo);
 	}
-	
-	public List<FaqVO> selectCtFaq(FaqVO faqVo) throws SQLException{
-		return faqDao.selectCtFaq(faqVo);
-	}
-	
-	public List<FaqVO> selectAllFaq(String login, String all, String account, String use) throws SQLException{
-		return faqDao.selectAllFaq(login, all, account, use);
-	}
 }

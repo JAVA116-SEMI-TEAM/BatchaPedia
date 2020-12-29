@@ -7,7 +7,6 @@ public class FaqVO {
 	private String title;
 	private String content;
 	private Timestamp regdate;
-	private String opt;
 	
 	public FaqVO() {
 		super();
@@ -21,7 +20,6 @@ public class FaqVO {
 		this.title = title;
 		this.content = content;
 		this.regdate = regdate;
-		this.opt = opt;
 	}
 
 	public FaqVO(int faqNo,  String title, String content, Timestamp regdate) {
@@ -65,24 +63,10 @@ public class FaqVO {
 		this.regdate = regdate;
 	}
 	
-	
-
-	public String getOpt() {
-		return opt;
-	}
-
-
-
-	public void setOpt(String opt) {
-		this.opt = opt;
-	}
-
-
 
 	@Override
 	public String toString() {
-		return "FaqVO [FaqNo=" + FaqNo + ", title=" + title + ", content=" + content + ", regdate="
-				+ regdate + ", opt=" + opt + "]";
+		return "FaqVO [FaqNo=" + FaqNo + ", title=" + title + ", content=" + content + ", regdate=" + regdate + "]";
 	}
 
 	

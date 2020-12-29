@@ -12,11 +12,6 @@ import com.batcha.faq.model.FaqVO;
 import com.controller.Controller;
 
 public class FaqListController implements Controller {
-	public FaqService faqService;
-	
-	public FaqListController() {
-		faqService = new FaqService();
-	}
 	
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
@@ -27,11 +22,9 @@ public class FaqListController implements Controller {
 		  	=> /faqMgr/faqList.jsp로 포워드
 		 */
 		//1
-		String login = request.getParameter("login");
-		String all= request.getParameter("all");
-		String use = request.getParameter("use");
-		String account= request.getParameter("account");
+		
 		//2
+		FaqService faqService=new FaqService();
 		List<FaqVO> faqList=null;
 		try {
 			

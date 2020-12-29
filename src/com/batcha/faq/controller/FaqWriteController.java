@@ -9,9 +9,7 @@ public class FaqWriteController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//1
-		//2
-		//3
+		
 		
 		//4
 		return "/faqMgr/faqWrite.jsp";

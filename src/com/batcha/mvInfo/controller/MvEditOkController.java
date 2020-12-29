@@ -13,12 +13,6 @@ public class MvEditOkController implements Controller {
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		/*
-		5. 영화 수정 처리 - mvEdit_ok.jsp
-		/mvInfo/mvEdit_ok.do => MvEditOkController
-		=> /common/message.jsp로 포워드
-		(=> /mvInfo/mvList.do로 리다이렉트)  
-		 */
 		//1
 		String mvNo=request.getParameter("mvNo");
 		String mvTitleEn=request.getParameter("mvTitleEn");

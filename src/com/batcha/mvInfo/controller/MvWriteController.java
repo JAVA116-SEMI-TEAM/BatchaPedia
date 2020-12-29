@@ -9,15 +9,6 @@ public class MvWriteController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		/*
-		 	1. 영화 등록 - mvWrite.jsp
-		  /mvInfo/mvWrite.do => MvWriteController
-			=> /mvInfo/mvWrite.jsp로 포워드
-		 */
-		//1
-		//2
-		//3
-		//4
 		
 		return "/mvInfo/mvWrite.jsp";
 	}

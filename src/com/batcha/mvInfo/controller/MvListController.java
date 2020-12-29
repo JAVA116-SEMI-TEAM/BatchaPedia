@@ -10,17 +10,12 @@ import com.batcha.common.PagingVO;
 import com.batcha.mvInfo.model.MvInfoService;
 import com.batcha.mvInfo.model.MvInfoVO;
 import com.controller.Controller;
-import com.batcha.common.*;
 
 public class MvListController implements Controller {
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		/*
-		  3. 영화 목록 페이지 - mvList.jsp
-			/mvInfo/mvList.do => MvListController
-			=> /mvInfo/mvList.jsp로 포워드
-		 */
+		
 		//1
 		String option = request.getParameter("option");
 		String keyword = request.getParameter("keyword");

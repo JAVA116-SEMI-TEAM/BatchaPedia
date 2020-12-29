@@ -6,7 +6,6 @@
 <!-- ckEditor 추가-->
 <script src="../resource/ckeditor/ckeditor.js"></script>
 
-
 <style type="text/css">
 
 input[type=text]:focus,  .boxOffice:focus,

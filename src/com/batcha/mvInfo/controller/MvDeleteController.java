@@ -12,11 +12,6 @@ public class MvDeleteController implements Controller {
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		/*
-		 6. 영화 삭제 처리 - mvDelete.jsp
-		/mvInfo/mvDelete.do => MvDeleteController
-		=> /mvInfo/mvList.do로 리다이렉트 
-		 */
 		//1
 		//=>
 		String mvNo=request.getParameter("mvNo");
