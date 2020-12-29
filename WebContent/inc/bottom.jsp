@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 </section>
 <!-- footer -->
 <footer id="footer">
 	<div>
 		<a href="#">서비스 이용약관 | </a>
 		<a href="#">개인정보 처리방침 | </a>
-		<a href='<c:url value="/company/companyIntroduction.do"/>'>회사 소개</a>
+		<a href="<%=request.getContextPath()%>/company/companyIntroduction.do">회사 안내</a>
 		<p>고객센터 | <a href="#">cs@bachapedia.co.kr</a>, 02-123-4566</p>
 		<p>제휴 및 대외 협력 | <a href="#">contact@bachapedia.co.kr</a>, 070-1234-1234</p>
 		<p>주식회사 밧챠 | 대표 김밧챠 | 서울특별시 서초구 강남대로 123 밧챠빌딩</p>
