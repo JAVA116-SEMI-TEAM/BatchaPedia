@@ -7,6 +7,12 @@
 <%@ include file="../inc/top.jsp"%>
 
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+*{
+   font-family: 'Noto Sans KR', sans-serif;
+    color: #343a40;
+}
 .mymvbox-warp {
 	width: 1200px;
 	margin: 50px auto;
@@ -52,7 +58,7 @@ height: 100%;
 			<%for(int i=0;i<mvlist.size();i++){
 					mmvo=mvlist.get(i); %>
 			<div class="mymvbox">
-				<a href="#" class="image fit"><img src="<%=mmvo.getThumbnail() %>" alt="영화 사진"></a> 
+				<a href="<%=request.getContextPath() %>/movie/movieDetail.do?mvNo=<%=mmvo.getMvNo() %>" class="image fit"><img src="<%=mmvo.getThumbnail() %>" alt="영화 사진"></a> 
 					<span><%=mmvo.getMvTitle() %></span>
 			</div>
 			<%}

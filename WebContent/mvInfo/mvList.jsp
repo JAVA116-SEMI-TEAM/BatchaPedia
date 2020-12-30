@@ -111,11 +111,14 @@ input[type=text]:focus, #inlineFormCustomSelect:focus {
 }
 
 </style>
+
+<div class="container-fluid">
+      <div class="row">
+
  <div id="admin-sidebar" class="col-md-2 p-x-0 p-y-3 nav-warp">
          <ul class="sidenav admin-sidenav list-unstyled">
             <li><a href="<%=request.getContextPath()%>/managerPage/manager.do">회원관리</a></li>
             <li><a href="<%=request.getContextPath() %>/mvInfo/mvList.do">영화관리</a></li>
-            <li><a href="<%=request.getContextPath()%>/notice/noticemain.do">공지사항</a></li>
          </ul>
       </div>
 <div class="mvList" style="width:800px;">
@@ -247,8 +250,9 @@ input[type=text]:focus, #inlineFormCustomSelect:focus {
 		<div style="clear:both;">
 		</div>
 	
-</div>
-
+		</div>
+      </div>
+   </div>
 <!-- table th 클릭 정렬 -->
 <script type="text/javascript">
 new Tablesort(document.getElementById('mvListTable'));

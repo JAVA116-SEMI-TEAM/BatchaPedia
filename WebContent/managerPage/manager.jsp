@@ -236,7 +236,6 @@ a.quicklink {
          <ul class="sidenav admin-sidenav list-unstyled">
             <li><a href="<%=request.getContextPath()%>/managerPage/manager.do">회원관리</a></li>
             <li><a href="<%=request.getContextPath() %>/mvInfo/mvList.do">영화관리</a></li>
-            <li><a href="<%=request.getContextPath()%>/notice/noticemain.do">공지사항</a></li>
          </ul>
       </div>
          <div class="col-md-10 content-warp">

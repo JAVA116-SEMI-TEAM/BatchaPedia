@@ -4,6 +4,12 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+*{
+   font-family: 'Noto Sans KR', sans-serif;
+    color: #343a40;
+}
 	.mvSearchRes{
 		margin:0 auto;
 		width:700px;

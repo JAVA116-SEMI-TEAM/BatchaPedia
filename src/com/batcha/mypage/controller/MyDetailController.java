@@ -31,7 +31,11 @@ public class MyDetailController implements Controller{
 		String myname = memVo.getName();
 		String mybirth = memVo.getBirthday();
 		
-		//¹øÈ£
+		if(mybirth==null || mybirth.isEmpty()) {
+			mybirth="-";
+		}
+		
+		//ï¿½ï¿½È£
 		String myhp = memVo.getMobile();
 		String myhp1 = "",myhp2="",myhp3="";
 		if (myhp != null && !myhp.isEmpty()) {
@@ -41,7 +45,7 @@ public class MyDetailController implements Controller{
 			myhp3 = hpArr[2];
 		}
 		
-		//ÀÌ¸ÞÀÏ
+		//ï¿½Ì¸ï¿½ï¿½ï¿½
 		String email = memVo.getEmail();
 		String email1 = "", email2 = "";
 		String[] emailList = { "naver.com", "hanmail.net", "nate.com", "gmail.com" };
@@ -61,7 +65,7 @@ public class MyDetailController implements Controller{
 			}//for
 			
 			if (count == 0) {
-				isEtc = true; //Á÷Á¢ÀÔ·Â
+				isEtc = true; //ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½
 			}
 		}
 		

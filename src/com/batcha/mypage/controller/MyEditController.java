@@ -14,7 +14,7 @@ public class MyEditController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//ÆÄ¶ó¹ÌÅÍ ¹Ş±â
+		//ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ş±ï¿½
 		HttpSession session=request.getSession();
 	    String userid=(String)session.getAttribute("userid");
 	    System.out.println("userid="+userid);
@@ -35,7 +35,7 @@ public class MyEditController implements Controller{
 		String email3= (String)request.getParameter("email3");
 		
 		String myhp = myhp1+"-"+myhp2+"-"+myhp3;
-		System.out.println("ÀüÈ­¹øÈ£="+myhp);
+		System.out.println("ï¿½ï¿½È­ï¿½ï¿½È£="+myhp);
 		
 		String email ="";
 		if(email1!=null && !email1.isEmpty()){
@@ -47,13 +47,13 @@ public class MyEditController implements Controller{
 				email = email1+"@"+email2;
 			}
 		}
-		System.out.println("ÀÌ¸ŞÀÏ="+email);
+		System.out.println("ï¿½Ì¸ï¿½ï¿½ï¿½="+email);
 		
 		//db
 	    MemInfoService service = new MemInfoService();
 	    MemInfoVO memVo = new MemInfoVO();
 	    
-	    String msg="È¸¿ø ¼öÁ¤ ½ÇÆĞ",url="/myPage/myDetail.do";
+	    String msg="íšŒì›ì •ë³´ ìˆ˜ì • ì‹¤íŒ¨",url="/myPage/myDetail.do";
 	    try {
 	    	memVo.setMemNo(Integer.parseInt(mynum));
 	    	memVo.setId(userid);
@@ -63,21 +63,21 @@ public class MyEditController implements Controller{
 	    	memVo.setMobile(myhp);
 	    	memVo.setBirthday(mybirth);
 	    	int cnt=service.updateMem(memVo);
-	    	System.out.println("°á°ú2= "+cnt);
+	    	System.out.println("ï¿½ï¿½ï¿½2= "+cnt);
 	    	
 	    	if (cnt>0) {
-	    		msg="È¸¿ø ¼öÁ¤ ¿Ï·á";
+	    		msg="íšŒì›ì •ë³´ ìˆ˜ì • ì„±ê³µ";
 	    		url="/myPage/myDetail.do";
 	    	}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	    
-	    //°á°úÀúÀå
+	    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    request.setAttribute("msg", msg);
 	    request.setAttribute("url", url);
 	    
-	    //ºäÆäÀÌÁö
+	    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return "/common/message.jsp";
 	}
 
