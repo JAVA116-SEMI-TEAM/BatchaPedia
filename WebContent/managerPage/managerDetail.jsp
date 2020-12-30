@@ -61,6 +61,15 @@ html, body, .grid-container {
 
 
 </style>
+
+<script type="text/javascript">
+$(function(){
+	$('input[name=btdel]').click(function(){
+		confirm("삭제하시겠습니까?")
+	});
+});
+</script>
+
 <%
 	MemInfoVO memVo=(MemInfoVO)request.getAttribute("memVo");
 	String memNo=request.getParameter("no");
@@ -189,7 +198,8 @@ html, body, .grid-container {
 		<div class="goHrefOutter">
 	<%--<a href='<%=request.getContextPath() %>/edit.jsp?no='>수정</a> |  --%>
 			<input type="submit" value="수정"> 
-			<input type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/managerPage/managerDelete_ok.do?memNo=<%=memNo%>'"> 
+			<input type="button" value="삭제" name="btdel"
+				onclick="location.href='<%=request.getContextPath()%>/managerPage/managerDelete_ok.do?memNo=<%=memNo%>'"> 
 			<input type="button" value="매니저페이지" onclick="location.href='<%=request.getContextPath()%>/managerPage/manager.do'">
 
 		</div>

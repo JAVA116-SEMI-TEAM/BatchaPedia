@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.batcha.common.PagingVO;
 import com.batcha.mynotice.model.NoticeService;
@@ -18,6 +19,7 @@ public class NoticemainController implements Controller{
 		//1. 파리미터 받기
 		String condition = request.getParameter("searchCondition");
 		String keyword = request.getParameter("searchKeyword");
+		
 
 		//2. db작업
 		NoticeService ntservice = new NoticeService();

@@ -22,6 +22,11 @@ public class MyCmtService {
 		return mcDao.selectBynum(cmtNo);
 	}
 	
+	public int deleteMycmt(int cmtNo) throws SQLException {
+		return mcDao.deleteMycmt(cmtNo);
+	}
 	
-	
+	public int updateMycmt(MyCmtVO mcVo) throws SQLException {
+		return mcDao.updateMycmt(mcVo);
+	}
 }

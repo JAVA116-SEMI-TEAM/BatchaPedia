@@ -1,10 +1,9 @@
 <%@page import="com.batcha.mycmt.model.MyCmtVO"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file="../inc/top.jsp"%>
 
+<script type="text/javascript" src="<%=request.getContextPath() %>/ckeditor/ckeditor.js"></script>
 <style type="text/css">
 
 .ntTitle {
@@ -52,22 +51,16 @@ input[type="submit"], input[type="Button"] {
 
 </style>
 
-<script type="text/javascript">
-$(function(){
-	$('input[name=btdel]').click(function(){
-		confirm("삭제하시겠습니까?")
-	});
-});
-</script>
-
 <%
 	MyCmtVO mcVo = (MyCmtVO)request.getAttribute("mcVo");
 %>
 
-
 <div class="contant-warp">
+<form class="form-compact" name="ntcfmt"
+			action="<%=request.getContextPath()%>/myPage/mycmtEditOk.do?cmtNo=<%=mcVo.getCmtNo() %>"
+			method="post">
 	<div class="row ntTitle">
-		<h2 class="text-center col-12 mb-0" style="color: #343a40">내 코멘트</h2>
+		<h2 class="text-center col-12 mb-0" style="color: #343a40">코멘트수정</h2>
 	</div>
 
 	<div class="divForm">
@@ -88,22 +81,22 @@ $(function(){
 
 
 		<div class="row align-items-center nt-con nt-context">
-			<div>
-				<div><%=mcVo.getCmtText() %></div>
-			</div>
+			<textarea id="cmtText" name="cmtText" >
+								<%=mcVo.getCmtText() %></textarea>
+			<script type="text/javascript">
+				 CKEDITOR.replace('cmtText', { height: 300});
+			</script>
 		</div>
 
 	</div>
 	<div class="goHrefOutter">
-		<input type="button" value="삭제" name="btdel"
-			onclick="location.href='<%=request.getContextPath()%>/myPage/mycmtDeleteOk.do?cmtNo=<%=mcVo.getCmtNo() %>'">
-		<input type="button" value="수정" 
-			onclick="location.href='<%=request.getContextPath()%>/myPage/mycmtEdit.do?cmtNo=<%=mcVo.getCmtNo() %>'">
+		<input type="submit" value="확인" >
 		<input type="button" value="목록"
 			onclick="location.href='<%=request.getContextPath()%>/myPage/mycmt.do'">
 	</div>
 
 
+</form>
 </div>
 
 <%@ include file="../inc/bottom.jsp" %>

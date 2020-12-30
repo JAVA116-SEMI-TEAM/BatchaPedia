@@ -11,12 +11,12 @@
 }
 
 article.regForm {
-	width: 100%;
+   width: 50%;
 }
 
 .regForm-content{
-	width: 620px;
-	margin: 0 auto 150px;
+   width: 620px;
+   margin: 0 auto 150px;
 }
 
 input.regInput {
@@ -72,17 +72,29 @@ input#email3 {
     width: 200px;
 }
 
-/* checkId */
-.checkId2{
-   width: 100px;
-    height: 40px;
-    background: #FCFCFC;
-    border: 0.5px solid gray;
-}
 
 p.pink {
     color: #ff2f6e;
 }
+
+#contents {
+    margin: 110px auto 100px;
+    width: 1200px;
+}
+
+article.regForm {
+    /* width: 50%; */
+    margin: 0 auto;
+}
+
+#myhp2, #myhp3{
+	width: 160px;
+}
+
+input#userid {
+    width: 400px;
+}
+
 </style>
 
 <script type="text/javascript" src="../js/member.js"></script>
@@ -157,7 +169,7 @@ $(function(){
 	        <input type="text" name="mybirth" id="mybirth" class="regInput" readonly
 	        	style="background: rgba(192, 192, 195, 0.8);" value="<%=mybirth%>">
 	    </div><br>
-	    <div>
+	    <div style="width: 400px">
 	        <label for="myhp1">휴대폰</label><br>
 	        <select name="myhp1" id="myhp1" title="휴대폰 앞자리">
 	            <option value="010"
@@ -238,7 +250,7 @@ $(function(){
 	           >
 	    </div><br><br>
 	    <div>
-	         <input type="submit" value="회원수정">
+	         <input type="submit" value="회원수정" id="wr_submit">
 	    </div>
 	</fieldset>
 	
