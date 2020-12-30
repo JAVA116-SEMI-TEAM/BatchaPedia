@@ -1,6 +1,6 @@
+<%@page import="com.batcha.mycmt.model.MyCmtVO"%>
 <%@page import="com.batcha.common.Utility"%>
 <%@page import="com.batcha.common.PagingVO"%>
-<%@page import="com.batcha.mycmt.model.MyCmtVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -66,9 +66,9 @@
 							%>
 								<tr>
 									<td><%=mcVo.getCmtNo() %></td>
-									<td><a href="<%=request.getContextPath() %>/">
-										<%=Utility.cutString(mcVo.getMvTitle(), 15)  %></a></td>
-									<td><%=Utility.cutCmt(mcVo.getCmtText(), 80)%></td>
+									<td><%=Utility.cutString(mcVo.getMvTitle(), 10)  %></td>
+									<td><a href="<%=request.getContextPath() %>/myPage/mycmtDetail.do?cmtNo=<%=mcVo.getCmtNo() %>">
+									<%=Utility.cutCmt(mcVo.getCmtText(), 80)%></a></td>
 								</tr>
 							<%}%>
 						<%}%>

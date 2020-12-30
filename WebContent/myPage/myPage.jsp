@@ -191,7 +191,7 @@
 
 #top-wrap {
 	position: relative;
-	padding-bottom: 50px;
+	padding-bottom: 140px;
 }
 
 #mytitle {
@@ -294,52 +294,6 @@
 			</div>
 			<div id="myedit">
 				<a href="<%=request.getContextPath()%>/myPage/myDetail.do">회원정보수정</a>
-			</div>
-		</div>
-
-		<!-- 총 평점 / 콘텐트 / 찜 목록 -->
-		<div class="jumbotron mysection">
-			<div class="row w-100">
-				<div class="col-md-3 scobox">
-					<div class="card border-warning mx-sm-1 p-3">
-						<div class="card border-warning text-warning p-3 my-card">
-							<span class="fa fa-inbox" aria-hidden="true"></span>
-						</div>
-						<div class="text-warning text-center mt-3">
-							<h4>좋아요</h4>
-						</div>
-						<div class="text-warning text-center mt-2">
-							<h1>346</h1>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 scobox">
-					<div class="card border-success mx-sm-1 p-3">
-						<div class="card border-success text-success p-3 my-card">
-							<span class="fa fa-eye" aria-hidden="true"></span>
-						</div>
-						<div class="text-success text-center mt-3">
-							<h4>코멘트</h4>
-						</div>
-						<div class="text-success text-center mt-2">
-							<h1>9332</h1>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 scobox">
-					<div class="card border-danger mx-sm-1 p-3">
-						<div class="card border-danger text-danger p-3 my-card">
-							<span class="fa fa-heart" aria-hidden="true"></span>
-						</div>
-						<div class="text-danger text-center mt-3">
-							<h4>찜</h4>
-						</div>
-						<div class="text-danger text-center mt-2">
-							<h1>346</h1>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
 

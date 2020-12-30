@@ -194,6 +194,13 @@ a.quicklink {
 	width: 800px;
 }
 
+#contents {
+    margin-top: 130px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 166px;
+}
+
 </style>
 
 
@@ -228,57 +235,6 @@ a.quicklink {
 			<div class="col-md-10 content-warp">
 				<h2 class="page-header">매니저 페이지</h2>
 
-				<div id="home_quicklinks total-warp">
-								<div class="total1">
-                                <a class="quicklink link1" href="#">
-                                    <span class="ql_caption">
-                                        <span class="outer">
-                                            <span class="inner">
-                                                <h4>오늘 가입</h4>
-                                                <h5>sss</h5>
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <span class="ql_top"></span>
-                                    <span class="ql_bottom"></span>
-                                </a>
-								</div>
-								
-								<div class="total1">
-                                <a class="quicklink link2" href="#">
-                                    <span class="ql_caption">
-                                        <span class="outer">
-                                            <span class="inner">
-                                                <h4>총 회원</h4>
-                                                <h5>sss</h5>
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <span class="ql_top"></span>
-                                    <span class="ql_bottom"></span>
-                                </a>
-                                </div>
-
-								<div class="total1">
-                                <a class="quicklink link3 " href="#">
-                                    <span class="ql_caption">
-                                        <span class="outer">
-                                            <span class="inner">
-                                                <h4>새 질문 </h4>
-                                                <h5>총 회원</h5>
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <span class="ql_top"></span>
-                                    <span class="ql_bottom"></span>
-                                </a>
-								</div>
-								
-                                <div class="clear"></div>
-                            </div>
-                            
-						
-				
 			<!-- 회원테이블 -->
 				<div class="table-responsive row memtable">
 					<h3 class="sub-header">회원테이블</h3>

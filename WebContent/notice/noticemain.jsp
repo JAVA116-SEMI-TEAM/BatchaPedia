@@ -62,10 +62,8 @@
 	String keyword = request.getParameter("searchKeyword");
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	
-	//HttpSession session=request.getSession();
-	String t_admincheck_nt=(String)session.getAttribute("t_admincheck");
 %>
+
 
 <%if (keyword != null && !keyword.isEmpty()) {%>
    <p style="display: none;">검색어 : <%=keyword%>, <%=list.size()%>건 검색되었습니다.</p>
@@ -78,11 +76,11 @@
 				<div class="table-responsive row notitable">
 					<div class="nttitle-warp">
 						<h3 class="sub-header nttitle">공지사항</h3>
-<%-- 						<%if(t_admincheck_nt.equals(1)){%> --%>
+ 						<%if(Integer.parseInt(t_admincheck)==1){ %>
 							<div class="go-ntWhite">
 								<a style="color:#FF2F6E" href="<%=request.getContextPath() %>/notice/noticeWrite.do">글쓰기</a>
 							</div>
-<%-- 						<%} %> --%>
+						<%} %>
 					</div>
 					<table class="table table-hover col-md-10 ntTable">
 						<thead>

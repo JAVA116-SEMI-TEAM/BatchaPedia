@@ -10,16 +10,12 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('#title').focus();
+		$('#ntTitle').focus();
 		
 		$('form[name=ntcfmt]').submit(function(){
 			if($('#ntTitle').val().length<1){
 				alert('제목을 입력하세요');
 				$('#ntTitle').focus();
-				event.preventDefault();
-			}else if($('#content').val().length<1){
-				alert('내용을 입력하세요');
-				$('#content').focus();
 				event.preventDefault();
 			}
 		});

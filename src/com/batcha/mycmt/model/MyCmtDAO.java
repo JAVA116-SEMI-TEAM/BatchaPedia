@@ -67,8 +67,9 @@ public class MyCmtDAO {
 			con = pool.getConnection();
 
 			String sql="select * from (select cmt.cmtNo,cmt.cmtText,mvif.MVTITLE \r\n" + 
-					"from cmtData cmt, mvInfo mvif\r\n" + 
-					"where cmt.MVNO = mvif.MVNO and cmt.MEMNO=?)\r\n" + 
+					"from cmtData cmt, mvInfo mvif \r\n" + 
+					"where cmt.MVNO = mvif.MVNO and cmt.MEMNO=?\r\n" + 
+					"order by cmt.cmtNo desc) \r\n" + 
 					"where rownum<=4";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, memNo);
