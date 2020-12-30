@@ -15,6 +15,5 @@
 		<p>&copy 2020 Batcha. Inc</p>
 	</div>
 </footer>
-
 </body>
 </html>
