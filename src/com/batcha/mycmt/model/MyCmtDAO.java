@@ -17,7 +17,7 @@ public class MyCmtDAO {
 		pool = new ConnectionPoolMgr2();
 	}
 
-	//È¸¿øÀÇÀÌ ¾´ ÄÚ¸àÆ® °¡Á®¿À±â
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public List<MyCmtVO> cmtByMemno(int memNo) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps = null;
@@ -49,14 +49,14 @@ public class MyCmtDAO {
 
 				list.add(mcVo);
 			}
-			System.out.println("ÄÚ¸àÆ® Ã¼Á¶È¸ °á°ú list.size="+list.size()+"È¸¿ø¹øÈ£="+memNo);
+			System.out.println("ï¿½Ú¸ï¿½Æ® Ã¼ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ list.size="+list.size()+"È¸ï¿½ï¿½ï¿½ï¿½È£="+memNo);
 			return list;
 		} finally {
 			pool.dbClose(rs, ps, con);
 		}
 	}
 
-	//ÃÖ½Å±Û º¸¿©ÁÖ±â
+	//ï¿½Ö½Å±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	public List<MyCmtVO> selectMainMyCmt(int memNo) throws SQLException{
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -88,7 +88,7 @@ public class MyCmtDAO {
 
 				list.add(mcVo);
 			}
-			System.out.println("ÄÚ¸àÆ® Ã¼Á¶È¸ °á°ú list.size="+list.size()+"È¸¿ø¹øÈ£="+memNo);
+			System.out.println("ï¿½Ú¸ï¿½Æ® Ã¼ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ list.size="+list.size()+"È¸ï¿½ï¿½ï¿½ï¿½È£="+memNo);
 			return list;
 
 		}finally {
@@ -125,7 +125,7 @@ public class MyCmtDAO {
 				mcVo.setMvTitle(rs.getString("mvTitle"));
 			}
 
-			System.out.println("Á¶È¸°á°ú vo="+mcVo +"¸Å°³º¯¼ö cmtNo="+cmtNo);
+			System.out.println("ï¿½ï¿½È¸ï¿½ï¿½ï¿½ vo="+mcVo +"ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ cmtNo="+cmtNo);
 
 			return mcVo;
 		}finally {
@@ -151,7 +151,7 @@ public class MyCmtDAO {
 			ps.setInt(1, cmtNo);
 			
 			int cnt=ps.executeUpdate();
-			System.out.println("»èÁ¦°á°ú cnt="+cnt+"¸Þ°Ôº¯¼ö cmtNo="+cmtNo);
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cnt="+cnt+"ï¿½Þ°Ôºï¿½ï¿½ï¿½ cmtNo="+cmtNo);
 			
 			return cnt;
 		} finally {
@@ -166,20 +166,13 @@ public class MyCmtDAO {
 		try {
 			con=pool.getConnection();
 			
-			String sql="update\r\n" + 
-					"(\r\n" + 
-					"    select cmt.cmtText\r\n" + 
-					"    from cmtData cmt,mvInfo mvif\r\n" + 
-					"    where cmt.MVNO=mvif.MVNO\r\n" + 
-					"    and cmt.cmtNo=?\r\n" + 
-					")\r\n" + 
-					"set cmtText = ?";
+			String sql="update cmtdata set cmttext=? where cmtno=?";
 			ps=con.prepareStatement(sql);
-			ps.setInt(1, mcVo.getCmtNo());
-			ps.setString(2, mcVo.getCmtText());
+			ps.setString(1, mcVo.getCmtText());
+			ps.setInt(2, mcVo.getCmtNo());
 			
 			int cnt = ps.executeUpdate();
-			System.out.println("¼öÁ¤°á°ú cnt="+cnt+"¸Å°³º¯¼ö mcVo="+mcVo);
+			System.out.println("ì½”ë©˜íŠ¸ ìˆ˜ì • ê²°ê³¼ cnt="+cnt+", ë§¤ê°œë³€ìˆ˜ mcVo="+mcVo);
 			
 			return cnt;
 		} finally {
