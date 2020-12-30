@@ -13,18 +13,18 @@ public class ManagerDetailController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//1 ÆÄ¶ó¹ÌÅÍ ¹Ş±â
+		//1 ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ş±ï¿½
 		String memNo= request.getParameter("no");
 		
 		if(memNo==null || memNo.isEmpty()) {
-			request.setAttribute("msg", "Àß¸øµÈ urlÀÔ´Ï´Ù");
+			request.setAttribute("msg", "íšŒì›ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			request.setAttribute("url", "/managerPage/manager.do");
 			System.out.println(memNo);
 
 			return "/common/message.jsp";
 		}
 		
-		//2 db¿¬°á
+		//2 dbï¿½ï¿½ï¿½ï¿½
 		MemInfoService memService = new MemInfoService();
 		MemInfoVO memVo = new MemInfoVO();
 		try {
@@ -33,10 +33,22 @@ public class ManagerDetailController implements Controller{
 			e.printStackTrace();
 		}
 		
-		//3 °á°ú ÀúÀå
+		//3 ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		if(memVo.getEmail()==null || memVo.getEmail().isEmpty()) {
+			memVo.setEmail("-");
+		}
+		
+		if(memVo.getMobile()==null || memVo.getMobile().isEmpty()) {
+			memVo.setMobile("-");
+		}
+		
+		if(memVo.getBirthday()==null || memVo.getBirthday().isEmpty()) {
+			memVo.setBirthday("-");
+		}
+		
 		request.setAttribute("memVo", memVo);
 		
-		//4.ºäÆäÀÌÁö·Î Æ÷¿öµå
+		//4.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return "/managerPage/managerDetail.jsp?memNo="+memNo;
 	}
 

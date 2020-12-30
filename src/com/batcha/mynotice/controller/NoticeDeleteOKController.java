@@ -19,11 +19,11 @@ public class NoticeDeleteOKController implements Controller{
 		//2
 		NoticeService service = new NoticeService();
 		
-		String msg="昏力 角菩",url="/notice/noticeDetail.do?noticeNo="+noticeNo;
+		String msg="靷牅 鞁ろ尐",url="/notice/noticeDetail.do?noticeNo="+noticeNo;
 		try {
 			int cnt = service.deleteNotice(Integer.parseInt(noticeNo));
 			if(cnt>0) {
-				msg="昏力 己傍";
+				msg="靷牅 靹标车";
 				url="/notice/noticemain.do";
 			}
 		} catch (SQLException e) {

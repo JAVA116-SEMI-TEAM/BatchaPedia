@@ -5,6 +5,7 @@
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="../css/faq.css">
 <style type="text/css">
+
 h4 {
 	float: left;
 }

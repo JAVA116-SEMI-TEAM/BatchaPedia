@@ -13,7 +13,7 @@ public class ManagerEditController implements Controller{
 
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		//1 ÆÄ¶ó¹ÌÅÍ ¹Ş±â
+		//1 ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ş±ï¿½
 		String memId = request.getParameter("memId");
 		String memPwd = request.getParameter("memPwd");
 		String memName = request.getParameter("memName");
@@ -25,8 +25,8 @@ public class ManagerEditController implements Controller{
 		
 		MemInfoVO vo = new MemInfoVO();
 		
-		//2 db¿¬°á
-		String msg="¼öÁ¤ ½ÇÆĞ", url="/managerPage/managerDetail.do?no="+no;
+		//2 dbï¿½ï¿½ï¿½ï¿½
+		String msg="ìˆ˜ì • ì‹¤íŒ¨!", url="/managerPage/managerDetail.do?no="+no;
 		try {
 			vo.setId(memId);
 			vo.setPwd(memPwd);
@@ -38,7 +38,7 @@ public class ManagerEditController implements Controller{
 			int cnt = service.updateMem(vo);
 			
 			if(cnt>0) {
-				msg="¼öÁ¤ ¼º°ø";
+				msg="íšŒì›ì •ë³´ ìˆ˜ì • ì„±ê³µ";
 				url="/managerPage/managerDetail.do?no="+no;
 			}
 			
@@ -46,11 +46,11 @@ public class ManagerEditController implements Controller{
 			e.printStackTrace();
 		}
 		
-		//3 °á°úÀúÀå
+		//3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		request.setAttribute("msg", msg);
 		request.setAttribute("url", url);
 		
-		//4 ºäÆäÀÌÁö
+		//4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return "/common/message.jsp";
 //		return "/managerPage/managerDetail.do?memNo="+memNoEd;
 	}

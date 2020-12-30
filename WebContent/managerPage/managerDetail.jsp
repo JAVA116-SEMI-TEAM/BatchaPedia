@@ -13,6 +13,11 @@
 </head>
 
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+* {
+   font-family: 'Noto Sans KR', sans-serif;
+}
 html, body, .grid-container {
 	height: 100%;
 	margin: 0;
@@ -200,7 +205,7 @@ $(function(){
 			<input type="submit" value="수정"> 
 			<input type="button" value="삭제" name="btdel"
 				onclick="location.href='<%=request.getContextPath()%>/managerPage/managerDelete_ok.do?memNo=<%=memNo%>'"> 
-			<input type="button" value="매니저페이지" onclick="location.href='<%=request.getContextPath()%>/managerPage/manager.do'">
+			<input type="button" value="회원목록" onclick="location.href='<%=request.getContextPath()%>/managerPage/manager.do'">
 
 		</div>
 		</form>
