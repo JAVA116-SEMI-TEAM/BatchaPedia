@@ -228,7 +228,7 @@ a.quicklink {
 			<div id="admin-sidebar" class="col-md-2 p-x-0 p-y-3 nav-warp">
 			<ul class="sidenav admin-sidenav list-unstyled">
 				<li><a href="<%=request.getContextPath()%>/managerPage/manager.do">매니저페이지</a></li>
-				<li><a href="#">영화목록관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/mvInfo/mvList.do">영화목록관리</a></li>
 				<li><a href="<%=request.getContextPath()%>/managerPage/notice.do">공지사항</a></li>
 			</ul>
 		</div>

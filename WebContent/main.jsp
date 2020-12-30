@@ -8,8 +8,7 @@
 	<c:forEach var="i" begin="0" end="4">
 		<div class="boxOffice mv">
 			<c:set var="boxOffice" value="${boxOfficeList[i]}" />
-			<a
-				href="<c:url value='/movie/movieDetail.do?mvNo=${boxOffice.mvNo}'/>">
+			<a href="<c:url value='/movie/movieDetail.do?mvNo=${boxOffice.mvNo}'/>">
 				<img src="${boxOffice.thumbnail }" alt="moviePoster">
 				<div class="info">
 					<div class="mvtitle">${boxOffice.mvTitle}</div>
