@@ -25,6 +25,10 @@
 		color:#343a40;
 		font-weight:bold;
 	}
+	
+	#detailP{
+		text-decoration: none;
+	}
 </style>
 <%
 
@@ -32,10 +36,11 @@
 <div class="mvSearchRes">
 	<div class="SearchRes" id="SearchRes">
 			<div>
-			<%if(mvSearchk!=null || mvSearchk.isEmpty()){ %>	
-				
-				<p id="keyword">검색어 : <%=mvSearchk %>, 검색결과 : <%=searchList.size()%>건</p>			
-			<%} %>	
+			<%if(mvSearchk!=null && !mvSearchk.isEmpty()){ %>	
+				<p id="keyword">검색어  : <%=mvSearchk %>,  검색결과  : <%=searchList.size()%>건</p>			
+			<%}else{	
+				mvSearchk="";
+			}%>
 			</div>
 			<hr style="margin-top:10px;margin-bottom:0px">
 			<br>
@@ -50,8 +55,11 @@
 			<img src="<%=mVo.getThumbnail() %>" class=""
 				style="width: 4rem; height: 4rem;" alt="...">
 				<div class="" style="padding: 10px;width:100%;">
+					<a id="detailP" 
+			href="<%=request.getContextPath()%>/movie/movieDetail.do?mvNo=<%=mVo.getMvNo()%>">
 					<span class="title"><%=mVo.getMvTitle() %></span> 
 					<span style="font-size:14px;"><%=mVo.getMakeYear() %> · <%=mVo.getNation() %></span>
+					</a>
 					<hr style="margin-top:20px;margin-bottom:5px">
 				</div>
 			</li>

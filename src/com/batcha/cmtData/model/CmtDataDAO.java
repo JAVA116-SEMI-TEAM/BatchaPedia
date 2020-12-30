@@ -107,9 +107,9 @@ public class CmtDataDAO {
 			String sql="select * from cmtData where";		
 			
 			if(isMemNo) {
-				sql+=" memNo=?";
+				sql+=" memNo=? order by cmtno desc";
 			}else {
-				sql+=" mvNo=?";
+				sql+=" mvNo=? order by cmtno desc";
 			}
 			ps=con.prepareStatement(sql);
 			
@@ -123,8 +123,6 @@ public class CmtDataDAO {
 				cmtVo.setCmtNo(rs.getInt("cmtNo"));
 				cmtVo.setCmtText(rs.getString("cmtText"));
 				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
-				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
-				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
 				cmtVo.setUserid(rs.getString("userid"));
 				
 				if(isMemNo) {
@@ -156,9 +154,9 @@ public class CmtDataDAO {
 			String sql="select count(*) from cmtData where";
 			
 			if(isMemNo) {
-				sql+=" memNo=? order by cmtno desc";
+				sql+=" memNo=?";
 			}else {
-				sql+=" mvNo=? order by cmtno desc";
+				sql+=" mvNo=?";
 			}
 		
 			ps=con.prepareStatement(sql);
@@ -267,8 +265,6 @@ public class CmtDataDAO {
 				cmtVo.setCmtNo(rs.getInt("cmtNo"));
 				cmtVo.setCmtRegdate(rs.getTimestamp("cmtRegdate"));
 				cmtVo.setCmtText(rs.getString("cmtText"));
-				cmtVo.setDagrCnt(rs.getInt("dagrCnt"));
-				cmtVo.setAgrCnt(rs.getInt("agrCnt"));
 				cmtVo.setMemNo(memNo);
 				cmtVo.setMvNo(mvNo);
 			}

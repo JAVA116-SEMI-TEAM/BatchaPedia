@@ -5,9 +5,7 @@
 	href="<%=request.getContextPath()%>/css/mvInfo.css" />
 <!-- ckEditor 추가-->
 <script src="../resource/ckeditor/ckeditor.js"></script>
-
 <style type="text/css">
-
 input[type=text]:focus,  .boxOffice:focus,
 input[type=text]:hover, select:hover
 	{
@@ -16,7 +14,6 @@ input[type=text]:hover, select:hover
 		rgba(153, 153, 153, 0.6);
 	outline: 0 none;
 }
-
 
 label{
 	color:#343a40;
@@ -27,13 +24,11 @@ label{
 	padding-right:0px;
 }
 
-
 .card {
 	width: 200px;
 	height: 250px;
 	border: 0.8px solid silver;
 }
-
 
 #textbox{
 	margin-left:0;
@@ -64,11 +59,7 @@ color:rgba(255,0,0,0.4);
 font-style: italic;
 }
 
-/* 
-input[type=text]:hover, select:hover{
-	background-color:gray;
-	color:white;
-} */
+
 </style>
 <div class="mvInfo mvWrite">
 	
@@ -180,9 +171,10 @@ input[type=text]:hover, select:hover{
 	</div>
 	</form>
 </div>
+
+<!-- 필수 입력항목 유효성 검사 -->
 <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-
 $(function(){
 	$('#writeBtn').click(function(){
 		if($('#mvTitle').val().length<1){

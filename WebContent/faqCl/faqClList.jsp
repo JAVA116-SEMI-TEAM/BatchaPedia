@@ -2,28 +2,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-	integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-	crossorigin="anonymous"></script>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="../css/faq.css">
 <style type="text/css">
@@ -40,10 +18,7 @@ h4 {
 	clear: both;
 }
 
-/* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-	/* background-color: white;  */
-	/* 	color: #444;  */
 	cursor: pointer;
 	padding: 18px;
 	width: 100%;
@@ -54,7 +29,6 @@ h4 {
 	transition: 0.4s;
 }
 
-/* Style the accordion panel. Note: hidden by default */
 .panel {
 	padding: 0 18px;
 	background-color: white;
@@ -194,7 +168,7 @@ pre {
 </div>
 </div>
 
-<!-- script -->
+<!-- 탭 메뉴 동작 스크립트 -->
 <script type="text/javascript">
 	$(function() {
 		//	var acc = document.getElementsByClassName("accordion"); //아코디언클래스리스트를 가져온다.

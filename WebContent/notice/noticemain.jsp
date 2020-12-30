@@ -9,7 +9,12 @@
 
 <%@ include file="../inc/top.jsp"%>
 <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+    color: #343a40;
+}
 .notice-warp{
 	width: 1200px;
 	margin: 50px auto;
@@ -76,11 +81,14 @@
 				<div class="table-responsive row notitable">
 					<div class="nttitle-warp">
 						<h3 class="sub-header nttitle">공지사항</h3>
- 						<%if(Integer.parseInt(t_admincheck)==1){ %>
-							<div class="go-ntWhite">
-								<a style="color:#FF2F6E" href="<%=request.getContextPath() %>/notice/noticeWrite.do">글쓰기</a>
-							</div>
-						<%} %>
+ 						<%
+	                   if(t_isLogin){
+	                      if(Integer.parseInt(t_admincheck)==1){ %>
+	                        <div class="go-ntWhite">
+	                           <a style="color:#FF2F6E" href="<%=request.getContextPath() %>/notice/noticeWrite.do">글쓰기</a>
+	                        </div>
+	                     <%} %>
+                 	  <%} %>
 					</div>
 					<table class="table table-hover col-md-10 ntTable">
 						<thead>

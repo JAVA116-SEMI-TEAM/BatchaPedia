@@ -15,7 +15,7 @@ public class MvSearchResController implements Controller {
 	@Override
 	public String requestProcess(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		//1
-		String keyword=request.getParameter("mvSearchKeyword");
+		String keyword=request.getParameter("mvKeyword");
 		
 		//2
 		List<MvInfoVO> searchList=null;

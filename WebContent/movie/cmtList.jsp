@@ -9,9 +9,6 @@ function pageFunc(curPage){
 	$('form[name=frmPage]').submit();
 }
 </script>
-<%
-	String userid=request.getParameter("userid");
-%>
 <section class="movieDeatil-commentList">
 <form name="frmPage" action="<c:url value='/movie/movieDetail.do?mvNo=${cmt.mvNo}'/>" method="post" >
 	<input type="hidden" name="currentPage" value="${pageVo.currentPage}">
@@ -37,7 +34,7 @@ function pageFunc(curPage){
 					<c:set var="num" value="${num-1}"/>
 						<div class="cmtList-eachCmt">
 							<div class="cmtList-eachCmt__cmtTop">
-								<span class="cmtList-eachCmt__userid">${userid}****</span>
+								<span class="cmtList-eachCmt__userid">${cmt.userid}****</span>
 								<span class="cmtList-eachCmt__cmtRegDate">
 									<fmt:formatDate value="${cmt.cmtRegdate}" pattern="yyyy-MM-dd" /></span>
 							</div>

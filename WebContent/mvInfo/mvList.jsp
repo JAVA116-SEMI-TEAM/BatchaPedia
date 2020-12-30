@@ -5,11 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/mvInfo.css" />
-<!-- Drowdown -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mvInfo.css" />
+
+<!-- table th 클릭 정렬 -->
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17119/tablesort.number.min.js"></script>
 <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/17119/tablesort.min.js"></script>
 
@@ -38,6 +36,52 @@
 	});
 </script>
 <style type="text/css">
+
+.admin-sidenav {
+   width: auto;
+   height: auto;
+   margin-left: 0px;
+}
+
+.admin-sidenav a {
+   text-decoration: none;
+}
+
+.admin-sidenav li {
+   text-align: justify;
+   padding: .5rem;
+   padding-left: 1rem;
+   -webkit-transition: all .2s linear;
+   transition: all .2s linear;
+   background-color: #000;
+   border: 1px solid #333;
+}
+
+.admin-sidenav li a {
+   color: #fff;
+}
+
+.admin-sidenav li a:active {
+   border-color: #02d3f5;
+}
+
+.admin-sidenav li:hover {
+   border-radius: 0 .5rem .5rem 0;
+   border-color: #02d3f5;
+   -webkit-transform: translate(30px, 0px);
+   transform: translate(30px, 0px);
+   background: -webkit-linear-gradient(left, #006a7b, #002340);
+   background: linear-gradient(to right, #006a7b, #002340);
+}
+
+.admin-sidenav li:active {
+   border-color: #02d3f5;
+}
+
+.nav-warp{
+   padding-left: 0;
+}
+
 input[type=text]:focus, #inlineFormCustomSelect:focus {
     border-color: rgba(153,153,153, 0.8);
     box-shadow: 0 1px 1px rgba(153,153,153, 0.075) inset, 
@@ -53,12 +97,29 @@ input[type=text]:focus, #inlineFormCustomSelect:focus {
 	/* margin-left:246px; */
 }
 
-
+#listCode{
+	width:10%
+}
+#listTitle{
+	width:50%
+}
+#listGenre{
+	width:15%
+}
+#listMakeYear{
+	width:30%
+}
 
 </style>
-
+ <div id="admin-sidebar" class="col-md-2 p-x-0 p-y-3 nav-warp">
+         <ul class="sidenav admin-sidenav list-unstyled">
+            <li><a href="<%=request.getContextPath()%>/managerPage/manager.do">회원관리</a></li>
+            <li><a href="<%=request.getContextPath() %>/mvInfo/mvList.do">영화관리</a></li>
+            <li><a href="<%=request.getContextPath()%>/notice/noticemain.do">공지사항</a></li>
+         </ul>
+      </div>
 <div class="mvList" style="width:800px;">
-	
+	<h3>영화관리</h3>
 	<!-- 검색 조건   -->
 	<div class="mvSearch" style="float:left;">
 	<form class="form-inline" name="mvInfoSearch" 
@@ -95,19 +156,6 @@ input[type=text]:focus, #inlineFormCustomSelect:focus {
 	  <button type="submit" class="btn btn-secondary mb-2 mr-sm-2" >검색</button>
 	</form>
 	</div>
-	
-	<!-- 정렬  -->
-	<div class="btn-group sortCondition" style="float:right;">
-	  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" 
-	  data-display="static" aria-haspopup="true" aria-expanded="false" id="status" name="b">
-	   검색 조건
-	  </button>
-	  <div class="dropdown-menu dropdown-menu-lg-right">
-	    <button class="dropdown-item" type="button" id="titleSort">영화명순(ㄱ~z)</button>
-	    <button class="dropdown-item" type="button">제작연도순</button>
-	  </div>
-	</div>
-	
 		
 	<!-- 영화 목록  -->
 	<table class="table caption-top table-dark table-striped" id="mvListTable">
@@ -201,6 +249,7 @@ input[type=text]:focus, #inlineFormCustomSelect:focus {
 	
 </div>
 
+<!-- table th 클릭 정렬 -->
 <script type="text/javascript">
 new Tablesort(document.getElementById('mvListTable'));
 </script>
