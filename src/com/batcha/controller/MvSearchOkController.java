@@ -19,7 +19,7 @@ public class MvSearchOkController implements Controller{
 		  => /mvSearch/mvSearch.jsp로 포워드
 		 */
 		//1
-		String mvSearch=request.getParameter("mvSearchKeyword");
+		String mvSearch=request.getParameter("mvKeyword");
 		
 		//2
 		List<MvInfoVO> searchList=null;

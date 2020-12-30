@@ -14,8 +14,6 @@ public class MvInfoVO {
 	private String nation;
 	private String makeYear; //제작년도
 	private int boxOffice; //박스오피스 순위
-	private Timestamp startdate;
-	private Timestamp enddate;
 	private Timestamp regdate;
 	private String mvCode;
 	private String mvTitleEn;
@@ -25,7 +23,7 @@ public class MvInfoVO {
 	}
 
 	public MvInfoVO(int mvNo, String mvTitle, String genre, String director, String actors, String story,
-			String thumbnail, String nation, String makeYear, int boxOffice, Timestamp startdate, Timestamp enddate,
+			String thumbnail, String nation, String makeYear, int boxOffice,
 			Timestamp regdate, String mvCode, String mvTitleEn) {
 		super();
 		this.mvNo = mvNo;
@@ -38,8 +36,6 @@ public class MvInfoVO {
 		this.nation = nation;
 		this.makeYear = makeYear;
 		this.boxOffice = boxOffice;
-		this.startdate = startdate;
-		this.enddate = enddate;
 		this.regdate = regdate;
 		this.mvCode = mvCode;
 		this.mvTitleEn = mvTitleEn;
@@ -125,22 +121,6 @@ public class MvInfoVO {
 		this.boxOffice = boxOffice;
 	}
 
-	public Timestamp getStartdate() {
-		return startdate;
-	}
-
-	public void setStartdate(Timestamp startdate) {
-		this.startdate = startdate;
-	}
-
-	public Timestamp getEnddate() {
-		return enddate;
-	}
-
-	public void setEnddate(Timestamp enddate) {
-		this.enddate = enddate;
-	}
-
 	public Timestamp getRegdate() {
 		return regdate;
 	}
@@ -169,8 +149,7 @@ public class MvInfoVO {
 	public String toString() {
 		return "MvInfoVO [mvNo=" + mvNo + ", mvTitle=" + mvTitle + ", genre=" + genre + ", director=" + director
 				+ ", actors=" + actors + ", story=" + story + ", thumbnail=" + thumbnail + ", nation=" + nation
-				+ ", makeYear=" + makeYear + ", boxOffice=" + boxOffice + ", startdate=" + startdate + ", enddate="
-				+ enddate + ", regdate=" + regdate + ", mvCode=" + mvCode + ", mvTitleEn=" + mvTitleEn + "]";
+				+ ", makeYear=" + makeYear + ", boxOffice=" + boxOffice + ", regdate=" + regdate + ", mvCode=" + mvCode + ", mvTitleEn=" + mvTitleEn + "]";
 	}
 
 }

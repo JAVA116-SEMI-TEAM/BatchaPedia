@@ -15,7 +15,7 @@
    }
    
   List<MvInfoVO> searchList =(List<MvInfoVO>)request.getAttribute("searchList");
-  String mvSearchk=request.getParameter("mvSearchk");
+  String mvSearchk=request.getParameter("mvKeyword");
   if(mvSearchk==null || mvSearchk.isEmpty()){
       mvSearchk="";
   }
@@ -50,12 +50,12 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class='fas fa-search'></i></span>
       </div>
-      <input type="text" class="form-control" placeholder="영화를 검색하세요." 
-      id="search" name="mvSearchKeyword" value="<%=mvSearchk %>">
+      <input type="text" class="form-control" placeholder="영화, 배우, 감독을 검색해보세요. " 
+      id="search" name="mvKeyword" value="<%=mvSearchk %>">
     </div>
   </form>
 	<li class="nav-item">
-     <a class="nav-link" href="<%=request.getContextPath()%>/mvSearch/mvSearch.do?mvSearchKeyword=<%=mvSearchk %>">영화검색</a>
+     <a class="nav-link" href="<%=request.getContextPath()%>/mvSearch/mvSearch.do?mvKeyword=<%=mvSearchk %>">영화검색</a>
     </li>
     <%if(!t_isLogin){ //로그인 안 된 경우 %>
     <li class="nav-item">
@@ -70,7 +70,7 @@
     </li>
        <%if(Integer.parseInt(t_admincheck)==1){ %>
           <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath() %>/mvInfo/mvList.do">관리자</a>
+            <a class="nav-link" href="<%=request.getContextPath() %>/managerPage/manager.do">관리자</a>
           </li>
        <%}else{ %>
           <li class="nav-item">

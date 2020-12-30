@@ -21,13 +21,13 @@ public class MycmtEditOkController implements Controller{
 		MyCmtService service = new MyCmtService();
 		MyCmtVO mcVo = new MyCmtVO();
 		
-		String msg="¼öÁ¤ ½ÇÆĞ ÇÏ¿´½À´Ï´Ù", url="/myPage/mycmtDetail.do?cmtNo="+cmtNo;
+		String msg="ì½”ë©˜íŠ¸ ìˆ˜ì • ì‹¤íŒ¨", url="/myPage/mycmtDetail.do?cmtNo="+cmtNo;
 		try {
 			mcVo.setCmtNo(Integer.parseInt(cmtNo));
 			mcVo.setCmtText(cmtText);
 			int cnt = service.updateMycmt(mcVo);
 			if (cnt>0) {
-				msg="¼öÁ¤ µÇ¾ú½À´Ï´Ù";
+				msg="ì½”ë©˜íŠ¸ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.";
 				url="/myPage/mycmtDetail.do?cmtNo="+cmtNo;
 			}
 			

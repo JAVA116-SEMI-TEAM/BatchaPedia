@@ -19,11 +19,11 @@ public class MycmtDeleteOkController implements Controller{
 		MyCmtService service = new MyCmtService();
 		//2
 		
-		String msg="»èÁ¦ ½ÇÆĞ ÇÏ¿´½À´Ï´Ù", url="/myPage/mycmtDetail.do?cmtNo="+cmtNo;
+		String msg="ì½”ë©˜íŠ¸ ì‚­ì œ ì‹¤íŒ¨", url="/myPage/mycmtDetail.do?cmtNo="+cmtNo;
 		try {
 			int cnt = service.deleteMycmt(Integer.parseInt(cmtNo));
 			if (cnt>0) {
-				msg="»èÁ¦ ÇÏ¿´½À´Ï´Ù";
+				msg="ì½”ë©˜íŠ¸ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.";
 				url="/myPage/mycmt.do";
 			}
 		} catch (SQLException e) {

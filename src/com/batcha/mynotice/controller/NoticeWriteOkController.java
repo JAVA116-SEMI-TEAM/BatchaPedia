@@ -25,12 +25,12 @@ public class NoticeWriteOkController implements Controller{
 		vo.setContent(content);
 		vo.setAuthor(author);
 		
-		String msg="µî·Ï ½ÇÆÐÇÏ¿´½À´Ï´Ù", url="/notice/noticeWrite.do";
+		String msg="ê³µì§€ì‚¬í•­ ìž‘ì„± ì‹¤íŒ¨!", url="/notice/noticeWrite.do";
 		try {
 			int cnt= ntService.insertNotice(vo);
 			
 			if(cnt>0) {
-				msg="µî·Ï ¼º°øÇÏ¿´½À´Ï´Ù";
+				msg="ê³µì§€ì‚¬í•­ì´ ìž‘ì„±ë˜ì—ˆìŠµë‹ˆë‹¤.";
 				url="/notice/noticemain.do";
 			}
 			
